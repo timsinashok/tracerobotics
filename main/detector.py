@@ -1,20 +1,31 @@
 import cv2
 import mediapipe as mp
-from ultralytics import YOLO
+from ultralytics import YOLOWorld
 import numpy as np
 import os
 import glob
 
 # --- CONFIGURATION ---
 VIDEO_SOURCE = "videos/*.mp4"  # Path to video files
-CONFIDENCE_THRESHOLD = 0.3 # YOLO confidence (lowered to detect more objects)
+CONFIDENCE_THRESHOLD = 0.2 # YOLO-World confidence (lower threshold for open-vocabulary)
 IOU_THRESHOLD = 0.1 # How much overlap counts as "contact"? (10%)
 
 # --- LOAD MODELS ---
 print("Loading Models...")
-# 1. Load YOLOv8 (Small version for speed)
-# It will download 'yolov8n.pt' automatically on first run
-object_model = YOLO("yolov8n.pt") 
+# 1. Load YOLO-World (Open-vocabulary detection)
+# This will download 'yolov8s-world.pt' automatically on first run (~50MB)
+print("Loading YOLO-World for open-vocabulary object detection...")
+object_model = YOLOWorld("yolov8s-world.pt")
+
+# Set custom prompts - detect generic physical objects, not just specific classes
+# This is the key advantage: it finds "anything that looks like an object"
+object_model.set_classes([
+    "object", "tool", "container", "bottle", "cup", "bowl",
+    "electronics", "fruit", "vegetable", "food", "item",
+    "utensil", "knife", "spoon", "fork", "plate", "phone",
+    "remote", "toy", "box", "bag", "book"
+])
+print(f"YOLO-World configured with {len(object_model.names)} custom classes") 
 
 # 2. Load MediaPipe Hands
 mp_hands = mp.solutions.hands

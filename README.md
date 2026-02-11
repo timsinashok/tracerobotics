@@ -48,8 +48,9 @@ We are building this engine in 5 distinct layers of abstraction.
 ### ✅ Phase 1: The "Touch" Detector (2D Spatial Logic)
 **Current Status: Active MVP**
 *   **Goal:** Establish spatial proximity logic and contact onset detection.
-*   **Tech:** YOLOv8 (Object Detection) + MediaPipe (Hand Tracking) + IoU Heuristics.
+*   **Tech:** YOLO-World (Open-Vocabulary Object Detection) + MediaPipe (Hand Tracking) + IoU Heuristics.
 *   **Output:** Boolean Contact State (Contact / No Contact).
+*   **Why YOLO-World?** Standard YOLO only detects 80 predefined objects. YOLO-World uses text prompts to detect ANY physical object, making it ideal for general-purpose physics.
 
 ### 🚧 Phase 2: The "Geometry" Layer (3D Lift)
 *   **Goal:** Move from 2D pixels to 3D metric space to solve occlusion and hovering errors.
