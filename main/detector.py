@@ -6,8 +6,8 @@ import os
 import glob
 
 # --- CONFIGURATION ---
-VIDEO_SOURCE = "../videos/*.mp4"  # Path to video files
-CONFIDENCE_THRESHOLD = 0.5 # YOLO confidence
+VIDEO_SOURCE = "videos/*.mp4"  # Path to video files
+CONFIDENCE_THRESHOLD = 0.3 # YOLO confidence (lowered to detect more objects)
 IOU_THRESHOLD = 0.1 # How much overlap counts as "contact"? (10%)
 
 # --- LOAD MODELS ---
@@ -86,10 +86,14 @@ def process_video(video_path):
 
                 # Filter out people (class 0) so we don't detect "contact" with ourselves
                 if cls != 0 and conf > CONFIDENCE_THRESHOLD:
-                    object_boxes.append({'box': [x1, y1, x2, y2], 'label': label})
+                    object_boxes.append({'box': [x1, y1, x2, y2], 'label': label, 'conf': conf})
                     # Draw Blue Box for Objects
                     cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 0), 2)
-                    cv2.putText(frame, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+                    cv2.putText(frame, f"{label} {conf:.2f}", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+        
+        # Debug: Print detection info every 30 frames
+        if frame_count % 30 == 0:
+            print(f"Frame {frame_count}: Detected {len(object_boxes)} objects: {[obj['label'] for obj in object_boxes]}")
 
         # 2. HAND DETECTION (MediaPipe)
         rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -120,6 +124,10 @@ def process_video(video_path):
                 for obj in object_boxes:
                     overlap = calculate_iou(hand_box, obj['box'])
                     
+                    # Debug: Print overlap info
+                    if overlap > 0.01 and frame_count % 30 == 0:
+                        print(f"  Hand-{obj['label']} overlap: {overlap:.3f} (threshold: {IOU_THRESHOLD})")
+                    
                     if overlap > IOU_THRESHOLD:
                         contact_detected = True
                         status_text = f"STATE: CONTACT -> {obj['label']}"
@@ -137,10 +145,13 @@ def process_video(video_path):
 
         # 3. DISPLAY UI
         # Create a dashboard overlay
-        cv2.rectangle(frame, (0, 0), (w, 60), (0, 0, 0), -1)
+        cv2.rectangle(frame, (0, 0), (w, 80), (0, 0, 0), -1)
         cv2.putText(frame, status_text, (20, 35), cv2.FONT_HERSHEY_SIMPLEX, 0.8, status_color, 2)
         # Show video filename
         cv2.putText(frame, os.path.basename(video_path), (20, 55), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
+        # Show object count
+        obj_count_text = f"Objects: {len(object_boxes)} | Hands: {1 if hand_results.multi_hand_landmarks else 0}"
+        cv2.putText(frame, obj_count_text, (20, 75), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
 
         cv2.imshow('Phase 1: Contact Detector', frame)
 
