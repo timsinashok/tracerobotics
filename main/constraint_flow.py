@@ -156,21 +156,23 @@ def process_video(video_path):
             prev_hand_center = hand_center
 
         # UI Overlay
-        cv2.rectangle(vis_frame, (0, 0), (w, 60), (0, 0, 0), -1)
+        cv2.rectangle(vis_frame, (0, 0), (w, 80), (0, 0, 0), -1)
         cv2.putText(vis_frame, "CONSTRAINT FLOW MVP", (20, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
         cv2.putText(vis_frame, os.path.basename(video_path), (20, 55), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 255, 255), 1)
+        cv2.putText(vis_frame, f"Frame: {frame_count} | Resolution: {w}x{h}", (20, 75), cv2.FONT_HERSHEY_SIMPLEX, 0.35, (255, 255, 255), 1)
         cv2.imshow(window_name, vis_frame)
 
         # Use 30ms delay for video playback (33fps), or press 'q' to quit, 'n' for next video
         key = cv2.waitKey(30) & 0xFF
         if key == ord('q'):
             cap.release()
-            cv2.destroyAllWindows()
+            cv2.destroyWindow(window_name)
             return 'quit'
         elif key == ord('n'):
             break
 
     cap.release()
+    cv2.destroyWindow(window_name)
     return 'continue'
 
 # --- MAIN LOOP ---
@@ -184,6 +186,11 @@ else:
     print(f"Found {len(video_files)} video file(s):")
     for vf in video_files:
         print(f"  - {os.path.basename(vf)}")
+    
+    print("\n>>> Controls:")
+    print("    'q' - Quit")
+    print("    'n' - Next video")
+    print("    You can also manually resize the window by dragging the edges\n")
     
     # Process each video
     for video_file in video_files:
