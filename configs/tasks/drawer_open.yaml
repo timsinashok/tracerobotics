@@ -1,0 +1,14 @@
+# Drawer Open task configuration
+task:
+  name: drawer_open
+  max_episode_steps: 400
+  success_threshold: 0.95
+
+  params:
+    # Drawer
+    drawer_length: 0.3  # meters — full extension
+    success_fraction: 0.8  # drawer must be opened this fraction
+
+    # Robot
+    robot_model: "panda"
+    control_mode: "position"

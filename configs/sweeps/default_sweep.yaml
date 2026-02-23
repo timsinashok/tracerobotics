@@ -1,0 +1,36 @@
+# Default sweep configuration
+sweep:
+  seeds: [0, 1, 2, 3, 4]
+  episodes_per_config: 10
+
+  stressors:
+    - type: LatencyStressor
+      intensities: [0.0, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0]
+      params:
+        max_delay_steps: 10
+
+    - type: DropoutStressor
+      intensities: [0.0, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0]
+      params:
+        mode: "zero"
+        noise_scale: 0.1
+
+    - type: PhysicsShiftStressor
+      intensities: [0.0, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0]
+      params:
+        mass_range: [0.5, 2.0]
+        friction_range: [0.3, 1.5]
+        damping_range: [0.5, 2.0]
+
+    - type: EmbodimentStressor
+      intensities: [0.0, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0]
+      params:
+        link_length_range: [0.9, 1.1]
+        joint_limit_range: [0.85, 1.0]
+        gain_range: [0.7, 1.3]
+
+    - type: LongHorizonDriftStressor
+      intensities: [0.0, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0]
+      params:
+        obs_noise_growth: 0.01
+        action_noise_growth: 0.005

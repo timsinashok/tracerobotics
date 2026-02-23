@@ -1,0 +1,18 @@
+# Pick & Place task configuration
+task:
+  name: pick_and_place
+  max_episode_steps: 500
+  success_threshold: 0.95
+
+  params:
+    # Object to pick
+    object_size: [0.02, 0.02, 0.02]  # meters
+    object_mass: 0.05  # kg
+
+    # Target placement
+    target_position: [0.5, 0.0, 0.1]  # meters
+    success_radius: 0.03  # meters — object within this = success
+
+    # Robot
+    robot_model: "panda"  # Franka Panda arm
+    control_mode: "position"

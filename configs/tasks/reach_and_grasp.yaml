@@ -1,0 +1,18 @@
+# Reach & Grasp task configuration
+task:
+  name: reach_and_grasp
+  max_episode_steps: 300
+  success_threshold: 0.95
+
+  params:
+    # Object to grasp
+    object_size: [0.03, 0.03, 0.03]  # meters
+    object_mass: 0.1  # kg
+
+    # Success: object lifted above threshold
+    lift_height: 0.1  # meters above table
+    grasp_force_threshold: 0.5  # N
+
+    # Robot
+    robot_model: "panda"
+    control_mode: "position"
