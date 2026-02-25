@@ -29,10 +29,6 @@ htmlcov/
 # MuJoCo
 *.mjlog
 
-# Reports (generated output)
-output/
-reports/
-
 # OS
 .DS_Store
 Thumbs.db
