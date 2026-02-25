@@ -42,6 +42,7 @@ class TestEpisodeRunnerIntegration:
 
     def test_episode_with_scripted_policy(self, reach_task: ReachTask) -> None:
         policy = ScriptedReachPolicy()
+        policy.set_env(reach_task.get_mujoco_model(), reach_task.get_mujoco_data())
         runner = EpisodeRunner(task=reach_task, policy=policy)
         result = runner.run(seed=0)
         assert result.total_steps > 0

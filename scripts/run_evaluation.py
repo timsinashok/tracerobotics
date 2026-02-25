@@ -80,6 +80,9 @@ def main() -> None:
     if args.policy and args.policy in POLICY_REGISTRY:
         policy = POLICY_REGISTRY[args.policy]()
         logger.info("Using named policy: %s", args.policy)
+        # Give scripted policies access to the MuJoCo environment
+        if isinstance(policy, ScriptedReachPolicy):
+            policy.set_env(task.get_mujoco_model(), task.get_mujoco_data())
     else:
         action_dim = task.get_mujoco_model().nu
         policy = RandomPolicy(action_dim=action_dim, seed=args.seed)

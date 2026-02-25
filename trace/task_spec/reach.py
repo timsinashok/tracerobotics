@@ -21,6 +21,9 @@ _TARGET_Z_RANGE = (0.1, 0.5)
 # Physics substeps per control step (model timestep=0.002s, 25 substeps → 20Hz control)
 _N_SUBSTEPS = 25
 
+# Panda-like home configuration (all joints within valid ranges)
+_HOME_QPOS = np.array([0.0, -np.pi / 4, 0.0, -3 * np.pi / 4, 0.0, np.pi / 2, np.pi / 4])
+
 
 class ReachTask(BaseTask):
     """Move the end-effector to a randomized target position."""
@@ -94,6 +97,10 @@ class ReachTask(BaseTask):
         self._model.geom_size[:] = self._initial_geom_size
         self._model.jnt_range[:] = self._initial_jnt_range
         self._model.actuator_gainprm[:] = self._initial_actuator_gainprm
+
+        # Set valid home configuration (zero-config violates joint4 limits)
+        self._data.qpos[:self._model.nq] = _HOME_QPOS
+        self._data.ctrl[:] = _HOME_QPOS
 
         # Randomize target position within workspace
         target_pos = np.array([

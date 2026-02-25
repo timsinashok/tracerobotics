@@ -5,6 +5,7 @@ Keeps all model definitions self-contained — no external asset files needed.
 
 PANDA_7DOF_REACH_XML: str = """
 <mujoco model="panda_reach">
+  <compiler angle="radian"/>
   <option timestep="0.002" gravity="0 0 -9.81" integrator="implicitfast"/>
 
   <default>
