@@ -1,5 +1,7 @@
 """Tests for the ReachTask MuJoCo environment."""
 
+from typing import Generator
+
 import numpy as np
 import pytest
 
@@ -168,3 +170,91 @@ class TestStressorCompatibility:
         import mujoco
         data = reach_task.get_mujoco_data()
         assert isinstance(data, mujoco.MjData)
+
+
+class TestCameraRendering:
+    """Tests for offscreen camera rendering in ReachTask."""
+
+    @pytest.fixture
+    def camera_task(self) -> Generator[ReachTask, None, None]:
+        config = TaskConfig(
+            name="reach",
+            max_episode_steps=50,
+            seed=42,
+            task_params={
+                "success_radius": 0.05,
+                "render_cameras": {"image": "third_person", "wrist_image": "wrist_camera"},
+                "render_width": 64,
+                "render_height": 64,
+            },
+        )
+        task = ReachTask(config)
+        task.initialize()
+        yield task
+        task.close()
+
+    def test_observation_includes_image_keys(self, camera_task: ReachTask) -> None:
+        obs = camera_task.reset(seed=0)
+        assert "image" in obs
+        assert "wrist_image" in obs
+
+    def test_image_shape(self, camera_task: ReachTask) -> None:
+        obs = camera_task.reset(seed=0)
+        assert obs["image"].shape == (64, 64, 3)
+        assert obs["wrist_image"].shape == (64, 64, 3)
+
+    def test_image_dtype_uint8(self, camera_task: ReachTask) -> None:
+        obs = camera_task.reset(seed=0)
+        assert obs["image"].dtype == np.uint8
+        assert obs["wrist_image"].dtype == np.uint8
+
+    def test_image_value_range(self, camera_task: ReachTask) -> None:
+        obs = camera_task.reset(seed=0)
+        assert obs["image"].min() >= 0
+        assert obs["image"].max() <= 255
+
+    def test_third_person_image_not_blank(self, camera_task: ReachTask) -> None:
+        obs = camera_task.reset(seed=0)
+        # Third-person camera has a fixed view of the workspace with geometry
+        assert obs["image"].sum() > 0
+
+    def test_step_returns_images(self, camera_task: ReachTask) -> None:
+        camera_task.reset(seed=0)
+        action = np.zeros(7, dtype=np.float32)
+        obs, _, _, _ = camera_task.step(action)
+        assert obs["image"].shape == (64, 64, 3)
+        assert obs["wrist_image"].shape == (64, 64, 3)
+
+    def test_proprioception_still_present(self, camera_task: ReachTask) -> None:
+        obs = camera_task.reset(seed=0)
+        assert "joint_pos" in obs
+        assert "joint_vel" in obs
+        assert "ee_pos" in obs
+        assert "target_pos" in obs
+        assert obs["joint_pos"].dtype == np.float32
+
+    def test_no_cameras_means_no_images(self) -> None:
+        config = TaskConfig(
+            name="reach", max_episode_steps=50, seed=42,
+            task_params={"success_radius": 0.05},
+        )
+        task = ReachTask(config)
+        task.initialize()
+        obs = task.reset(seed=0)
+        assert "image" not in obs
+        assert "wrist_image" not in obs
+
+    def test_custom_resolution(self) -> None:
+        config = TaskConfig(
+            name="reach", max_episode_steps=50, seed=42,
+            task_params={
+                "render_cameras": {"image": "third_person"},
+                "render_width": 128,
+                "render_height": 96,
+            },
+        )
+        task = ReachTask(config)
+        task.initialize()
+        obs = task.reset(seed=0)
+        assert obs["image"].shape == (96, 128, 3)
+        task.close()

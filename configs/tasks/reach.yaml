@@ -10,3 +10,9 @@ task:
     target_z_range: [0.1, 0.5]
     robot_model: "panda"
     control_mode: "position"
+    # Camera rendering (uncomment to enable, adds ~2ms/step)
+    # render_cameras:
+    #   image: third_person
+    #   wrist_image: wrist_camera
+    # render_width: 224
+    # render_height: 224

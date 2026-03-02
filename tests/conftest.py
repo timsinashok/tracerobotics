@@ -16,7 +16,7 @@ def random_policy() -> RandomPolicy:
 def dummy_observation() -> dict[str, np.ndarray]:
     rng = np.random.default_rng(0)
     return {
-        "image": rng.random((64, 64, 3), dtype=np.float32),
+        "image": rng.integers(0, 256, size=(64, 64, 3), dtype=np.uint8),
         "proprioception": rng.random(14, dtype=np.float32),
     }
 
