@@ -41,6 +41,9 @@ class LongHorizonDriftStressor(BaseStressor):
         noise_scale = self._obs_noise_growth * self._drift_factor
         result = {}
         for key, value in observation.items():
+            if value.dtype == np.uint8:
+                result[key] = value  # Skip drift for image obs (Phase 5 visual stressors)
+                continue
             noise = self._rng.normal(0, max(noise_scale, 1e-8), size=value.shape)
             result[key] = (value + noise).astype(value.dtype)
         return result

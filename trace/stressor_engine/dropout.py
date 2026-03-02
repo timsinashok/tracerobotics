@@ -48,6 +48,12 @@ class DropoutStressor(BaseStressor):
         if self._mode == "zero":
             return np.zeros_like(value)
         elif self._mode == "noise":
+            if value.dtype == np.uint8:
+                noise = self._rng.integers(
+                    0, max(int(self._noise_scale * 255), 1),
+                    size=value.shape, dtype=np.int16,
+                )
+                return np.clip(value.astype(np.int16) + noise, 0, 255).astype(np.uint8)
             noise = self._rng.normal(0, self._noise_scale, size=value.shape)
             return (value + noise).astype(value.dtype)
         elif self._mode == "freeze":
