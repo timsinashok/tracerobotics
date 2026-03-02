@@ -1,8 +1,8 @@
 # Pi0 Evaluation Progress
 
 **Goal:** Evaluate Physical Intelligence's pi0 policy using the Trace Robotics stress-testing framework.
-**Status:** Phase 1 complete (framework), Phase 2 in progress (pi0 integration)
-**Last updated:** 2026-02-28
+**Status:** Phase 1 complete, Phase 2 complete, Phase 3 next (language prompts)
+**Last updated:** 2026-03-02
 
 ---
 
@@ -44,6 +44,8 @@ through our full stressor suite and generating a robustness report.
 - Randomized targets in configurable workspace bounds
 - Position control, 20Hz control rate (25 MuJoCo substeps at 0.002s)
 - Physics param caching/restoration across resets (critical for stressor correctness)
+- Configurable camera rendering: third-person + wrist cameras, opt-in via `render_cameras`
+- Images are uint8 (H, W, 3), rendered via `mujoco.Renderer`
 
 **2 Test Policies**
 - `RandomPolicy` — uniform random baseline
@@ -86,15 +88,15 @@ significantly from our current proprioception-only setup.
 
 ### Gaps Between Current Framework and Pi0
 
-| Gap | Current State | Pi0 Needs | Severity |
-|-----|---------------|-----------|----------|
-| Image observations | Proprioception only, no rendering | RGB images (224x224) | Critical |
-| Language prompts | No language support in obs dict | Task instruction string | Critical |
-| Action chunking | 1 action per step | 50-action chunks, execute N | Critical |
-| Inference backend | Pure numpy policies | JAX/PyTorch model or WebSocket server | Critical |
-| Observation types | `dict[str, NDArray[np.floating]]` | Needs uint8 images + strings | Moderate |
-| Action space | Joint-space position [-1, 1] | Cartesian end-effector deltas | Moderate |
-| Visual stressors | Only proprioceptive perturbations | Need image noise, occlusion, etc. | Important |
+| Gap | Current State | Pi0 Needs | Severity | Status |
+|-----|---------------|-----------|----------|--------|
+| Image observations | Configurable camera rendering (third-person + wrist) | RGB images (224x224) | Critical | **DONE** |
+| Language prompts | No language support in obs dict | Task instruction string | Critical | Phase 3 |
+| Action chunking | 1 action per step | 50-action chunks, execute N | Critical | Phase 4 |
+| Inference backend | Pure numpy policies | JAX/PyTorch model or WebSocket server | Critical | Phase 4 |
+| Observation types | `Observation = dict[str, np.ndarray]` (uint8 + float32) | Needs uint8 images + strings | Moderate | **DONE** |
+| Action space | Joint-space position [-1, 1] | Cartesian end-effector deltas | Moderate | Phase 4 |
+| Visual stressors | Dropout/drift handle uint8; no image-specific stressors yet | Need image noise, occlusion, etc. | Important | Phase 5 |
 
 ### Pi0 Open-Source Status
 
@@ -124,15 +126,20 @@ Pi0 is fully open-source via [github.com/Physical-Intelligence/openpi](https://g
 - [x] Write test suite (60+ tests)
 - [x] Run and validate full evaluation on ScriptedReachPolicy
 
-### Phase 2: Camera and Visual Observations
-- [ ] Add offscreen MuJoCo renderer utility (mujoco.Renderer wrapper)
-- [ ] Add third-person camera to ReachTask MJCF XML
-- [ ] Add wrist-mount camera to ReachTask MJCF XML
-- [ ] Update ReachTask.get_observation() to include "image" and "wrist_image" keys
-- [ ] Broaden observation type signature: `dict[str, NDArray[np.floating]]` -> `dict[str, Any]`
-- [ ] Update existing policies to ignore image keys gracefully
-- [ ] Add render resolution as a configurable task parameter
-- [ ] Write tests for camera rendering (image shape, dtype, value range)
+### Phase 2: Camera and Visual Observations [COMPLETE]
+- [x] Add `Observation = dict[str, np.ndarray]` type alias across all interfaces (13 files)
+- [x] Add third-person camera to ReachTask MJCF XML (diagonal overhead view)
+- [x] Add wrist-mount camera to ReachTask MJCF XML (eye-in-hand on link7)
+- [x] Add overhead light for camera rendering
+- [x] Add configurable offscreen rendering to ReachTask via `render_cameras` dict
+- [x] Rendering is opt-in: empty dict = no cameras, zero overhead
+- [x] `render_cameras` maps obs keys to MJCF camera names (e.g., `{"image": "third_person"}`)
+- [x] Add `render_width` / `render_height` as configurable task params (default 128)
+- [x] Update DropoutStressor to handle uint8 images (integer noise in 0-255 range)
+- [x] Update LongHorizonDriftStressor to skip drift noise for uint8 arrays
+- [x] Add `close()` method to ReachTask for renderer cleanup
+- [x] Write 9 camera rendering tests (shape, dtype, value range, step rendering, fallback)
+- [x] 69 tests passing (60 original + 9 new)
 
 ### Phase 3: Language Prompt Support
 - [ ] Add `language_instruction` field to TaskConfig
@@ -290,7 +297,7 @@ configs/
   sweeps/default_sweep.yaml — Default sweep config (working)
 scripts/
   run_evaluation.py      — CLI entry point
-tests/                   — 60+ tests
+tests/                   — 69 tests
 development_notes/
   1-pi0_evaluation_progress.md  — This file
 ```
@@ -298,6 +305,19 @@ development_notes/
 ---
 
 ## Changelog
+
+### 2026-03-02 — Phase 2: Camera and Visual Observations
+- Added `Observation = dict[str, np.ndarray]` type alias across 13 files
+- Added third-person camera (diagonal overhead) and wrist camera (eye-in-hand) to MJCF XML
+- Added overhead light for rendering
+- Implemented configurable offscreen rendering in ReachTask (`render_cameras` dict)
+- Rendering is opt-in: no cameras configured = zero overhead (backward compatible)
+- Updated DropoutStressor and LongHorizonDriftStressor to handle uint8 image arrays
+- Added `close()` method to ReachTask for renderer cleanup
+- Wrote 9 new camera rendering tests (69 total passing)
+- Updated reach.yaml config with commented-out camera params
+- Decision: camera-to-obs-key mapping via dict (e.g., `{"image": "third_person"}`)
+- Decision: renderer lives in ReachTask directly (no separate utility — only one task exists)
 
 ### 2026-02-28 — Initial Progress Report
 - Documented full project state after Phase 1 completion
