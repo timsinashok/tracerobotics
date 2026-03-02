@@ -1,8 +1,8 @@
 # Pi0 Evaluation Progress
 
 **Goal:** Evaluate Physical Intelligence's pi0 policy using the Trace Robotics stress-testing framework.
-**Status:** Phases 1-3 complete, Phase 4 next (pi0 adapter — needs HPC)
-**Last updated:** 2026-03-02
+**Status:** Phases 1-5 complete, Phase 6 next (run pi0 evaluation on HPC)
+**Last updated:** 2026-03-03
 
 ---
 
@@ -29,7 +29,7 @@ through our full stressor suite and generating a robustness report.
 - CLI: `python -m scripts.run_evaluation --task ... --sweep ... --policy ...`
 - 60+ deterministic tests passing
 
-**5 Stressors (all parameterized, sweepable, seeded)**
+**9 Stressors (all parameterized, sweepable, seeded)**
 
 | Stressor             | What It Does                                      | Status  |
 |----------------------|---------------------------------------------------|---------|
@@ -38,6 +38,10 @@ through our full stressor suite and generating a robustness report.
 | PhysicsShiftStressor | Perturbs mass, friction, damping                   | Working |
 | EmbodimentStressor   | Perturbs link geometry, joint limits, actuator gains| Working |
 | LongHorizonDriftStressor | Growing observation + action noise over time   | Working |
+| ImageNoiseStressor   | Gaussian noise on camera images                    | Working |
+| OcclusionStressor    | Random rectangular patches over image regions      | Working |
+| BrightnessShiftStressor | Exposure/contrast perturbation on images        | Working |
+| ResolutionStressor   | Downscale and upscale to simulate low-res cameras  | Working |
 
 **1 Task: ReachTask**
 - 7-DOF Panda arm in MuJoCo (inline MJCF, self-contained, no external assets)
@@ -47,9 +51,10 @@ through our full stressor suite and generating a robustness report.
 - Configurable camera rendering: third-person + wrist cameras, opt-in via `render_cameras`
 - Images are uint8 (H, W, 3), rendered via `mujoco.Renderer`
 
-**2 Test Policies**
+**3 Policies**
 - `RandomPolicy` — uniform random baseline
 - `ScriptedReachPolicy` — Jacobian-transpose proportional controller
+- `Pi0PolicyAdapter` — connects to openpi server via WebSocket, action chunking, LIBERO obs mapping
 
 ### Validated Evaluation Run
 
@@ -92,11 +97,11 @@ significantly from our current proprioception-only setup.
 |-----|---------------|-----------|----------|--------|
 | Image observations | Configurable camera rendering (third-person + wrist) | RGB images (224x224) | Critical | **DONE** |
 | Language prompts | `task.language_instruction` property on BaseTask | Task instruction string | Critical | **DONE** |
-| Action chunking | 1 action per step | 50-action chunks, execute N | Critical | Phase 4 |
-| Inference backend | Pure numpy policies | JAX/PyTorch model or WebSocket server | Critical | Phase 4 |
+| Action chunking | 1 action per step | 50-action chunks, execute N | Critical | **DONE** |
+| Inference backend | Pure numpy policies | JAX/PyTorch model or WebSocket server | Critical | **DONE** |
 | Observation types | `Observation = dict[str, np.ndarray]` (uint8 + float32) | Needs uint8 images + strings | Moderate | **DONE** |
-| Action space | Joint-space position [-1, 1] | Cartesian end-effector deltas | Moderate | Phase 4 |
-| Visual stressors | Dropout/drift handle uint8; no image-specific stressors yet | Need image noise, occlusion, etc. | Important | Phase 5 |
+| Action space | Joint-space position [-1, 1] | Cartesian end-effector deltas | Moderate | **DONE** |
+| Visual stressors | Dropout/drift handle uint8; no image-specific stressors yet | Need image noise, occlusion, etc. | Important | **DONE** |
 
 ### Pi0 Open-Source Status
 
@@ -149,29 +154,30 @@ Pi0 is fully open-source via [github.com/Physical-Intelligence/openpi](https://g
 - [x] Write 3 tests (default empty, from config, not in obs dict)
 - [x] 72 tests passing
 
-### Phase 4: Pi0 Policy Adapter
-- [ ] Add `openpi-client` as a project dependency
-- [ ] Write Pi0PolicyAdapter class:
-  - [ ] WebSocket client connection to openpi inference server
-  - [ ] Observation key remapping (Trace keys -> openpi keys)
-  - [ ] Action chunk buffering (receive 50, return 1 per act() call)
-  - [ ] Configurable chunk execution length (default 16)
-  - [ ] Reset clears action buffer
-- [ ] Handle action space conversion:
-  - [ ] Determine if pi0 checkpoint outputs joint-space or Cartesian actions
-  - [ ] If Cartesian: implement IK or operational-space conversion in adapter
-  - [ ] If joint-space (LIBERO checkpoint): direct pass-through
-- [ ] Register Pi0PolicyAdapter in POLICY_REGISTRY
-- [ ] Write adapter unit tests with mock WebSocket server
-- [ ] Document GPU server setup (openpi serve_policy.py)
+### Phase 4: Pi0 Policy Adapter [COMPLETE]
+- [x] Pi0PolicyAdapter with WebSocket connection to openpi inference server
+- [x] LIBERO observation mapping: 180° image rotation, 8-dim state vector (joints + gripper)
+- [x] Action chunk buffering (5 actions/call by default, configurable via `chunk_size`)
+- [x] Jacobian-transpose Cartesian-to-joint conversion for action space
+- [x] Graceful fallback to zero actions when openpi_client unavailable
+- [x] `set_env()` caches MuJoCo model/data for Jacobian computation
+- [x] `set_task_info()` stores language instruction
+- [x] Registered in POLICY_REGISTRY and `__init__.py` exports
+- [x] `reach_pi0.yaml` task config (cameras at 224x224)
+- [x] CLI args: `--pi0-host`, `--pi0-port`, `--chunk-size`
+- [x] 14 tests (shape/bounds, chunking, buffer reset, obs mapping, image rotation, etc.)
+- [x] 108 tests passing
 
-### Phase 5: Visual Stressors
-- [ ] ImageNoiseStressor — Gaussian noise, salt-and-pepper on camera images
-- [ ] OcclusionStressor — random rectangular patches over image regions
-- [ ] BrightnessShiftStressor — exposure/contrast perturbation
-- [ ] ResolutionStressor — downscale and upscale to simulate low-res cameras
-- [ ] Update stressor base to handle image observations in perturb_observation()
-- [ ] Write tests for each visual stressor
+### Phase 5: Visual Stressors [COMPLETE]
+- [x] ImageNoiseStressor — Gaussian noise on camera images
+- [x] OcclusionStressor — random rectangular patches over image regions
+- [x] BrightnessShiftStressor — exposure/contrast perturbation
+- [x] ResolutionStressor — downscale and upscale to simulate low-res cameras
+- [x] All operate on `image`/`wrist_image` observation keys via `perturb_observation()`
+- [x] Zero-intensity passthrough verified for all stressors
+- [x] Registered in STRESSOR_REGISTRY and added to default sweep config
+- [x] 22 tests (passthrough, high-intensity, determinism, valid output ranges)
+- [x] 108 tests passing
 
 ### Phase 6: Run Pi0 Evaluation
 - [ ] Set up GPU inference server with openpi + pi0 checkpoint
@@ -272,7 +278,7 @@ trace/
     base.py              — BasePolicy ABC, PolicyMetadata
     random_policy.py     — RandomPolicy (baseline)
     scripted_reach.py    — ScriptedReachPolicy (Jacobian controller)
-    [pi0_adapter.py]     — TODO: Pi0PolicyAdapter
+    pi0_adapter.py       — Pi0PolicyAdapter (WebSocket + LIBERO mapping)
   task_spec/
     base.py              — BaseTask ABC, TaskConfig, EpisodeResult
     reach.py             — ReachTask (7-DOF Panda)
@@ -284,7 +290,7 @@ trace/
     physics_shift.py     — PhysicsShiftStressor
     embodiment.py        — EmbodimentStressor
     long_horizon.py      — LongHorizonDriftStressor
-    [image_noise.py]     — TODO: visual stressors
+    visual.py            — 4 visual stressors (noise, occlusion, brightness, resolution)
   runner/
     episode_runner.py    — EpisodeRunner
     sweep_runner.py      — SweepRunner + SweepConfig
@@ -295,11 +301,12 @@ trace/
     generator.py         — ReportGenerator (markdown)
   config_loader.py       — YAML parsing, task/stressor registries
 configs/
-  tasks/reach.yaml       — ReachTask config (working)
-  sweeps/default_sweep.yaml — Default sweep config (working)
+  tasks/reach.yaml       — ReachTask config (proprioception only)
+  tasks/reach_pi0.yaml   — ReachTask config with cameras at 224x224
+  sweeps/default_sweep.yaml — Default sweep config (9 stressors)
 scripts/
   run_evaluation.py      — CLI entry point
-tests/                   — 72 tests
+tests/                   — 108 tests
 development_notes/
   1-pi0_evaluation_progress.md  — This file
 ```
@@ -307,6 +314,23 @@ development_notes/
 ---
 
 ## Changelog
+
+### 2026-03-03 — Phases 4 & 5: Pi0 Adapter + Visual Stressors
+- **Pi0PolicyAdapter** (`trace/policy_adapter/pi0_adapter.py`):
+  - WebSocket client connecting to openpi inference server
+  - LIBERO observation mapping: 180° image rotation, 8-dim state vector (7 joints + gripper)
+  - Action chunk buffering (5 actions/call, configurable)
+  - Jacobian-transpose Cartesian-to-joint conversion
+  - Graceful fallback when openpi_client not installed
+  - `set_env()` / `set_task_info()` for MuJoCo model and language instruction
+- **4 visual stressors** (`trace/stressor_engine/visual.py`):
+  - ImageNoiseStressor, OcclusionStressor, BrightnessShiftStressor, ResolutionStressor
+  - All operate on image/wrist_image obs keys via `perturb_observation()`
+  - Zero-intensity passthrough, deterministic with seed
+- **Evaluation CLI** updated with pi0 in POLICY_REGISTRY, `--pi0-host/--pi0-port/--chunk-size` args
+- `reach_pi0.yaml` task config with cameras at 224x224
+- Registered all 4 visual stressors in STRESSOR_REGISTRY and default sweep
+- 36 new tests (14 adapter + 22 visual), 108 total passing
 
 ### 2026-03-02 — Phase 3: Language Prompt Support
 - Added `language_instruction` property to BaseTask (reads from task_params)
