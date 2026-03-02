@@ -1,0 +1,18 @@
+task:
+  name: reach
+  max_episode_steps: 200
+  success_threshold: 0.95
+  params:
+    success_radius: 0.05
+    catastrophic_vel_threshold: 50.0
+    target_x_range: [0.2, 0.6]
+    target_y_range: [-0.3, 0.3]
+    target_z_range: [0.1, 0.5]
+    robot_model: "panda"
+    control_mode: "position"
+    language_instruction: "reach the target"
+    render_cameras:
+      image: third_person
+      wrist_image: wrist_camera
+    render_width: 224
+    render_height: 224
