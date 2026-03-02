@@ -68,7 +68,7 @@ class TestCreateTask:
 class TestLoadSweepConfigs:
     def test_load_default_sweep(self) -> None:
         configs = load_sweep_configs("configs/sweeps/default_sweep.yaml")
-        assert len(configs) == 5  # 5 stressors in default config
+        assert len(configs) == 9  # 5 original + 4 visual stressors
         stressor_types = {c.stressor_type.__name__ for c in configs}
         assert "LatencyStressor" in stressor_types
         assert "DropoutStressor" in stressor_types
@@ -126,5 +126,9 @@ class TestRegistries:
             "PhysicsShiftStressor",
             "EmbodimentStressor",
             "LongHorizonDriftStressor",
+            "ImageNoiseStressor",
+            "OcclusionStressor",
+            "BrightnessShiftStressor",
+            "ResolutionStressor",
         }
         assert set(STRESSOR_REGISTRY.keys()) == expected

@@ -12,6 +12,12 @@ from trace.stressor_engine.embodiment import EmbodimentStressor
 from trace.stressor_engine.latency import LatencyStressor
 from trace.stressor_engine.long_horizon import LongHorizonDriftStressor
 from trace.stressor_engine.physics_shift import PhysicsShiftStressor
+from trace.stressor_engine.visual import (
+    BrightnessShiftStressor,
+    ImageNoiseStressor,
+    OcclusionStressor,
+    ResolutionStressor,
+)
 from trace.task_spec.base import BaseTask, TaskConfig
 from trace.task_spec.reach import ReachTask
 
@@ -26,6 +32,10 @@ STRESSOR_REGISTRY: dict[str, type[BaseStressor]] = {
     "PhysicsShiftStressor": PhysicsShiftStressor,
     "EmbodimentStressor": EmbodimentStressor,
     "LongHorizonDriftStressor": LongHorizonDriftStressor,
+    "ImageNoiseStressor": ImageNoiseStressor,
+    "OcclusionStressor": OcclusionStressor,
+    "BrightnessShiftStressor": BrightnessShiftStressor,
+    "ResolutionStressor": ResolutionStressor,
 }
 
 
