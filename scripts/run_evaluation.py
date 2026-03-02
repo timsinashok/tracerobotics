@@ -9,6 +9,7 @@ import logging
 import sys
 
 from trace.config_loader import create_task, load_sweep_configs, load_task_config
+from trace.policy_adapter.pi0_adapter import Pi0PolicyAdapter
 from trace.policy_adapter.random_policy import RandomPolicy
 from trace.policy_adapter.scripted_reach import ScriptedReachPolicy
 from trace.report.generator import ReportGenerator
@@ -19,6 +20,7 @@ logger = logging.getLogger(__name__)
 
 POLICY_REGISTRY: dict[str, type] = {
     "scripted_reach": ScriptedReachPolicy,
+    "pi0": Pi0PolicyAdapter,
 }
 
 
@@ -47,7 +49,25 @@ def main() -> None:
         type=str,
         default=None,
         choices=list(POLICY_REGISTRY.keys()),
-        help="Named policy to use (e.g., scripted_reach)",
+        help="Named policy to use (e.g., scripted_reach, pi0)",
+    )
+    parser.add_argument(
+        "--pi0-host",
+        type=str,
+        default="0.0.0.0",
+        help="Pi0 openpi server host",
+    )
+    parser.add_argument(
+        "--pi0-port",
+        type=int,
+        default=8000,
+        help="Pi0 openpi server port",
+    )
+    parser.add_argument(
+        "--chunk-size",
+        type=int,
+        default=5,
+        help="Number of actions per pi0 inference call",
     )
     parser.add_argument(
         "--output",
@@ -78,7 +98,17 @@ def main() -> None:
 
     # Load policy
     if args.policy and args.policy in POLICY_REGISTRY:
-        policy = POLICY_REGISTRY[args.policy]()
+        if args.policy == "pi0":
+            policy = Pi0PolicyAdapter(
+                host=args.pi0_host,
+                port=args.pi0_port,
+                chunk_size=args.chunk_size,
+            )
+            policy.set_env(task.get_mujoco_model(), task.get_mujoco_data())
+            policy.set_task_info(task.language_instruction)
+            policy.load("")
+        else:
+            policy = POLICY_REGISTRY[args.policy]()
         logger.info("Using named policy: %s", args.policy)
         # Give scripted policies access to the MuJoCo environment
         if isinstance(policy, ScriptedReachPolicy):
