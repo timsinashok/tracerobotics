@@ -10,7 +10,7 @@ import mujoco
 import numpy as np
 from numpy.typing import NDArray
 
-from trace.task_spec.base import BaseTask, TaskConfig
+from trace.task_spec.base import BaseTask, Observation, TaskConfig
 from trace.task_spec.mjcf_models import PANDA_7DOF_REACH_XML
 
 # Default workspace bounds for target randomization (x, y, z)
@@ -81,7 +81,7 @@ class ReachTask(BaseTask):
         self._rng = np.random.default_rng(self.config.seed)
         mujoco.mj_forward(self._model, self._data)
 
-    def reset(self, seed: int | None = None) -> dict[str, NDArray[np.floating]]:
+    def reset(self, seed: int | None = None) -> Observation:
         assert self._model is not None and self._data is not None, "Call initialize() first"
 
         if seed is not None:
@@ -115,8 +115,8 @@ class ReachTask(BaseTask):
         return self.get_observation()
 
     def step(
-        self, action: NDArray[np.floating]
-    ) -> tuple[dict[str, NDArray[np.floating]], float, bool, dict[str, Any]]:
+        self, action: np.ndarray
+    ) -> tuple[Observation, float, bool, dict[str, Any]]:
         assert self._model is not None and self._data is not None
 
         # Map [-1, 1] actions to actuator ctrl ranges
@@ -147,7 +147,7 @@ class ReachTask(BaseTask):
         assert self._data is not None
         return bool(np.any(np.abs(self._data.qvel) > self._catastrophic_vel_threshold))
 
-    def get_observation(self) -> dict[str, NDArray[np.floating]]:
+    def get_observation(self) -> Observation:
         assert self._model is not None and self._data is not None
         return {
             "joint_pos": self._data.qpos[:self._model.nq].astype(np.float32).copy(),

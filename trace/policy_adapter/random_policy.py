@@ -1,9 +1,9 @@
 """A random policy for testing and baseline comparisons."""
 
 import numpy as np
-from numpy.typing import NDArray
 
 from trace.policy_adapter.base import BasePolicy, PolicyMetadata
+from trace.task_spec.base import Observation
 
 
 class RandomPolicy(BasePolicy):
@@ -20,7 +20,7 @@ class RandomPolicy(BasePolicy):
     def reset(self) -> None:
         self._rng = np.random.default_rng(self._seed)
 
-    def act(self, observation: dict[str, NDArray[np.floating]]) -> NDArray[np.floating]:
+    def act(self, observation: Observation) -> np.ndarray:
         return self._rng.uniform(-1.0, 1.0, size=self._action_dim).astype(np.float32)
 
     def metadata(self) -> PolicyMetadata:

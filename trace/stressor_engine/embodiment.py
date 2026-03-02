@@ -14,6 +14,7 @@ import numpy as np
 from numpy.typing import NDArray
 
 from trace.stressor_engine.base import BaseStressor, StressorConfig
+from trace.task_spec.base import Observation
 
 
 class EmbodimentStressor(BaseStressor):
@@ -63,10 +64,8 @@ class EmbodimentStressor(BaseStressor):
         gain_scale = 1.0 + self.intensity * (self._rng.uniform(low, high) - 1.0)
         model.actuator_gainprm[:] = self._original_actuator_gain * gain_scale
 
-    def perturb_observation(
-        self, observation: dict[str, NDArray[np.floating]]
-    ) -> dict[str, NDArray[np.floating]]:
+    def perturb_observation(self, observation: Observation) -> Observation:
         return observation  # Embodiment is applied at env level
 
-    def perturb_action(self, action: NDArray[np.floating]) -> NDArray[np.floating]:
+    def perturb_action(self, action: np.ndarray) -> np.ndarray:
         return action  # Embodiment is applied at env level

@@ -4,7 +4,6 @@ import logging
 from typing import Any
 
 import numpy as np
-from numpy.typing import NDArray
 
 from trace.metrics.collectors import StepMetrics, EpisodeMetrics
 from trace.policy_adapter.base import BasePolicy

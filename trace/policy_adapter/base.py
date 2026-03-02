@@ -11,7 +11,8 @@ from dataclasses import dataclass, field
 from typing import Any
 
 import numpy as np
-from numpy.typing import NDArray
+
+from trace.task_spec.base import Observation
 
 
 @dataclass
@@ -40,7 +41,7 @@ class BasePolicy(ABC):
         """Reset any internal state (e.g. recurrent hidden state)."""
 
     @abstractmethod
-    def act(self, observation: dict[str, NDArray[np.floating]]) -> NDArray[np.floating]:
+    def act(self, observation: Observation) -> np.ndarray:
         """Return an action given an observation dict.
 
         Args:

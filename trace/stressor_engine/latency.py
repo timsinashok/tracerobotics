@@ -12,9 +12,9 @@ from collections import deque
 from typing import Any
 
 import numpy as np
-from numpy.typing import NDArray
 
 from trace.stressor_engine.base import BaseStressor, StressorConfig
+from trace.task_spec.base import Observation
 
 
 class LatencyStressor(BaseStressor):
@@ -23,7 +23,7 @@ class LatencyStressor(BaseStressor):
     def __init__(self, config: StressorConfig) -> None:
         super().__init__(config)
         self._max_delay_steps: int = config.params.get("max_delay_steps", 10)
-        self._action_buffer: deque[NDArray[np.floating]] = deque()
+        self._action_buffer: deque[np.ndarray] = deque()
         self._delay_steps: int = 0
 
     @property
@@ -34,12 +34,10 @@ class LatencyStressor(BaseStressor):
         self._delay_steps = int(self.intensity * self._max_delay_steps)
         self._action_buffer.clear()
 
-    def perturb_observation(
-        self, observation: dict[str, NDArray[np.floating]]
-    ) -> dict[str, NDArray[np.floating]]:
+    def perturb_observation(self, observation: Observation) -> Observation:
         return observation  # Latency only affects actions
 
-    def perturb_action(self, action: NDArray[np.floating]) -> NDArray[np.floating]:
+    def perturb_action(self, action: np.ndarray) -> np.ndarray:
         if self._delay_steps == 0:
             return action
 

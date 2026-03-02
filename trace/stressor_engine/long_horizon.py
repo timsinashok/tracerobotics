@@ -12,9 +12,9 @@ Intensity controls the rate and magnitude of drift:
 from typing import Any
 
 import numpy as np
-from numpy.typing import NDArray
 
 from trace.stressor_engine.base import BaseStressor, StressorConfig
+from trace.task_spec.base import Observation
 
 
 class LongHorizonDriftStressor(BaseStressor):
@@ -34,9 +34,7 @@ class LongHorizonDriftStressor(BaseStressor):
         """Drift magnitude increases linearly with step count and intensity."""
         return self.intensity * self._current_step
 
-    def perturb_observation(
-        self, observation: dict[str, NDArray[np.floating]]
-    ) -> dict[str, NDArray[np.floating]]:
+    def perturb_observation(self, observation: Observation) -> Observation:
         if self.intensity == 0.0:
             return observation
 
@@ -47,7 +45,7 @@ class LongHorizonDriftStressor(BaseStressor):
             result[key] = (value + noise).astype(value.dtype)
         return result
 
-    def perturb_action(self, action: NDArray[np.floating]) -> NDArray[np.floating]:
+    def perturb_action(self, action: np.ndarray) -> np.ndarray:
         self._current_step += 1
 
         if self.intensity == 0.0:

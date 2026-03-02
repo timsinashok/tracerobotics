@@ -10,9 +10,9 @@ Intensity controls dropout probability:
 from typing import Any
 
 import numpy as np
-from numpy.typing import NDArray
 
 from trace.stressor_engine.base import BaseStressor, StressorConfig
+from trace.task_spec.base import Observation
 
 
 class DropoutStressor(BaseStressor):
@@ -22,14 +22,12 @@ class DropoutStressor(BaseStressor):
         super().__init__(config)
         self._noise_scale: float = config.params.get("noise_scale", 0.1)
         self._mode: str = config.params.get("mode", "zero")  # "zero", "noise", "freeze"
-        self._frozen_obs: dict[str, NDArray[np.floating]] | None = None
+        self._frozen_obs: dict[str, np.ndarray] | None = None
 
     def on_episode_start(self, task: Any) -> None:
         self._frozen_obs = None
 
-    def perturb_observation(
-        self, observation: dict[str, NDArray[np.floating]]
-    ) -> dict[str, NDArray[np.floating]]:
+    def perturb_observation(self, observation: Observation) -> Observation:
         if self.intensity == 0.0:
             return observation
 
@@ -46,7 +44,7 @@ class DropoutStressor(BaseStressor):
 
         return result
 
-    def _apply_dropout(self, key: str, value: NDArray[np.floating]) -> NDArray[np.floating]:
+    def _apply_dropout(self, key: str, value: np.ndarray) -> np.ndarray:
         if self._mode == "zero":
             return np.zeros_like(value)
         elif self._mode == "noise":
@@ -59,5 +57,5 @@ class DropoutStressor(BaseStressor):
         else:
             return np.zeros_like(value)
 
-    def perturb_action(self, action: NDArray[np.floating]) -> NDArray[np.floating]:
+    def perturb_action(self, action: np.ndarray) -> np.ndarray:
         return action  # Dropout only affects observations

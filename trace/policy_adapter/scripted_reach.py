@@ -12,6 +12,7 @@ import numpy as np
 from numpy.typing import NDArray
 
 from trace.policy_adapter.base import BasePolicy, PolicyMetadata
+from trace.task_spec.base import Observation
 
 
 class ScriptedReachPolicy(BasePolicy):
@@ -39,7 +40,7 @@ class ScriptedReachPolicy(BasePolicy):
     def reset(self) -> None:
         self._prev_action = None
 
-    def act(self, observation: dict[str, NDArray[np.floating]]) -> NDArray[np.floating]:
+    def act(self, observation: Observation) -> np.ndarray:
         ee_pos = observation["ee_pos"]
         target_pos = observation["target_pos"]
         joint_pos = observation["joint_pos"]

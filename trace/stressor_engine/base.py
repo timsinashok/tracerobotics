@@ -18,7 +18,8 @@ from dataclasses import dataclass, field
 from typing import Any
 
 import numpy as np
-from numpy.typing import NDArray
+
+from trace.task_spec.base import Observation
 
 
 @dataclass
@@ -51,15 +52,11 @@ class BaseStressor(ABC):
         """Called at the start of each episode. Use to modify env if needed."""
 
     @abstractmethod
-    def perturb_observation(
-        self, observation: dict[str, NDArray[np.floating]]
-    ) -> dict[str, NDArray[np.floating]]:
+    def perturb_observation(self, observation: Observation) -> Observation:
         """Modify the observation before it reaches the policy."""
 
     @abstractmethod
-    def perturb_action(
-        self, action: NDArray[np.floating]
-    ) -> NDArray[np.floating]:
+    def perturb_action(self, action: np.ndarray) -> np.ndarray:
         """Modify the action before it reaches the simulator."""
 
     def on_episode_end(self) -> None:

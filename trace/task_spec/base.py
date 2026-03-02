@@ -12,7 +12,10 @@ from dataclasses import dataclass, field
 from typing import Any
 
 import numpy as np
-from numpy.typing import NDArray
+
+# Observation type: dict mapping sensor names to numpy arrays.
+# Values may be float32 (proprioception) or uint8 (images).
+Observation = dict[str, np.ndarray]
 
 
 @dataclass
@@ -49,13 +52,13 @@ class BaseTask(ABC):
         """Create the MuJoCo model and data. Called once."""
 
     @abstractmethod
-    def reset(self, seed: int | None = None) -> dict[str, NDArray[np.floating]]:
+    def reset(self, seed: int | None = None) -> Observation:
         """Reset the environment and return the initial observation."""
 
     @abstractmethod
     def step(
-        self, action: NDArray[np.floating]
-    ) -> tuple[dict[str, NDArray[np.floating]], float, bool, dict[str, Any]]:
+        self, action: np.ndarray
+    ) -> tuple[Observation, float, bool, dict[str, Any]]:
         """Execute one action and return (obs, reward, done, info)."""
 
     @abstractmethod
@@ -67,7 +70,7 @@ class BaseTask(ABC):
         """Return True if the current state is an unrecoverable failure."""
 
     @abstractmethod
-    def get_observation(self) -> dict[str, NDArray[np.floating]]:
+    def get_observation(self) -> Observation:
         """Extract the current observation from simulator state."""
 
     def get_mujoco_model(self) -> Any:
