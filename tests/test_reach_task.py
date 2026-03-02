@@ -258,3 +258,29 @@ class TestCameraRendering:
         obs = task.reset(seed=0)
         assert obs["image"].shape == (96, 128, 3)
         task.close()
+
+
+class TestLanguageInstruction:
+    """Tests for language instruction support."""
+
+    def test_default_instruction_empty(self) -> None:
+        config = TaskConfig(name="reach", task_params={"success_radius": 0.05})
+        task = ReachTask(config)
+        task.initialize()
+        assert task.language_instruction == ""
+
+    def test_instruction_from_config(self) -> None:
+        config = TaskConfig(
+            name="reach",
+            task_params={
+                "success_radius": 0.05,
+                "language_instruction": "reach the target",
+            },
+        )
+        task = ReachTask(config)
+        task.initialize()
+        assert task.language_instruction == "reach the target"
+
+    def test_instruction_does_not_pollute_observation(self, reach_task: ReachTask) -> None:
+        obs = reach_task.reset(seed=0)
+        assert "language_instruction" not in obs

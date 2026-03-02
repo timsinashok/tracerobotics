@@ -73,6 +73,11 @@ class BaseTask(ABC):
     def get_observation(self) -> Observation:
         """Extract the current observation from simulator state."""
 
+    @property
+    def language_instruction(self) -> str:
+        """Natural language instruction for this task (used by VLA policies)."""
+        return self.config.task_params.get("language_instruction", "")
+
     def get_mujoco_model(self) -> Any:
         """Return the underlying MuJoCo model (for stressors that modify physics)."""
         raise NotImplementedError("Subclass must expose the MuJoCo model for physics stressors.")

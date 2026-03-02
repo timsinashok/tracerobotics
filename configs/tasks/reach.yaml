@@ -10,6 +10,7 @@ task:
     target_z_range: [0.1, 0.5]
     robot_model: "panda"
     control_mode: "position"
+    language_instruction: "reach the target"
     # Camera rendering (uncomment to enable, adds ~2ms/step)
     # render_cameras:
     #   image: third_person

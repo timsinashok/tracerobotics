@@ -1,7 +1,7 @@
 # Pi0 Evaluation Progress
 
 **Goal:** Evaluate Physical Intelligence's pi0 policy using the Trace Robotics stress-testing framework.
-**Status:** Phase 1 complete, Phase 2 complete, Phase 3 next (language prompts)
+**Status:** Phases 1-3 complete, Phase 4 next (pi0 adapter — needs HPC)
 **Last updated:** 2026-03-02
 
 ---
@@ -91,7 +91,7 @@ significantly from our current proprioception-only setup.
 | Gap | Current State | Pi0 Needs | Severity | Status |
 |-----|---------------|-----------|----------|--------|
 | Image observations | Configurable camera rendering (third-person + wrist) | RGB images (224x224) | Critical | **DONE** |
-| Language prompts | No language support in obs dict | Task instruction string | Critical | Phase 3 |
+| Language prompts | `task.language_instruction` property on BaseTask | Task instruction string | Critical | **DONE** |
 | Action chunking | 1 action per step | 50-action chunks, execute N | Critical | Phase 4 |
 | Inference backend | Pure numpy policies | JAX/PyTorch model or WebSocket server | Critical | Phase 4 |
 | Observation types | `Observation = dict[str, np.ndarray]` (uint8 + float32) | Needs uint8 images + strings | Moderate | **DONE** |
@@ -141,11 +141,13 @@ Pi0 is fully open-source via [github.com/Physical-Intelligence/openpi](https://g
 - [x] Write 9 camera rendering tests (shape, dtype, value range, step rendering, fallback)
 - [x] 69 tests passing (60 original + 9 new)
 
-### Phase 3: Language Prompt Support
-- [ ] Add `language_instruction` field to TaskConfig
-- [ ] Include prompt in observation dict from tasks (or handle in adapter)
-- [ ] Update ReachTask config with a default instruction (e.g., "reach the target")
-- [ ] Decide: prompt lives in task vs. adapter (adapter is simpler for v1)
+### Phase 3: Language Prompt Support [COMPLETE]
+- [x] Add `language_instruction` property to BaseTask (reads from task_params)
+- [x] Decision: prompt is task metadata, not sensor data — lives on task, not in obs dict
+- [x] Pi0 adapter will read `task.language_instruction` during setup (same as `set_env()` pattern)
+- [x] Update reach.yaml with default instruction: "reach the target"
+- [x] Write 3 tests (default empty, from config, not in obs dict)
+- [x] 72 tests passing
 
 ### Phase 4: Pi0 Policy Adapter
 - [ ] Add `openpi-client` as a project dependency
@@ -297,7 +299,7 @@ configs/
   sweeps/default_sweep.yaml — Default sweep config (working)
 scripts/
   run_evaluation.py      — CLI entry point
-tests/                   — 69 tests
+tests/                   — 72 tests
 development_notes/
   1-pi0_evaluation_progress.md  — This file
 ```
@@ -305,6 +307,13 @@ development_notes/
 ---
 
 ## Changelog
+
+### 2026-03-02 — Phase 3: Language Prompt Support
+- Added `language_instruction` property to BaseTask (reads from task_params)
+- Decision: prompt is task metadata, not sensor data — keeps Observation type clean
+- Pi0 adapter will access it via `task.language_instruction` during setup
+- Added default instruction "reach the target" to reach.yaml
+- 3 new tests, 72 total passing
 
 ### 2026-03-02 — Phase 2: Camera and Visual Observations
 - Added `Observation = dict[str, np.ndarray]` type alias across 13 files
