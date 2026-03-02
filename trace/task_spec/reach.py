@@ -51,6 +51,12 @@ class ReachTask(BaseTask):
             config.task_params.get("target_z_range", _TARGET_Z_RANGE)
         )
 
+        # Camera rendering config (empty dict = no rendering, faster)
+        self._render_cameras: dict[str, str] = config.task_params.get("render_cameras", {})
+        self._render_width: int = config.task_params.get("render_width", 128)
+        self._render_height: int = config.task_params.get("render_height", 128)
+        self._renderer: mujoco.Renderer | None = None
+
         # Cached initial physics params for clean reset
         self._initial_body_mass: NDArray[np.floating] | None = None
         self._initial_geom_friction: NDArray[np.floating] | None = None
@@ -77,6 +83,12 @@ class ReachTask(BaseTask):
         self._initial_geom_size = self._model.geom_size.copy()
         self._initial_jnt_range = self._model.jnt_range.copy()
         self._initial_actuator_gainprm = self._model.actuator_gainprm.copy()
+
+        # Create renderer if cameras are configured
+        if self._render_cameras:
+            self._renderer = mujoco.Renderer(
+                self._model, self._render_height, self._render_width
+            )
 
         self._rng = np.random.default_rng(self.config.seed)
         mujoco.mj_forward(self._model, self._data)
@@ -149,12 +161,23 @@ class ReachTask(BaseTask):
 
     def get_observation(self) -> Observation:
         assert self._model is not None and self._data is not None
-        return {
+        obs: Observation = {
             "joint_pos": self._data.qpos[:self._model.nq].astype(np.float32).copy(),
             "joint_vel": self._data.qvel[:self._model.nv].astype(np.float32).copy(),
             "ee_pos": self._data.site_xpos[self._ee_site_id].astype(np.float32).copy(),
             "target_pos": self._data.mocap_pos[0].astype(np.float32).copy(),
         }
+        if self._renderer is not None:
+            for obs_key, cam_name in self._render_cameras.items():
+                self._renderer.update_scene(self._data, camera=cam_name)
+                obs[obs_key] = self._renderer.render().copy()
+        return obs
+
+    def close(self) -> None:
+        """Clean up renderer resources."""
+        if self._renderer is not None:
+            self._renderer.close()
+            self._renderer = None
 
     def get_mujoco_model(self) -> mujoco.MjModel:
         assert self._model is not None, "Call initialize() first"
