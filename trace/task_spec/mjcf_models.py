@@ -44,6 +44,9 @@ PANDA_7DOF_REACH_XML: str = """
                     <joint name="joint7" type="hinge" axis="0 0 1" range="-2.8973 2.8973"/>
                     <geom type="sphere" size="0.03" rgba="0.2 0.2 0.8 1"/>
                     <site name="end_effector" pos="0 0 0.04" size="0.01"/>
+                    <!-- Wrist-mounted camera: eye-in-hand view looking outward -->
+                    <camera name="wrist_camera" pos="0 0 0.04"
+                            xyaxes="1 0 0 0 -1 0" fovy="90"/>
                   </body>
                 </body>
               </body>
@@ -58,6 +61,13 @@ PANDA_7DOF_REACH_XML: str = """
       <geom name="target_geom" type="sphere" size="0.02"
             rgba="0.2 0.9 0.2 0.7" contype="0" conaffinity="0"/>
     </body>
+
+    <!-- Third-person camera: diagonal overhead view of workspace -->
+    <camera name="third_person" pos="1.0 -0.5 0.8"
+            xyaxes="0.64 0.77 0 -0.44 0.37 0.82" fovy="60"/>
+
+    <!-- Light for camera rendering -->
+    <light name="overhead" pos="0.4 0 1.5" dir="0 0 -1" diffuse="0.8 0.8 0.8"/>
   </worldbody>
 
   <actuator>
