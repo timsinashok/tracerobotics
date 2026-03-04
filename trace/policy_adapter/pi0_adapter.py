@@ -107,8 +107,9 @@ class Pi0PolicyAdapter(BasePolicy):
         openpi_obs = self._build_observation(observation)
 
         if self._client is not None:
-            raw_actions = self._client.infer(openpi_obs)
-            # raw_actions is (chunk_size, action_dim) or (action_dim,)
+            result = self._client.infer(openpi_obs)
+            # infer() returns a dict like {"actions": array}; extract the actions
+            raw_actions = result["actions"] if isinstance(result, dict) else result
             raw_actions = np.asarray(raw_actions, dtype=np.float32)
             if raw_actions.ndim == 1:
                 raw_actions = raw_actions[np.newaxis, :]

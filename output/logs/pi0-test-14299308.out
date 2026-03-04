@@ -1,0 +1,69 @@
+============================================
+Pi0 Test Pipeline
+Node: cn007
+Date: Wed Mar  4 15:24:59 +04 2026
+Job ID: 14299308
+============================================
+
+[GPU Info]
+NVIDIA A100-PCIE-40GB, 40960 MiB
+
+============================================
+LEVEL 1: Unit tests
+============================================
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /home/at5282/.conda/envs/trace-pi0/bin/python
+cachedir: .pytest_cache
+rootdir: /scratch/at5282/trace/tracerobotics
+configfile: pyproject.toml
+plugins: cov-7.0.0
+collecting ... collected 14 items
+
+tests/test_pi0_adapter.py::TestPi0PolicyAdapter::test_act_returns_correct_shape PASSED [  7%]
+tests/test_pi0_adapter.py::TestPi0PolicyAdapter::test_act_bounded PASSED [ 14%]
+tests/test_pi0_adapter.py::TestPi0PolicyAdapter::test_action_chunking PASSED [ 21%]
+tests/test_pi0_adapter.py::TestPi0PolicyAdapter::test_reset_clears_buffer PASSED [ 28%]
+tests/test_pi0_adapter.py::TestPi0PolicyAdapter::test_metadata PASSED    [ 35%]
+tests/test_pi0_adapter.py::TestPi0PolicyAdapter::test_observation_mapping PASSED [ 42%]
+tests/test_pi0_adapter.py::TestPi0PolicyAdapter::test_observation_image_rotation PASSED [ 50%]
+tests/test_pi0_adapter.py::TestPi0PolicyAdapter::test_state_vector_shape PASSED [ 57%]
+tests/test_pi0_adapter.py::TestPi0PolicyAdapter::test_state_vector_contents PASSED [ 64%]
+tests/test_pi0_adapter.py::TestPi0PolicyAdapter::test_missing_images_use_zeros PASSED [ 71%]
+tests/test_pi0_adapter.py::TestPi0PolicyAdapter::test_set_task_info PASSED [ 78%]
+tests/test_pi0_adapter.py::TestPi0PolicyAdapter::test_no_server_returns_zeros PASSED [ 85%]
+tests/test_pi0_adapter.py::TestPi0PolicyAdapter::test_load_without_openpi_client PASSED [ 92%]
+tests/test_pi0_adapter.py::TestPi0PolicyAdapter::test_joint_position_action_mode PASSED [100%]
+
+============================== 14 passed in 0.19s ==============================
+LEVEL 1 PASSED
+
+============================================
+Starting pi0 server on port 8000...
+============================================
+Waiting for server (PID 1987541) to start listening on port 8000...
+  ... waiting (5s)
+  ... waiting (10s)
+  ... waiting (15s)
+  ... waiting (20s)
+  ... waiting (25s)
+  ... waiting (30s)
+  ... waiting (35s)
+  ... waiting (40s)
+  ... waiting (45s)
+  ... waiting (50s)
+Server is ready (took 50s).
+
+============================================
+LEVEL 2: Smoke test (server connection)
+============================================
+Traceback (most recent call last):
+  File "<string>", line 12, in <module>
+  File "/scratch/at5282/trace/openpi/packages/openpi-client/src/openpi_client/websocket_client_policy.py", line 50, in infer
+    response = self._ws.recv()
+               ^^^^^^^^^^^^^^^
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/websockets/sync/connection.py", line 338, in recv
+    raise self.protocol.close_exc from self.recv_exc
+websockets.exceptions.ConnectionClosedError: sent 1011 (internal error) keepalive ping timeout; no close frame received
+
+Shutting down server (PID 1987541)...
+Done.

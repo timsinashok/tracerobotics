@@ -17,11 +17,11 @@ class MockWebsocketClient:
         self._rng = np.random.default_rng(42)
         self.call_count = 0
 
-    def infer(self, observation: dict) -> np.ndarray:
+    def infer(self, observation: dict) -> dict:
         self.call_count += 1
-        # Return Cartesian-like actions: first 3 dims are small deltas
+        # Return dict matching real server format: {"actions": array}
         actions = self._rng.uniform(-0.01, 0.01, size=(self._chunk_size, self._action_dim))
-        return actions.astype(np.float32)
+        return {"actions": actions.astype(np.float32)}
 
 
 @pytest.fixture
@@ -156,7 +156,8 @@ class TestPi0PolicyAdapter:
 
     def test_load_without_openpi_client(self, pi0_adapter):
         """load() should not raise even if openpi_client is not installed."""
-        pi0_adapter.load("")
+        with patch.dict("sys.modules", {"openpi_client": None, "openpi_client.websocket_client_policy": None}):
+            pi0_adapter.load("")
         # Client should be None if import failed
         assert pi0_adapter._client is None
 
