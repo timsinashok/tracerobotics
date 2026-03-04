@@ -15,6 +15,9 @@
 
 ## Step-by-Step Setup
 
+> **Returning user?** Steps 1-3 are one-time setup. If you've already done them,
+> skip straight to [Step 4: Start the pi0 server](#4-start-the-pi0-server).
+
 ### 1. Get a GPU node
 
 ```bash

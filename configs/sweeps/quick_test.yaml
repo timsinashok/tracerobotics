@@ -1,0 +1,10 @@
+# Minimal sweep for quick validation (1 stressor, 3 intensities, 1 seed, 2 episodes)
+sweep:
+  seeds: [0]
+  episodes_per_config: 2
+
+  stressors:
+    - type: LatencyStressor
+      intensities: [0.0, 0.5, 1.0]
+      params:
+        max_delay_steps: 10
