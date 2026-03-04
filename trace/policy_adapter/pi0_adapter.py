@@ -17,6 +17,18 @@ from trace.policy_adapter.base import BasePolicy, PolicyMetadata
 from trace.task_spec.base import Observation
 
 
+def _quat2axisangle(quat: np.ndarray) -> np.ndarray:
+    """Convert quaternion [x, y, z, w] to axis-angle representation.
+
+    Copied from robosuite transform_utils, used by openpi LIBERO example.
+    """
+    w = float(np.clip(quat[3], -1.0, 1.0))
+    den = np.sqrt(1.0 - w * w)
+    if den < 1e-10:
+        return np.zeros(3, dtype=np.float32)
+    return (quat[:3] * 2.0 * np.arccos(w) / den).astype(np.float32)
+
+
 class Pi0PolicyAdapter(BasePolicy):
     """Adapter for pi0 models served by openpi WebSocket server."""
 
@@ -27,12 +39,14 @@ class Pi0PolicyAdapter(BasePolicy):
         chunk_size: int = 5,
         action_mode: str = "cartesian_delta",
         gain: float = 10.0,
+        state_format: str = "quaternion",
     ) -> None:
         self._host = host
         self._port = port
         self._chunk_size = chunk_size
         self._action_mode = action_mode
         self._gain = gain
+        self._state_format = state_format
 
         self._client: Any = None
         self._action_buffer: deque[np.ndarray] = deque()
@@ -47,9 +61,10 @@ class Pi0PolicyAdapter(BasePolicy):
         """Provide MuJoCo model/data for Jacobian-based action conversion."""
         self._model = model
         self._data = data
-        self._ee_site_id = mujoco.mj_name2id(
-            model, mujoco.mjtObj.mjOBJ_SITE, "end_effector"
-        )
+        if self._action_mode != "passthrough":
+            self._ee_site_id = mujoco.mj_name2id(
+                model, mujoco.mjtObj.mjOBJ_SITE, "end_effector"
+            )
 
     def set_task_info(self, prompt: str) -> None:
         """Set the language instruction for the task."""
@@ -161,19 +176,35 @@ class Pi0PolicyAdapter(BasePolicy):
     def _build_state_vector(self, observation: Observation) -> NDArray[np.floating]:
         """Build the 8-dim state vector for openpi.
 
-        Layout: [ee_pos(3), ee_orientation(4), gripper(1)] = 8 dims.
-        Falls back to zeros for missing keys.
+        For state_format="quaternion" (default):
+            Layout: [ee_pos(3), ee_quat(4), gripper(1)] = 8 dims.
+        For state_format="axis_angle" (LIBERO):
+            Layout: [ee_pos(3), axis_angle(3), gripper_qpos(2)] = 8 dims.
         """
         ee_pos = observation.get(
             "ee_pos", np.zeros(3, dtype=np.float32)
         )
-        ee_orientation = observation.get(
-            "ee_orientation", np.array([1.0, 0.0, 0.0, 0.0], dtype=np.float32)
-        )
-        gripper = observation.get(
-            "gripper", np.zeros(1, dtype=np.float32)
-        )
-        state = np.concatenate([ee_pos, ee_orientation, gripper]).astype(np.float32)
+
+        if self._state_format == "axis_angle":
+            ee_quat = observation.get(
+                "ee_orientation",
+                np.array([1.0, 0.0, 0.0, 0.0], dtype=np.float32),
+            )
+            axis_angle = _quat2axisangle(ee_quat.copy())
+            gripper = observation.get(
+                "gripper", np.zeros(2, dtype=np.float32)
+            )
+            state = np.concatenate([ee_pos, axis_angle, gripper]).astype(np.float32)
+        else:
+            ee_orientation = observation.get(
+                "ee_orientation",
+                np.array([1.0, 0.0, 0.0, 0.0], dtype=np.float32),
+            )
+            gripper = observation.get(
+                "gripper", np.zeros(1, dtype=np.float32)
+            )
+            state = np.concatenate([ee_pos, ee_orientation, gripper]).astype(np.float32)
+
         return state
 
     def _convert_action(
@@ -188,7 +219,10 @@ class Pi0PolicyAdapter(BasePolicy):
         For action_mode="joint_position":
             Directly maps to [-1, 1] using actuator ctrl ranges.
         """
-        if self._action_mode == "joint_position":
+        if self._action_mode == "passthrough":
+            # Raw 7-dim goes directly to LIBERO env — no conversion
+            return raw_action[:7].astype(np.float32)
+        elif self._action_mode == "joint_position":
             return self._convert_joint_position(raw_action)
         else:
             return self._convert_cartesian_delta(raw_action, observation)
