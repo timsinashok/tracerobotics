@@ -87,6 +87,20 @@ class TestOcclusionStressor:
         result = stressor.perturb_observation(obs)
         np.testing.assert_array_equal(result["image"], obs["image"])
 
+    def test_low_intensity_no_crash(self):
+        """Regression: intensity=0.1 with max_patch_frac=0.3 gives patch_frac=0.03 < 0.05."""
+        config = StressorConfig(
+            name="occlusion", intensity=0.1, seed=42,
+            params={"max_patches": 5, "max_patch_frac": 0.3, "fill_value": 0},
+        )
+        stressor = OcclusionStressor(config)
+        stressor.on_episode_start(None)
+
+        obs = _make_image_observation()
+        result = stressor.perturb_observation(obs)
+        assert result["image"].shape == obs["image"].shape
+        assert result["image"].dtype == np.uint8
+
     def test_high_intensity_occludes(self):
         config = StressorConfig(
             name="occlusion", intensity=1.0, seed=42,

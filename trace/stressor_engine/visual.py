@@ -94,9 +94,10 @@ class OcclusionStressor(BaseStressor):
     ) -> np.ndarray:
         h, w = image.shape[:2]
         occluded = image.copy()
+        min_frac = min(0.05, patch_frac)
         for _ in range(num_patches):
-            ph = max(1, int(self._rng.uniform(0.05, patch_frac) * h))
-            pw = max(1, int(self._rng.uniform(0.05, patch_frac) * w))
+            ph = max(1, int(self._rng.uniform(min_frac, patch_frac) * h))
+            pw = max(1, int(self._rng.uniform(min_frac, patch_frac) * w))
             y = self._rng.integers(0, max(1, h - ph))
             x = self._rng.integers(0, max(1, w - pw))
             occluded[y : y + ph, x : x + pw] = self._fill_value
