@@ -1,0 +1,113 @@
+============================================
+LIBERO + Pi0 Test Pipeline
+Node: cn257
+Date: Wed Mar  4 18:09:33 +04 2026
+Job ID: 14300051
+============================================
+
+[GPU Info]
+NVIDIA A100 80GB PCIe, 81920 MiB
+
+============================================
+LEVEL 1: LIBERO unit tests
+============================================
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /home/at5282/.conda/envs/trace-pi0/bin/python
+cachedir: .pytest_cache
+rootdir: /scratch/at5282/trace/tracerobotics
+configfile: pyproject.toml
+plugins: cov-7.0.0
+collecting ... collected 12 items
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize PASSED    [  8%]
+tests/test_libero_task.py::TestLiberoTaskInit::test_language_instruction PASSED [ 16%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_reset_returns_observation PASSED [ 25%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_observation_keys PASSED [ 33%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_image_shape PASSED  [ 41%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_proprioception_shapes PASSED [ 50%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_returns_tuple PASSED [ 58%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_observation_format PASSED [ 66%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_model PASSED [ 75%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_data PASSED [ 83%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_initial_not_success PASSED [ 91%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_no_catastrophic_failure PASSED [100%]
+
+=============================== warnings summary ===============================
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:53: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("No private macro file found!")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:54: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("It is recommended to use a private macro file")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:55: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("To setup, run: python {}/scripts/setup_macros.py".format(robosuite.__path__[0]))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 12 passed, 3 warnings in 28.40s ========================
+LEVEL 1 PASSED
+
+============================================
+Starting pi0 server on port 8000...
+============================================
+Waiting for server (PID 3627996) to start listening on port 8000...
+  ... waiting (5s)
+  ... waiting (10s)
+  ... waiting (15s)
+  ... waiting (20s)
+  ... waiting (25s)
+  ... waiting (30s)
+  ... waiting (35s)
+  ... waiting (40s)
+  ... waiting (45s)
+Server is ready (took 45s).
+
+
+============================================
+LEVEL 2: LIBERO single-episode evaluation
+============================================
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Traceback (most recent call last):
+  File "<string>", line 22, in <module>
+  File "/scratch/at5282/trace/tracerobotics/trace/runner/episode_runner.py", line 51, in run
+    action = self.policy.act(stressed_obs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/at5282/trace/tracerobotics/trace/policy_adapter/pi0_adapter.py", line 102, in act
+    self._refill_buffer(observation)
+  File "/scratch/at5282/trace/tracerobotics/trace/policy_adapter/pi0_adapter.py", line 125, in _refill_buffer
+    result = self._client.infer(openpi_obs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/at5282/trace/openpi/packages/openpi-client/src/openpi_client/websocket_client_policy.py", line 50, in infer
+    response = self._ws.recv()
+               ^^^^^^^^^^^^^^^
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/websockets/sync/connection.py", line 338, in recv
+    raise self.protocol.close_exc from self.recv_exc
+websockets.exceptions.ConnectionClosedError: sent 1011 (internal error) keepalive ping timeout; no close frame received
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+Task: libero
+Suite: libero_spatial
+Language instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+Exception ignored in: <function MjRenderContext.__del__ at 0x1553ee97f880>
+Traceback (most recent call last):
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/utils/binding_utils.py", line 199, in __del__
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/renderers/context/egl_context.py", line 149, in free
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/OpenGL/error.py", line 230, in glCheckError
+OpenGL.raw.EGL._errors.EGLError: <exception str() failed>
+Exception ignored in: <function EGLGLContext.__del__ at 0x1553ee97f740>
+Traceback (most recent call last):
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/renderers/context/egl_context.py", line 155, in __del__
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/renderers/context/egl_context.py", line 149, in free
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/OpenGL/error.py", line 230, in glCheckError
+OpenGL.raw.EGL._errors.EGLError: <exception str() failed>
+
+Shutting down server (PID 3627996)...
+Done.
