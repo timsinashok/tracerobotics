@@ -18,13 +18,23 @@ class ReportGenerator:
         policy_meta: PolicyMetadata,
         task_name: str,
         sweep_results: list[SweepResult],
+        filepath: str | None = None,
     ) -> str:
-        """Generate a markdown report and return its file path."""
+        """Generate a markdown report and return its file path.
+
+        Args:
+            filepath: Optional fixed path to write to. If provided, the report
+                is written there (overwriting any previous version). If omitted,
+                a new timestamped path is generated.
+        """
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"report_{policy_meta.name}_{task_name}_{timestamp}.md"
-        filepath = self.output_dir / filename
+        if filepath is not None:
+            filepath = Path(filepath)
+        else:
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"report_{policy_meta.name}_{task_name}_{timestamp}.md"
+            filepath = self.output_dir / filename
 
         sections = [
             self._header(policy_meta, task_name),

@@ -5,6 +5,7 @@ Usage:
 """
 
 import argparse
+import datetime
 import logging
 import sys
 
@@ -141,8 +142,14 @@ def main() -> None:
     sweep_configs = load_sweep_configs(args.sweep)
     logger.info("Loaded %d stressor sweeps", len(sweep_configs))
 
-    # Run sweeps
+    # Run sweeps — report is saved progressively after each stressor
     sweep_runner = SweepRunner(task=task, policy=policy)
+    report_gen = ReportGenerator(output_dir=args.output)
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    report_path = (
+        f"{args.output}/report_{policy.metadata().name}_{task_config.name}_{timestamp}.md"
+    )
+
     sweep_results = []
     for i, sc in enumerate(sweep_configs):
         logger.info(
@@ -157,14 +164,16 @@ def main() -> None:
             f"{result.breakpoint_intensity:.2f}" if result.breakpoint_intensity else "none",
         )
 
-    # Generate report
-    report_gen = ReportGenerator(output_dir=args.output)
-    report_path = report_gen.generate(
-        policy_meta=policy.metadata(),
-        task_name=task_config.name,
-        sweep_results=sweep_results,
-    )
-    logger.info("Report written to: %s", report_path)
+        # Save report progressively — overwrites with all results so far
+        report_gen.generate(
+            policy_meta=policy.metadata(),
+            task_name=task_config.name,
+            sweep_results=sweep_results,
+            filepath=report_path,
+        )
+        logger.info("  Report updated: %s (%d/%d stressors)", report_path, i + 1, len(sweep_configs))
+
+    logger.info("Final report: %s", report_path)
 
 
 if __name__ == "__main__":
