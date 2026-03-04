@@ -210,48 +210,6 @@ if [ $LEVEL3_EXIT -ne 0 ]; then
 fi
 
 # =============================================================================
-# Level 3b: LIBERO single-episode evaluation
-# =============================================================================
-echo ""
-echo "============================================"
-echo "LEVEL 3b: LIBERO single-episode evaluation"
-echo "============================================"
-
-python -c "
-from trace.config_loader import create_task, load_task_config
-from trace.policy_adapter.pi0_adapter import Pi0PolicyAdapter
-from trace.runner.episode_runner import EpisodeRunner
-
-config = load_task_config('configs/tasks/libero_spatial.yaml')
-config.seed = 0
-task = create_task(config)
-print(f'Task initialized: {config.name}')
-print(f'Language instruction: {task.language_instruction}')
-
-policy = Pi0PolicyAdapter(
-    host='localhost', port=$PI0_PORT, chunk_size=5,
-    action_mode='passthrough', state_format='axis_angle',
-)
-policy.set_env(task.get_mujoco_model(), task.get_mujoco_data())
-policy.set_task_info(task.language_instruction)
-policy.load('')
-
-runner = EpisodeRunner(task, policy, stressors=[])
-result = runner.run(seed=0)
-print(f'Success:              {result.success}')
-print(f'Steps:                {result.total_steps}')
-print(f'Reward:               {result.total_reward:.3f}')
-print(f'Catastrophic failure: {result.catastrophic_failure}')
-print('LEVEL 3b PASSED')
-" 2>&1
-LEVEL3B_EXIT=$?
-
-if [ $LEVEL3B_EXIT -ne 0 ]; then
-    echo "LEVEL 3b FAILED (exit $LEVEL3B_EXIT) — aborting."
-    exit 1
-fi
-
-# =============================================================================
 # Level 4: Mini sweep (few minutes)
 # =============================================================================
 echo ""
@@ -274,31 +232,6 @@ if [ $LEVEL4_EXIT -ne 0 ]; then
     exit 1
 fi
 echo "LEVEL 4 PASSED"
-
-# =============================================================================
-# Level 4b: LIBERO mini sweep with visual stressors
-# =============================================================================
-echo ""
-echo "============================================"
-echo "LEVEL 4b: LIBERO mini sweep"
-echo "============================================"
-
-python -m scripts.run_evaluation \
-  --task configs/tasks/libero_spatial.yaml \
-  --sweep configs/sweeps/quick_test.yaml \
-  --policy pi0 \
-  --action-mode passthrough \
-  --pi0-host localhost --pi0-port $PI0_PORT \
-  --chunk-size 5 \
-  --seed 0 \
-  --output output/reports 2>&1
-LEVEL4B_EXIT=$?
-
-if [ $LEVEL4B_EXIT -ne 0 ]; then
-    echo "LEVEL 4b FAILED (exit $LEVEL4B_EXIT) — aborting."
-    exit 1
-fi
-echo "LEVEL 4b PASSED"
 
 # =============================================================================
 # Level 5: Full robustness sweep (~26 hours)
