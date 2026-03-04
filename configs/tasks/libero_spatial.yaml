@@ -1,0 +1,11 @@
+task:
+  name: libero
+  max_episode_steps: 220
+  success_threshold: 0.95
+  params:
+    task_suite_name: libero_spatial
+    task_id: 0
+    num_steps_wait: 10
+    language_instruction: auto
+    render_width: 224
+    render_height: 224
