@@ -19,11 +19,13 @@ from trace.stressor_engine.visual import (
     ResolutionStressor,
 )
 from trace.task_spec.base import BaseTask, TaskConfig
+from trace.task_spec.libero_task import LiberoTask
 from trace.task_spec.reach import ReachTask
 
 # Registries mapping string names to classes
 TASK_REGISTRY: dict[str, type[BaseTask]] = {
     "reach": ReachTask,
+    "libero": LiberoTask,
 }
 
 STRESSOR_REGISTRY: dict[str, type[BaseStressor]] = {

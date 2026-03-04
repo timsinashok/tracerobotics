@@ -76,6 +76,13 @@ def main() -> None:
         help="Output directory for reports",
     )
     parser.add_argument(
+        "--action-mode",
+        type=str,
+        default=None,
+        choices=["cartesian_delta", "joint_position", "passthrough"],
+        help="Action conversion mode (auto-detected from task if omitted)",
+    )
+    parser.add_argument(
         "--seed",
         type=int,
         default=0,
@@ -99,10 +106,18 @@ def main() -> None:
     # Load policy
     if args.policy and args.policy in POLICY_REGISTRY:
         if args.policy == "pi0":
+            # Auto-detect action mode and state format for LIBERO tasks
+            action_mode = args.action_mode or (
+                "passthrough" if task_config.name == "libero" else "cartesian_delta"
+            )
+            state_format = "axis_angle" if task_config.name == "libero" else "quaternion"
+
             policy = Pi0PolicyAdapter(
                 host=args.pi0_host,
                 port=args.pi0_port,
                 chunk_size=args.chunk_size,
+                action_mode=action_mode,
+                state_format=state_format,
             )
             policy.set_env(task.get_mujoco_model(), task.get_mujoco_data())
             policy.set_task_info(task.language_instruction)
