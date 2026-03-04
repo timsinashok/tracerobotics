@@ -286,12 +286,53 @@ e85d343 first commit
 
 ---
 
+## Architecture Decision: Policy Adapters
+
+**Decision:** One adapter per model, no generic abstraction.
+
+**Rationale:** The moat is the stress engine, not the adapters. Adapters are small (~250 lines), and VLA models differ too much to abstract cleanly:
+- Pi0: WebSocket, axis-angle state, 180° rotated images, raw 7-dim Cartesian deltas
+- Octo: HTTP, joint-space state, no rotation, different action format
+- RT-2: yet another format
+
+A "generic" adapter would become a config monster harder to debug than separate files. The stress engine is already model-agnostic — stressors operate on `Observation` dicts and `action` arrays regardless of which policy produced them. That's the right abstraction boundary.
+
+**The user story is:** "Bring your model, write a 200-line adapter, get a robustness report." The adapter is the on-ramp, not the product.
+
+---
+
 ## What's Next
 
+### Immediate (current sprint)
+
 - **Analyze full sweep results** — job 14300072 running on A100, check `output/reports/`
-- **Run all 9 stressors** on LIBERO spatial — get full degradation curves
-- **Sweep across task_ids** — evaluate all 10 tasks in libero_spatial
-- **Try other suites** — libero_object, libero_goal, libero_10
-- **Verify physics stressors** — test PhysicsShiftStressor and EmbodimentStressor with robosuite's MuJoCo model
-- **Video recording** — save episode replays for qualitative analysis
-- **Multi-task reports** — aggregate results across tasks within a suite
+- **Run all 9 stressors** on LIBERO spatial — get full degradation curves for pi0
+- **Sweep across task_ids** — evaluate all 10 tasks in `libero_spatial`, not just task 0
+- **Verify physics stressors** — test PhysicsShiftStressor and EmbodimentStressor with robosuite's `env.sim.model._model`
+
+### Reports & Presentation
+
+- **Comparison reports** — side-by-side tables across policies (e.g., "pi0 vs Octo under latency"). This is what makes Trace useful: not just "does it work" but "which model is more robust and where"
+- **Degradation plots** — matplotlib curves showing success rate vs stressor intensity per model
+- **PDF output** — polished reports beyond markdown for sharing with stakeholders
+- **Multi-task aggregation** — roll up results across all tasks in a suite into a single suite-level report
+
+### Second Policy (proves the framework is model-agnostic)
+
+- **Add Octo or OpenVLA adapter** — writing the second adapter reveals any hidden pi0 assumptions baked into the code. If a completely different VLA model plugs in cleanly, the framework is genuinely general
+- **Keep it to a separate file** — `trace/policy_adapter/octo_adapter.py` (~200 lines), register in `POLICY_REGISTRY`, add a task config, done
+- **Compare against pi0** — first real multi-policy robustness comparison
+
+### Deeper Evaluation
+
+- **Stressor combinations** — real-world failures are compound (latency + image noise simultaneously). Currently stressors stack sequentially but aren't tested in combination sweeps
+- **Try other LIBERO suites** — `libero_object`, `libero_goal`, `libero_10` for harder manipulation tasks
+- **Video recording** — save episode replays for qualitative failure analysis (openpi example already does this)
+- **Task difficulty correlation** — does pi0 degrade faster on harder tasks? Compare breakpoint intensities across suites
+
+### Stretch Goals
+
+- **CI pipeline** — run unit tests on every push (the LIBERO tests need `pytest.importorskip` which already handles this)
+- **Benchmark database** — store results across runs for tracking model improvements over time
+- **Custom task authoring** — make it easy for users to define new tasks beyond LIBERO (e.g., real-world sim environments)
+- **Fine-tuning feedback loop** — use Trace reports to identify failure modes, then fine-tune models on those specific scenarios
