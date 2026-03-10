@@ -94,7 +94,20 @@ class OpenVLAAdapter(BasePolicy):
 
     def _load_model(self) -> None:
         """Import openvla-oft modules and load model components."""
+        import os
         import sys
+
+        # Force TensorFlow to CPU-only BEFORE it is imported.
+        # OpenVLA uses TF only for image preprocessing (resize/round/crop).
+        # Without this, TF tries GPU XLA JIT which fails when libdevice
+        # is not found on the cluster, causing every inference call to error.
+        os.environ["CUDA_VISIBLE_DEVICES_TF"] = os.environ.get("CUDA_VISIBLE_DEVICES", "")
+        os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
+        try:
+            import tensorflow as tf
+            tf.config.set_visible_devices([], "GPU")
+        except Exception:
+            pass  # TF not yet imported or not available
 
         # Add openvla-oft repo to path if specified
         if self._openvla_repo_path and self._openvla_repo_path not in sys.path:

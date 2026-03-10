@@ -49,6 +49,13 @@ source /share/apps/NYUAD5/miniconda/3-4.11.0/etc/profile.d/conda.sh
 conda activate trace-openvla
 export SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt
 
+# Force TensorFlow to CPU-only. OpenVLA uses TF only for image
+# preprocessing; without this TF grabs the GPU and XLA JIT fails
+# because libdevice.10.bc is not in the cluster CUDA path.
+export TF_CPP_MIN_LOG_LEVEL=3
+export TF_FORCE_GPU_ALLOW_GROWTH=true
+export PYTHONUNBUFFERED=1
+
 echo ""
 echo "[GPU Info]"
 nvidia-smi --query-gpu=name,memory.total,memory.free --format=csv,noheader
