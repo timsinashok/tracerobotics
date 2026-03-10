@@ -1,0 +1,938 @@
+============================================
+LIBERO + OpenVLA-OFT Test Pipeline
+Node: cn006
+Date: Tue Mar 10 17:55:17 +04 2026
+Job ID: 14336998
+============================================
+
+[GPU Info]
+NVIDIA A100-PCIE-40GB, 40960 MiB, 40442 MiB
+
+============================================
+LEVEL 1: OpenVLA adapter unit tests
+============================================
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-9.0.2, pluggy-1.6.0 -- /home/at5282/.conda/envs/trace-openvla/bin/python
+cachedir: .pytest_cache
+rootdir: /scratch/at5282/trace/tracerobotics
+configfile: pyproject.toml
+plugins: typeguard-2.13.3
+collecting ... collected 17 items
+
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_metadata PASSED  [  5%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_reset_clears_buffer PASSED [ 11%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_no_model_returns_zeros PASSED [ 17%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_build_observation_format PASSED [ 23%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_image_flip PASSED [ 29%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_center_crop PASSED [ 35%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_center_crop_disabled PASSED [ 41%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_state_axis_angle_conversion PASSED [ 47%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_gripper_open_postprocess PASSED [ 52%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_gripper_close_postprocess PASSED [ 58%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_gripper_mid_postprocess PASSED [ 64%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_set_task_info PASSED [ 70%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_load_sets_loaded PASSED [ 76%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_act_with_mock PASSED [ 82%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_missing_obs_keys PASSED [ 88%]
+tests/test_openvla_adapter.py::TestQuat2AxisAngle::test_identity PASSED  [ 94%]
+tests/test_openvla_adapter.py::TestQuat2AxisAngle::test_90deg_z PASSED   [100%]
+
+============================== 17 passed in 0.10s ==============================
+LEVEL 1 PASSED
+
+============================================
+LEVEL 2: LIBERO single-episode evaluation
+============================================
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-10 17:55:26.289695: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-03-10 17:55:26.289845: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-03-10 17:55:26.316032: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-03-10 17:55:26.373538: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-03-10 17:55:28.293968: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+<frozen importlib._bootstrap>:283: DeprecationWarning: the load_module() method is deprecated and slated for removal in Python 3.12; use exec_module() instead
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+Task: libero
+Language instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+Using LIBERO constants:
+  NUM_ACTIONS_CHUNK = 8
+  ACTION_DIM = 7
+  PROPRIO_DIM = 8
+  ACTION_PROPRIO_NORMALIZATION_TYPE = bounds_q99
+If needed, manually set the correct constants in `prismatic/vla/constants.py`!
+Instantiating pretrained VLA policy...
+Downloading shards:   0%|          | 0/4 [00:00<?, ?it/s]Downloading shards:  25%|██▌       | 1/4 [00:43<02:10, 43.50s/it]Downloading shards:  50%|█████     | 2/4 [01:25<01:24, 42.42s/it]Downloading shards:  75%|███████▌  | 3/4 [02:07<00:42, 42.44s/it]Downloading shards: 100%|██████████| 4/4 [02:12<00:00, 27.79s/it]Downloading shards: 100%|██████████| 4/4 [02:12<00:00, 33.24s/it]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.13it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  3.73it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  3.97it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  4.21it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  4.00it/s]
+2026-03-10 17:58:28.899304: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1929] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 22806 MB memory:  -> device: 0, name: NVIDIA A100-PCIE-40GB, pci bus id: 0000:e2:00.0, compute capability: 8.0
+2026-03-10 17:58:29.139975: W external/local_xla/xla/service/gpu/llvm_gpu_backend/gpu_backend_lib.cc:504] Can't find libdevice directory ${CUDA_DIR}/nvvm/libdevice. This may result in compilation or runtime failures, if the program we try to run uses routines from libdevice.
+Searched for CUDA in the following directories:
+  ./cuda_sdk_lib
+  /usr/local/cuda-12.2
+  /usr/local/cuda
+  /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/tensorflow/python/platform/../../../nvidia/cuda_nvcc
+  /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/tensorflow/python/platform/../../../../nvidia/cuda_nvcc
+  .
+You can choose the search directory by setting xla_gpu_cuda_data_dir in HloModule's DebugOptions.  For most apps, setting the environment variable XLA_FLAGS=--xla_gpu_cuda_data_dir=/path/to/cuda will work.
+2026-03-10 17:58:29.140241: W external/local_xla/xla/service/gpu/llvm_gpu_backend/gpu_backend_lib.cc:542] libdevice is required by this HLO module but was not found at ./libdevice.10.bc
+error: libdevice not found at ./libdevice.10.bc
+2026-03-10 17:58:29.140808: E tensorflow/compiler/mlir/tools/kernel_gen/tf_framework_c_interface.cc:207] INTERNAL: Generating device code failed.
+2026-03-10 17:58:29.141887: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:29.415757: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:29.688384: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:29.960570: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:30.232433: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:30.503879: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:30.775157: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:31.046294: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:31.318176: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:31.589951: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:31.860441: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:32.131292: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:32.402218: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:32.673493: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:32.945294: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:33.216728: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:33.488281: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:33.759347: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:34.030438: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:34.301797: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:34.573653: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:34.844314: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:35.115621: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:35.386604: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:35.658969: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:35.931920: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:36.204687: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:58:36.480594: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+Success:              False
+Steps:                220
+Reward:               0.000
+Catastrophic failure: False
+LEVEL 2 PASSED
+
+============================================
+LEVEL 3: LIBERO mini sweep (quick_test.yaml)
+============================================
+2026-03-10 17:58:38,944 __main__ INFO: Trace Robotics Evaluation
+2026-03-10 17:58:38,944 __main__ INFO: Task config: configs/tasks/libero_spatial.yaml
+2026-03-10 17:58:38,944 __main__ INFO: Sweep config: configs/sweeps/quick_test.yaml
+2026-03-10 17:58:38,944 __main__ INFO: Checkpoint: (none)
+2026-03-10 17:58:38,944 __main__ INFO: Output: output/reports
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-10 17:58:40,780 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-10 17:58:40,781 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-10 17:58:40,781 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-10 17:58:43,877 __main__ INFO: Task 'libero' initialized
+2026-03-10 17:58:45.646914: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-03-10 17:58:45.647036: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-03-10 17:58:45.648098: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-03-10 17:58:45.655606: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-03-10 17:58:47.395187: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+<frozen importlib._bootstrap>:283: DeprecationWarning: the load_module() method is deprecated and slated for removal in Python 3.12; use exec_module() instead
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+Using LIBERO constants:
+  NUM_ACTIONS_CHUNK = 8
+  ACTION_DIM = 7
+  PROPRIO_DIM = 8
+  ACTION_PROPRIO_NORMALIZATION_TYPE = bounds_q99
+If needed, manually set the correct constants in `prismatic/vla/constants.py`!
+Instantiating pretrained VLA policy...
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.11it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  3.69it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  3.94it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  4.14it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.95it/s]
+2026-03-10 17:59:10.768003: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1929] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 22806 MB memory:  -> device: 0, name: NVIDIA A100-PCIE-40GB, pci bus id: 0000:e2:00.0, compute capability: 8.0
+2026-03-10 17:59:10.930396: W external/local_xla/xla/service/gpu/llvm_gpu_backend/gpu_backend_lib.cc:504] Can't find libdevice directory ${CUDA_DIR}/nvvm/libdevice. This may result in compilation or runtime failures, if the program we try to run uses routines from libdevice.
+Searched for CUDA in the following directories:
+  ./cuda_sdk_lib
+  /usr/local/cuda-12.2
+  /usr/local/cuda
+  /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/tensorflow/python/platform/../../../nvidia/cuda_nvcc
+  /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/tensorflow/python/platform/../../../../nvidia/cuda_nvcc
+  .
+You can choose the search directory by setting xla_gpu_cuda_data_dir in HloModule's DebugOptions.  For most apps, setting the environment variable XLA_FLAGS=--xla_gpu_cuda_data_dir=/path/to/cuda will work.
+2026-03-10 17:59:10.930558: W external/local_xla/xla/service/gpu/llvm_gpu_backend/gpu_backend_lib.cc:542] libdevice is required by this HLO module but was not found at ./libdevice.10.bc
+error: libdevice not found at ./libdevice.10.bc
+2026-03-10 17:59:10.930913: E tensorflow/compiler/mlir/tools/kernel_gen/tf_framework_c_interface.cc:207] INTERNAL: Generating device code failed.
+2026-03-10 17:59:10.931743: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:11.207335: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:11.480638: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:11.752499: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:12.024426: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:12.296516: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:12.568375: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:12.839078: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:13.109644: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:13.381447: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:13.653819: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:13.925045: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:14.196214: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:14.468269: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:14.740499: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:15.011358: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:15.281869: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:15.553204: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:15.825501: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:16.098399: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:16.369967: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:16.642513: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:16.914345: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:17.184876: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:17.457436: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:17.729863: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:18.002496: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:18.275963: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:19.784382: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:20.055585: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:20.327209: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:20.595675: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:20.865744: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:21.136800: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:21.407812: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:21.676291: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:21.946314: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:22.216211: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:22.484270: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:22.754810: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:23.025444: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:23.296565: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:23.567621: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:23.838408: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:24.108714: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:24.377767: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:24.645957: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:24.913815: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:25.181822: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:25.450315: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:25.718424: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:25.986315: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:26.253949: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:26.521925: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:26.790513: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:27.061169: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:28.559931: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:28.832565: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:29.104897: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:29.377288: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:29.650221: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:29.921800: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:30.192230: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:30.462118: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:30.732323: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:31.002944: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:31.273366: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:31.546621: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:31.818321: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:32.089040: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:32.359143: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:32.629390: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:32.899781: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:33.171251: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:33.444786: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:33.715299: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:33.985253: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:34.255628: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:34.525803: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:34.796430: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:35.068752: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:35.342110: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:35.612078: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:35.884793: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:37.376007: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:37.644024: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:37.911631: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:38.179369: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:38.446735: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:38.714209: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:38.982202: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:39.249295: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:39.516793: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:39.783832: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:40.050938: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:40.318449: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:40.586237: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:40.853159: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:41.119970: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:41.386769: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:41.653872: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:41.921973: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:42.188718: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:42.456731: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:42.723519: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:42.990323: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:43.257447: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:43.524078: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:43.790930: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:44.057912: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:44.326185: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:44.595376: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:46.081999: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:46.354051: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:46.625067: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:46.896912: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:47.167627: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:47.438340: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:47.709063: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:47.979572: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:48.250064: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:48.520661: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:48.790992: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:49.061183: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:49.332424: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:49.602577: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:49.872782: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:50.142536: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:50.412283: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:50.682285: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:50.952320: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:51.221960: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:51.492268: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:51.762148: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:52.032700: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:52.302834: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:52.573550: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:52.843815: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:53.113911: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:53.386095: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:54.858557: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:55.127278: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:55.395085: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:55.663232: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:55.931169: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:56.198779: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:56.465948: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:56.733863: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:57.002052: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:57.269686: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:57.537059: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:57.804260: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:58.071751: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:58.339026: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:58.606249: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:58.873510: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:59.141055: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:59.408580: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:59.677103: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 17:59:59.944448: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:00:00.211199: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:00:00.478021: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:00:00.745774: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:00:01.012479: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:00:01.280500: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:00:01.547106: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:00:01.814795: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:00:02.084419: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+[OpenVLAAdapter] Inference error: {{function_node __wrapped__Round_device_/job:localhost/replica:0/task:0/device:GPU:0}} JIT compilation failed. [Op:Round] name: 
+LEVEL 3 PASSED
+
+============================================
+LEVEL 4: LIBERO full sweep (default_sweep.yaml)
+============================================
+2026-03-10 18:00:04,432 __main__ INFO: Trace Robotics Evaluation
+2026-03-10 18:00:04,432 __main__ INFO: Task config: configs/tasks/libero_spatial.yaml
+2026-03-10 18:00:04,432 __main__ INFO: Sweep config: configs/sweeps/default_sweep.yaml
+2026-03-10 18:00:04,432 __main__ INFO: Checkpoint: (none)
+2026-03-10 18:00:04,433 __main__ INFO: Output: output/reports
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-10 18:00:18,838 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-10 18:00:18,839 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-10 18:00:18,839 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-10 18:00:53,310 __main__ INFO: Task 'libero' initialized
+2026-03-10 18:00:55.141272: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-03-10 18:00:55.141413: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-03-10 18:00:55.142471: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-03-10 18:00:55.149928: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-03-10 18:01:07.149747: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+<frozen importlib._bootstrap>:283: DeprecationWarning: the load_module() method is deprecated and slated for removal in Python 3.12; use exec_module() instead
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+Using LIBERO constants:
+  NUM_ACTIONS_CHUNK = 8
+  ACTION_DIM = 7
+  PROPRIO_DIM = 8
+  ACTION_PROPRIO_NORMALIZATION_TYPE = bounds_q99
+If needed, manually set the correct constants in `prismatic/vla/constants.py`!
+Instantiating pretrained VLA policy...
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.15it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  3.75it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  3.98it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  4.20it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  4.00it/s]
+2026-03-10 18:01:50.561047: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1929] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 22806 MB memory:  -> device: 0, name: NVIDIA A100-PCIE-40GB, pci bus id: 0000:e2:00.0, compute capability: 8.0
+2026-03-10 18:01:50.722508: W external/local_xla/xla/service/gpu/llvm_gpu_backend/gpu_backend_lib.cc:504] Can't find libdevice directory ${CUDA_DIR}/nvvm/libdevice. This may result in compilation or runtime failures, if the program we try to run uses routines from libdevice.
+Searched for CUDA in the following directories:
+  ./cuda_sdk_lib
+  /usr/local/cuda-12.2
+  /usr/local/cuda
+  /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/tensorflow/python/platform/../../../nvidia/cuda_nvcc
+  /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/tensorflow/python/platform/../../../../nvidia/cuda_nvcc
+  .
+You can choose the search directory by setting xla_gpu_cuda_data_dir in HloModule's DebugOptions.  For most apps, setting the environment variable XLA_FLAGS=--xla_gpu_cuda_data_dir=/path/to/cuda will work.
+2026-03-10 18:01:50.722687: W external/local_xla/xla/service/gpu/llvm_gpu_backend/gpu_backend_lib.cc:542] libdevice is required by this HLO module but was not found at ./libdevice.10.bc
+error: libdevice not found at ./libdevice.10.bc
+2026-03-10 18:01:50.722997: E tensorflow/compiler/mlir/tools/kernel_gen/tf_framework_c_interface.cc:207] INTERNAL: Generating device code failed.
+2026-03-10 18:01:50.723798: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:50.998782: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:51.271346: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:51.543949: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:51.816126: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:52.087935: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:52.360246: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:52.634366: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:52.906426: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:53.178098: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:53.449748: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:53.721185: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:53.992602: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:54.264423: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:54.536219: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:54.808890: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:55.083064: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:55.354525: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:55.626075: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:55.897342: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:56.169829: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:56.441574: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:56.713403: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:56.984750: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:57.258325: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:57.532047: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:57.804109: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:58.080164: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:59.596288: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:01:59.864698: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:00.134931: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:00.405969: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:00.674279: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:00.942623: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:01.212983: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:01.482984: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:01.751088: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:02.019161: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:02.289356: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:02.559741: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:02.827779: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:03.095900: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:03.365771: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:03.635417: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:03.903219: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:04.170835: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:04.440867: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:04.711285: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:04.979285: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:05.247114: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:05.517491: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:05.787300: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:06.055189: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:06.322824: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:06.593287: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:06.865160: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:08.377916: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:08.614497: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:08.852829: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:09.090142: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:09.327699: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:09.564907: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:09.802532: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:10.040804: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:10.278270: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:10.516797: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:10.756260: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:10.996238: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:11.235409: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:11.476042: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:11.716509: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:11.960321: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:12.204136: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:12.449504: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:12.700638: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:12.961951: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:13.227503: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:13.490547: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:13.754975: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:14.018830: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:14.282606: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:14.548200: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:14.815685: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:15.080015: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:16.582589: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:16.856450: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:17.128934: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:17.403170: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:17.682122: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:17.957763: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:18.230134: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:18.502547: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:18.774428: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:19.046514: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:19.319391: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:19.591963: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:19.864072: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:20.135433: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:20.406943: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:20.678507: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:20.949421: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:21.220971: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:21.492223: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:21.763871: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:22.035119: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:22.306060: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:22.577220: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:22.848240: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:23.119702: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:23.391709: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:23.663538: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:23.936610: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:25.429775: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:25.700779: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:25.971685: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:26.242699: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:26.512678: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:26.782956: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:27.053827: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:27.323932: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:27.594002: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:27.864250: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:28.134627: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:28.404938: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:28.675613: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:28.945226: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:29.215095: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:29.485143: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:29.755428: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:30.025440: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:30.295517: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:30.565279: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:30.834862: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:31.104937: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:31.374472: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:31.644505: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:31.914224: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:32.183863: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:32.454074: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:32.726863: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:34.219417: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:34.487354: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:34.754931: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:35.022281: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:35.289758: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:35.556793: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:35.824035: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:36.091194: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:36.358188: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:36.624482: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:36.891204: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:37.158294: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:37.425131: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:37.692264: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:37.959177: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:38.225570: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:38.492286: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:38.759928: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:39.027099: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:39.293876: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:39.560599: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:39.827210: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:40.093864: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:40.360439: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:40.627283: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:40.894192: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:41.161423: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:41.431105: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:42.908127: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:43.179697: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:43.450603: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:43.722694: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:43.995889: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:44.266836: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:44.537779: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:44.808335: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:45.079342: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:45.349862: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:45.620768: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:45.892307: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:46.163232: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:46.437203: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:46.708272: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:46.979834: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:47.253552: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:47.527478: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:47.801641: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:48.075866: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:48.349685: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:48.623237: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:48.897087: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:49.170391: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:49.444448: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:49.718302: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:49.992046: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:50.265999: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:51.769475: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:52.039706: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:52.309236: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:52.579258: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:52.849127: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:53.118452: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:53.388190: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:53.657959: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:53.927353: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:54.196503: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:54.465509: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:54.734809: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:55.003955: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:55.273771: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:55.543332: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:55.812821: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:56.081958: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:56.351175: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:56.620109: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:56.889152: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:57.158826: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:57.428223: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:57.697393: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:57.966682: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:58.235957: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:58.505746: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:58.775929: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:02:59.048073: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:00.527703: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:00.795980: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:01.064080: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:01.332278: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:01.600082: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:01.867935: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:02.135683: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:02.403528: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:02.671246: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:02.939149: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:03.207012: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:03.474924: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:03.742226: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:04.009787: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:04.277378: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:04.544748: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:04.812174: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:05.079868: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:05.347168: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:05.614625: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:05.882051: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:06.149635: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:06.417146: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:06.684806: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:06.952362: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:07.219934: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:07.488091: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:07.758527: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:09.251051: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:09.524144: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:09.795690: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:10.067347: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:10.338963: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:10.610308: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:10.882142: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:11.153488: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:11.425208: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:11.697707: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:11.972523: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:12.247249: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:12.522077: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:12.797607: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:13.072200: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:13.347483: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:13.622171: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:13.897422: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:14.172597: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:14.446864: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:14.719920: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:14.994145: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:15.268045: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:15.541247: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:15.814477: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:16.087523: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:16.360496: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:16.636030: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:18.118366: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:18.392985: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:18.668538: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:18.943946: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:19.216059: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:19.491167: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:19.766646: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:20.041230: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:20.313318: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:20.587945: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:20.863035: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:21.137899: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:21.410640: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:21.685292: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:21.959903: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:22.234704: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:22.506822: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:22.781608: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:23.056939: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:23.332528: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:23.604614: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:23.878922: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:24.153609: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:24.428937: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:24.701097: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:24.974649: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:25.249255: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:25.526826: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:27.008498: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:27.279794: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:27.551681: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:27.822267: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:28.090984: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:28.362487: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:28.633411: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:28.903453: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:29.172195: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:29.442824: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:29.713914: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:29.984390: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:30.252576: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:30.523301: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:30.794642: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:31.064918: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:31.333027: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:31.603508: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:31.874699: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:32.146191: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:32.415606: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:32.685324: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:32.955447: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:33.225948: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:33.495115: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:33.764289: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:34.034959: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:34.305949: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:35.768271: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:36.007012: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:36.246860: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:36.485300: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:36.722628: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:36.960598: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:37.199271: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:37.437942: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:37.676935: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:37.916621: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:38.157564: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:38.397448: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:38.639204: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:38.879943: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:39.121096: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.
+2026-03-10 18:03:39.365407: W tensorflow/core/framework/op_kernel.cc:1827] UNKNOWN: JIT compilation failed.

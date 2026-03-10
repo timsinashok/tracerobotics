@@ -1,0 +1,83 @@
+============================================
+LIBERO + OpenVLA-OFT Test Pipeline
+Node: cn006
+Date: Tue Mar 10 17:50:17 +04 2026
+Job ID: 14336992
+============================================
+
+[GPU Info]
+NVIDIA A100-PCIE-40GB, 40960 MiB, 40442 MiB
+
+============================================
+LEVEL 1: OpenVLA adapter unit tests
+============================================
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-9.0.2, pluggy-1.6.0 -- /home/at5282/.conda/envs/trace-openvla/bin/python
+cachedir: .pytest_cache
+rootdir: /scratch/at5282/trace/tracerobotics
+configfile: pyproject.toml
+plugins: typeguard-2.13.3
+collecting ... collected 17 items
+
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_metadata PASSED  [  5%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_reset_clears_buffer PASSED [ 11%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_no_model_returns_zeros PASSED [ 17%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_build_observation_format PASSED [ 23%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_image_flip PASSED [ 29%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_center_crop PASSED [ 35%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_center_crop_disabled PASSED [ 41%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_state_axis_angle_conversion PASSED [ 47%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_gripper_open_postprocess PASSED [ 52%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_gripper_close_postprocess PASSED [ 58%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_gripper_mid_postprocess PASSED [ 64%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_set_task_info PASSED [ 70%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_load_sets_loaded PASSED [ 76%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_act_with_mock PASSED [ 82%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_missing_obs_keys PASSED [ 88%]
+tests/test_openvla_adapter.py::TestQuat2AxisAngle::test_identity PASSED  [ 94%]
+tests/test_openvla_adapter.py::TestQuat2AxisAngle::test_90deg_z PASSED   [100%]
+
+============================== 17 passed in 0.12s ==============================
+LEVEL 1 PASSED
+
+============================================
+LEVEL 2: LIBERO single-episode evaluation
+============================================
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Traceback (most recent call last):
+  File "<string>", line 11, in <module>
+  File "/scratch/at5282/trace/tracerobotics/trace/config_loader.py", line 64, in create_task
+    task.initialize()
+  File "/scratch/at5282/trace/tracerobotics/trace/task_spec/libero_task.py", line 66, in initialize
+    self._env = OffScreenRenderEnv(
+  File "/scratch/at5282/trace/openpi/third_party/libero/libero/libero/envs/env_wrapper.py", line 161, in __init__
+    super().__init__(**kwargs)
+  File "/scratch/at5282/trace/openpi/third_party/libero/libero/libero/envs/env_wrapper.py", line 56, in __init__
+    self.env = TASK_MAPPING[self.problem_name](
+  File "/scratch/at5282/trace/openpi/third_party/libero/libero/libero/envs/problems/libero_tabletop_manipulation.py", line 40, in __init__
+    super().__init__(bddl_file_name, *args, **kwargs)
+  File "/scratch/at5282/trace/openpi/third_party/libero/libero/libero/envs/bddl_base_domain.py", line 135, in __init__
+    super().__init__(
+  File "/home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/environments/manipulation/manipulation_env.py", line 162, in __init__
+    super().__init__(
+  File "/home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/environments/robot_env.py", line 214, in __init__
+    super().__init__(
+  File "/home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/environments/base.py", line 143, in __init__
+    self._reset_internal()
+  File "/scratch/at5282/trace/openpi/third_party/libero/libero/libero/envs/bddl_base_domain.py", line 735, in _reset_internal
+    super()._reset_internal()
+  File "/home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/environments/robot_env.py", line 520, in _reset_internal
+    robot.reset(deterministic=self.deterministic_reset)
+  File "/home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/robots/single_arm.py", line 176, in reset
+    super().reset(deterministic)
+  File "/home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/robots/robot.py", line 148, in reset
+    self.base_ori = T.mat2quat(self.sim.data.get_body_xmat(self.robot_model.root_body).reshape((3, 3)))
+TypeError: can't unbox array from PyObject into native value.  The object maybe of a different type
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
