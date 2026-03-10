@@ -1,6 +1,6 @@
 # Trace Robotics — Development Progress
 
-**Last updated:** 2026-03-04
+**Last updated:** 2026-03-10
 
 ---
 
@@ -317,22 +317,73 @@ A "generic" adapter would become a config monster harder to debug than separate 
 - **PDF output** — polished reports beyond markdown for sharing with stakeholders
 - **Multi-task aggregation** — roll up results across all tasks in a suite into a single suite-level report
 
-### Second Policy (proves the framework is model-agnostic)
+### Phase 8: NVIDIA GR00T N1 Integration [PLANNED — next sprint]
 
-- **Add Octo or OpenVLA adapter** — writing the second adapter reveals any hidden pi0 assumptions baked into the code. If a completely different VLA model plugs in cleanly, the framework is genuinely general
-- **Keep it to a separate file** — `trace/policy_adapter/octo_adapter.py` (~200 lines), register in `POLICY_REGISTRY`, add a task config, done
-- **Compare against pi0** — first real multi-policy robustness comparison
+Second policy adapter — proves Trace is model-agnostic by evaluating a completely different VLA architecture on the same LIBERO tasks under the same stressors.
+
+**Why GR00T:**
+- Fully open-source: weights on HuggingFace (`nvidia/GR00T-N1-2B`), code on GitHub (`NVIDIA/Isaac-GR00T`)
+- Already has LIBERO support — NVIDIA provides finetuned checkpoints and evaluation scripts
+- NVIDIA's published LIBERO results: Spatial 97.65%, Goal 97.5%, Object 98.45%, 10 Long 94.35%
+- Similar server-client architecture to pi0 (ZeroMQ instead of WebSocket) — adapter pattern is the same
+- Different model architecture (diffusion-based VLA) — good diversity for comparative analysis
+- 2B parameter model, runs on A100
+
+**GR00T architecture (relevant for adapter):**
+- **Server:** `run_gr00t_server.py` with ZeroMQ, started with `--embodiment-tag LIBERO_PANDA --model-path <checkpoint> --use-sim-policy-wrapper`
+- **Client:** `PolicyClient(host, port)` with `get_action()` — lightweight, no GPU deps on client side
+- **Observation format:** nested dict with `video` (B,T,H,W,3 uint8), `state` (B,T,D float32), `language` (list of strings)
+- **Action format:** dict of arrays (B, T_action, D) — joint-space actions, not Cartesian deltas
+- **Action chunking:** 16-step action horizon (vs pi0's 50), 8 steps executed per call (`n_action_steps=8`)
+- **State format:** 8-DoF joint positions (vs pi0's axis-angle EE state)
+- **Images:** dual RGB streams (agentview + wrist), likely 224x224
+
+**Adapter plan (`trace/policy_adapter/groot_adapter.py`, ~200-250 lines):**
+1. ZeroMQ client connecting to GR00T server (or use NVIDIA's `PolicyClient` directly)
+2. Observation transform: Trace's flat `Observation` dict → GR00T's nested `{video, state, language}` format
+3. Action transform: GR00T's joint-space dict → flat numpy array for `task.step()`
+4. Action chunk buffering (execute 8 of 16 predicted steps)
+5. `set_env()` / `set_task_info()` for LIBERO task metadata
+
+**Key differences from pi0 adapter:**
+| Aspect | Pi0 Adapter | GR00T Adapter |
+|--------|-------------|---------------|
+| Protocol | WebSocket | ZeroMQ |
+| State format | axis-angle EE pose (8-dim) | Joint positions (8-DoF) |
+| Action space | Cartesian delta (7-dim) | Joint-space (8-dim) |
+| Action chunk | 50 predicted, 5 executed | 16 predicted, 8 executed |
+| Image rotation | 180° flip | None expected |
+| Client library | `openpi_client` | `gr00t.policy.server_client.PolicyClient` |
+
+**Setup steps:**
+1. Clone `NVIDIA/Isaac-GR00T` repo
+2. Download finetuned LIBERO checkpoint from HuggingFace (`IPEC-COMMUNITY/libero_*` datasets + finetuned weights)
+3. Install GR00T deps (separate from openpi — may need a dedicated conda env or venv)
+4. Write `groot_adapter.py`
+5. Create `test_libero_groot.sbatch`
+6. Run comparative evaluation: same 9 stressors, same LIBERO tasks, GR00T vs pi0.5
+
+**Expected outcome:** First multi-model robustness comparison — "pi0.5 breaks at 100ms latency, GR00T breaks at Xms" — proves Trace is the neutral evaluation layer, not a single-model tool.
+
+---
+
+### Comparative Reporting
+
+- **Side-by-side tables** — same stressor, same task, different models
+- **Degradation plots** — matplotlib curves showing success rate vs intensity per model
+- **PDF output** — polished reports beyond markdown for stakeholders / investors
+- **Multi-task aggregation** — roll up results across all tasks in a suite
 
 ### Deeper Evaluation
 
 - **Stressor combinations** — real-world failures are compound (latency + image noise simultaneously). Currently stressors stack sequentially but aren't tested in combination sweeps
-- **Try other LIBERO suites** — `libero_object`, `libero_goal`, `libero_10` for harder manipulation tasks
-- **Video recording** — save episode replays for qualitative failure analysis (openpi example already does this)
-- **Task difficulty correlation** — does pi0 degrade faster on harder tasks? Compare breakpoint intensities across suites
+- **All LIBERO suites** — `libero_object`, `libero_goal`, `libero_10` for harder tasks
+- **Video recording** — save episode replays for qualitative failure analysis
+- **Task difficulty correlation** — does degradation vary by task complexity?
 
 ### Stretch Goals
 
-- **CI pipeline** — run unit tests on every push (the LIBERO tests need `pytest.importorskip` which already handles this)
+- **CI pipeline** — run unit tests on every push
 - **Benchmark database** — store results across runs for tracking model improvements over time
-- **Custom task authoring** — make it easy for users to define new tasks beyond LIBERO (e.g., real-world sim environments)
-- **Fine-tuning feedback loop** — use Trace reports to identify failure modes, then fine-tune models on those specific scenarios
+- **Custom task authoring** — make it easy for users to define new tasks beyond LIBERO
+- **Fine-tuning feedback loop** — use Trace reports to identify failure modes, then fine-tune on those scenarios
