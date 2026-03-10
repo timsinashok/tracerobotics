@@ -11,6 +11,7 @@ import sys
 
 from trace.config_loader import create_task, load_sweep_configs, load_task_config
 from trace.policy_adapter.groot_adapter import GR00TAdapter
+from trace.policy_adapter.openvla_adapter import OpenVLAAdapter
 from trace.policy_adapter.pi0_adapter import Pi0PolicyAdapter
 from trace.policy_adapter.random_policy import RandomPolicy
 from trace.policy_adapter.scripted_reach import ScriptedReachPolicy
@@ -24,6 +25,7 @@ POLICY_REGISTRY: dict[str, type] = {
     "scripted_reach": ScriptedReachPolicy,
     "pi0": Pi0PolicyAdapter,
     "groot": GR00TAdapter,
+    "openvla": OpenVLAAdapter,
 }
 
 
@@ -85,6 +87,18 @@ def main() -> None:
         help="GR00T ZeroMQ server port",
     )
     parser.add_argument(
+        "--openvla-checkpoint",
+        type=str,
+        default="moojink/openvla-7b-oft-finetuned-libero-spatial",
+        help="OpenVLA HuggingFace checkpoint ID or local path",
+    )
+    parser.add_argument(
+        "--openvla-repo-path",
+        type=str,
+        default=None,
+        help="Path to cloned openvla-oft repo (added to sys.path)",
+    )
+    parser.add_argument(
         "--output",
         type=str,
         default="output/reports",
@@ -143,6 +157,15 @@ def main() -> None:
                 host=args.groot_host,
                 port=args.groot_port,
                 chunk_size=chunk_size,
+            )
+            policy.set_task_info(task.language_instruction)
+            policy.load("")
+        elif args.policy == "openvla":
+            chunk_size = args.chunk_size if args.chunk_size != 5 else 8  # default 8 for openvla
+            policy = OpenVLAAdapter(
+                checkpoint=args.openvla_checkpoint,
+                chunk_size=chunk_size,
+                openvla_repo_path=args.openvla_repo_path,
             )
             policy.set_task_info(task.language_instruction)
             policy.load("")
