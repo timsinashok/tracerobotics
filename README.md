@@ -8,6 +8,8 @@
 
 Robotics is entering a new phase driven by **multimodal foundation policies**—vision-language-action models that promise generality across tasks, environments, and embodiments. Companies are rapidly moving from controlled demos to real-world deployments in warehouses, factories, and human environments.
 
+"Every company deploying robot foundation models is shipping without knowing when their model will fail. We found that pi0.5 — the most-funded model in robotics — breaks catastrophically with just 100ms of communication delay. Trace is the platform that finds these failures before they happen in production."
+
 However, **evaluation has not kept pace with capability**.
 
 Today, most foundation robot policies are validated through:
