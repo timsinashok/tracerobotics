@@ -10,6 +10,7 @@ import logging
 import sys
 
 from trace.config_loader import create_task, load_sweep_configs, load_task_config
+from trace.policy_adapter.groot_adapter import GR00TAdapter
 from trace.policy_adapter.pi0_adapter import Pi0PolicyAdapter
 from trace.policy_adapter.random_policy import RandomPolicy
 from trace.policy_adapter.scripted_reach import ScriptedReachPolicy
@@ -22,6 +23,7 @@ logger = logging.getLogger(__name__)
 POLICY_REGISTRY: dict[str, type] = {
     "scripted_reach": ScriptedReachPolicy,
     "pi0": Pi0PolicyAdapter,
+    "groot": GR00TAdapter,
 }
 
 
@@ -68,7 +70,19 @@ def main() -> None:
         "--chunk-size",
         type=int,
         default=5,
-        help="Number of actions per pi0 inference call",
+        help="Number of actions per inference call (pi0: 5, groot: 8)",
+    )
+    parser.add_argument(
+        "--groot-host",
+        type=str,
+        default="localhost",
+        help="GR00T ZeroMQ server host",
+    )
+    parser.add_argument(
+        "--groot-port",
+        type=int,
+        default=5555,
+        help="GR00T ZeroMQ server port",
     )
     parser.add_argument(
         "--output",
@@ -121,6 +135,15 @@ def main() -> None:
                 state_format=state_format,
             )
             policy.set_env(task.get_mujoco_model(), task.get_mujoco_data())
+            policy.set_task_info(task.language_instruction)
+            policy.load("")
+        elif args.policy == "groot":
+            chunk_size = args.chunk_size if args.chunk_size != 5 else 8  # default 8 for groot
+            policy = GR00TAdapter(
+                host=args.groot_host,
+                port=args.groot_port,
+                chunk_size=chunk_size,
+            )
             policy.set_task_info(task.language_instruction)
             policy.load("")
         else:
