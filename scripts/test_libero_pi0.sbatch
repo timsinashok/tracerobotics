@@ -40,6 +40,7 @@ echo "============================================"
 source /share/apps/NYUAD5/miniconda/3-4.11.0/etc/profile.d/conda.sh
 conda activate trace-pi0
 export SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt
+export OPENPI_DATA_HOME=/scratch/at5282/.cache/openpi
 
 echo ""
 echo "[GPU Info]"

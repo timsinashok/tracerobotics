@@ -1,0 +1,141 @@
+============================================
+LIBERO + OpenVLA-OFT Test Pipeline
+Node: cn007
+Date: Fri Mar 13 05:16:17 +04 2026
+Job ID: 14358840
+============================================
+
+[GPU Info]
+NVIDIA A100-PCIE-40GB, 40960 MiB, 40442 MiB
+
+============================================
+LEVEL 1: OpenVLA adapter unit tests
+============================================
+============================= test session starts ==============================
+platform linux -- Python 3.10.20, pytest-9.0.2, pluggy-1.6.0 -- /home/at5282/.conda/envs/trace-openvla/bin/python
+cachedir: .pytest_cache
+rootdir: /scratch/at5282/trace/tracerobotics
+configfile: pyproject.toml
+plugins: typeguard-2.13.3
+collecting ... collected 17 items
+
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_metadata PASSED  [  5%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_reset_clears_buffer PASSED [ 11%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_no_model_returns_zeros PASSED [ 17%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_build_observation_format PASSED [ 23%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_image_flip PASSED [ 29%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_center_crop PASSED [ 35%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_center_crop_disabled PASSED [ 41%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_state_axis_angle_conversion PASSED [ 47%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_gripper_open_postprocess PASSED [ 52%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_gripper_close_postprocess PASSED [ 58%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_gripper_mid_postprocess PASSED [ 64%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_set_task_info PASSED [ 70%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_load_sets_loaded PASSED [ 76%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_act_with_mock PASSED [ 82%]
+tests/test_openvla_adapter.py::TestOpenVLAAdapter::test_missing_obs_keys PASSED [ 88%]
+tests/test_openvla_adapter.py::TestQuat2AxisAngle::test_identity PASSED  [ 94%]
+tests/test_openvla_adapter.py::TestQuat2AxisAngle::test_90deg_z PASSED   [100%]
+
+============================== 17 passed in 0.12s ==============================
+LEVEL 1 PASSED
+
+============================================
+LEVEL 2: LIBERO single-episode evaluation
+============================================
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+Task: libero
+Language instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+Using LIBERO constants:
+  NUM_ACTIONS_CHUNK = 8
+  ACTION_DIM = 7
+  PROPRIO_DIM = 8
+  ACTION_PROPRIO_NORMALIZATION_TYPE = bounds_q99
+If needed, manually set the correct constants in `prismatic/vla/constants.py`!
+Instantiating pretrained VLA policy...
+<frozen importlib._bootstrap>:283: DeprecationWarning: the load_module() method is deprecated and slated for removal in Python 3.12; use exec_module() instead
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  2.03it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  2.80it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  3.17it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.64it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.24it/s]
+Success:              True
+Steps:                73
+Reward:               1.000
+Catastrophic failure: False
+LEVEL 2 PASSED
+
+============================================
+LEVEL 3: LIBERO mini sweep (quick_test.yaml)
+============================================
+2026-03-13 05:17:11,745 __main__ INFO: Trace Robotics Evaluation
+2026-03-13 05:17:11,745 __main__ INFO: Task config: configs/tasks/libero_spatial.yaml
+2026-03-13 05:17:11,746 __main__ INFO: Sweep config: configs/sweeps/quick_test.yaml
+2026-03-13 05:17:11,746 __main__ INFO: Checkpoint: (none)
+2026-03-13 05:17:11,746 __main__ INFO: Output: output/reports
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-13 05:17:13,326 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-13 05:17:13,326 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-13 05:17:13,326 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+2026-03-13 05:17:16,169 __main__ INFO: Task 'libero' initialized
+Using LIBERO constants:
+  NUM_ACTIONS_CHUNK = 8
+  ACTION_DIM = 7
+  PROPRIO_DIM = 8
+  ACTION_PROPRIO_NORMALIZATION_TYPE = bounds_q99
+If needed, manually set the correct constants in `prismatic/vla/constants.py`!
+Instantiating pretrained VLA policy...
+<frozen importlib._bootstrap>:283: DeprecationWarning: the load_module() method is deprecated and slated for removal in Python 3.12; use exec_module() instead
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.24it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  3.84it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  4.09it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  4.32it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  4.11it/s]
+LEVEL 3 PASSED
+
+============================================
+LEVEL 4: LIBERO full sweep (default_sweep.yaml)
+============================================
+2026-03-13 05:18:47,049 __main__ INFO: Trace Robotics Evaluation
+2026-03-13 05:18:47,049 __main__ INFO: Task config: configs/tasks/libero_spatial.yaml
+2026-03-13 05:18:47,049 __main__ INFO: Sweep config: configs/sweeps/default_sweep.yaml
+2026-03-13 05:18:47,049 __main__ INFO: Checkpoint: (none)
+2026-03-13 05:18:47,049 __main__ INFO: Output: output/reports
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-13 05:18:48,604 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-13 05:18:48,605 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-13 05:18:48,605 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-openvla/lib/python3.10/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+2026-03-13 05:18:51,369 __main__ INFO: Task 'libero' initialized
+Using LIBERO constants:
+  NUM_ACTIONS_CHUNK = 8
+  ACTION_DIM = 7
+  PROPRIO_DIM = 8
+  ACTION_PROPRIO_NORMALIZATION_TYPE = bounds_q99
+If needed, manually set the correct constants in `prismatic/vla/constants.py`!
+Instantiating pretrained VLA policy...
+<frozen importlib._bootstrap>:283: DeprecationWarning: the load_module() method is deprecated and slated for removal in Python 3.12; use exec_module() instead
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.24it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  3.85it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  4.09it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  4.31it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  4.11it/s]
+LEVEL 4 PASSED
+
+============================================
+ALL LIBERO + OpenVLA TESTS PASSED
+============================================

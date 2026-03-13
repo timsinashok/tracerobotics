@@ -1,0 +1,44 @@
+warning: The `tool.uv.dev-dependencies` field (used in `packages/openpi-client/pyproject.toml`) is deprecated and will be removed in a future release; use `dependency-groups.dev` instead
+INFO:openpi.shared.download:Downloading gs://openpi-assets/checkpoints/pi05_libero to /scratch/at5282/.cache/openpi/openpi-assets/checkpoints/pi05_libero
+INFO:tqdm_loggable.tqdm_logging:Progress on: -/12439085481 rate:- remaining:? elapsed:00:00 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 681MiB/11.6GiB rate:93,856,004.8iB/s remaining:02:04 elapsed:00:10 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 1.72GiB/11.6GiB rate:113,326,709.6iB/s remaining:01:33 elapsed:00:20 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 2.77GiB/11.6GiB rate:112,946,108.4iB/s remaining:01:23 elapsed:00:30 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 3.83GiB/11.6GiB rate:113,884,838.6iB/s remaining:01:13 elapsed:00:40 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 4.89GiB/11.6GiB rate:114,482,959.5iB/s remaining:01:02 elapsed:00:50 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 5.94GiB/11.6GiB rate:113,274,902.0iB/s remaining:00:53 elapsed:01:00 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 7.00GiB/11.6GiB rate:113,225,906.2iB/s remaining:00:43 elapsed:01:10 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 8.06GiB/11.6GiB rate:114,108,563.2iB/s remaining:00:33 elapsed:01:20 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 9.12GiB/11.6GiB rate:114,349,949.8iB/s remaining:00:23 elapsed:01:30 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 9.88GiB/11.6GiB rate:79,380,228.4iB/s remaining:00:23 elapsed:01:40 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 10.6GiB/11.6GiB rate:77,153,410.2iB/s remaining:00:13 elapsed:01:50 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 11.2GiB/11.6GiB rate:60,486,362.9iB/s remaining:00:06 elapsed:02:00 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 11.5GiB/11.6GiB rate:22,915,668.7iB/s remaining:00:02 elapsed:02:10 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 11.6GiB/11.6GiB rate:21,507,446.8iB/s remaining:00:00 elapsed:02:13 postfix:-
+INFO:root:Loading model...
+INFO:2026-03-13 05:39:15,293:jax._src.xla_bridge:925: Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+INFO:jax._src.xla_bridge:Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+INFO:2026-03-13 05:39:15,294:jax._src.xla_bridge:925: Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+INFO:jax._src.xla_bridge:Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+INFO:absl:orbax-checkpoint version: 0.11.13
+INFO:absl:Created BasePyTreeCheckpointHandler: use_ocdbt=True, use_zarr3=False, pytree_metadata_options=PyTreeMetadataOptions(support_rich_types=False), array_metadata_store=<orbax.checkpoint._src.metadata.array_metadata_store.Store object at 0x15545d196190>
+INFO:absl:Restoring checkpoint from /scratch/at5282/.cache/openpi/openpi-assets/checkpoints/pi05_libero/params.
+INFO:absl:[thread=MainThread] Failed to get flag value for EXPERIMENTAL_ORBAX_USE_DISTRIBUTED_PROCESS_ID.
+INFO:absl:[process=0] /jax/checkpoint/read/bytes_per_sec: 903.0 MiB/s (total bytes: 6.2 GiB) (time elapsed: 7 seconds) (per-host)
+INFO:absl:Finished restoring checkpoint in 7.09 seconds from /scratch/at5282/.cache/openpi/openpi-assets/checkpoints/pi05_libero/params.
+INFO:openpi.shared.download:Downloading gs://big_vision/paligemma_tokenizer.model to /scratch/at5282/.cache/openpi/big_vision/paligemma_tokenizer.model
+INFO:tqdm_loggable.tqdm_logging:Progress on: -/4264023 rate:- remaining:? elapsed:00:00 postfix:-
+INFO:tqdm_loggable.tqdm_logging:Progress on: 4.07MiB/4.07MiB rate:4,260,186.7iB/s remaining:00:00 elapsed:00:01 postfix:-
+INFO:root:Norm stats not found in /scratch/at5282/trace/openpi/assets/pi05_libero/physical-intelligence/libero, skipping.
+INFO:root:Loaded norm stats from /scratch/at5282/.cache/openpi/openpi-assets/checkpoints/pi05_libero/assets/physical-intelligence/libero
+INFO:root:Creating server (host: cn008, ip: 10.10.1.8)
+INFO:websockets.server:server listening on 0.0.0.0:8000
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 42328) opened
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 42328) closed
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 47474) opened
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 47474) closed
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 43676) opened
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 43676) closed
