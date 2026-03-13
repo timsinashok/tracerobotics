@@ -46,7 +46,7 @@ We evaluated Pi0.5 (Physical Intelligence) and OpenVLA-OFT (Stanford) — two ar
 
 Key findings:
 
-Both models break at the same latency threshold (intensity 0.30 = 100ms) despite having completely different architectures, action chunking strategies, and inference pipelines. This suggests latency fragility is a systemic property of current VLA policies, not a model-specific bug.
+Both models collapse between 60–100ms of added control latency (intensity 0.30–0.50 at 50Hz) despite having completely different architectures, action chunking strategies, and inference pipelines. OpenVLA breaks at ~60ms (3 steps); Pi0.5 at ~100ms (5 steps). This suggests latency fragility is a systemic property of current VLA policies, not a model-specific bug.
 
 OpenVLA is robust to 5 of 9 stressors (image noise, occlusion, brightness, embodiment, physics shifts — all 100% at max intensity) but fragile to latency, observation dropout, and long-horizon drift.
 

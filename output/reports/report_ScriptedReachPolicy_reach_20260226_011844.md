@@ -1,86 +1,87 @@
 # Trace Robotics — Robustness Report
 
-**Policy:** ScriptedReachPolicy  
-**Task:** reach  
-**Modalities:** proprioception  
+**Policy:** ScriptedReachPolicy
+**Task:** reach
+**Modalities:** proprioception
 **Generated:** 2026-02-26 01:18
+**Control frequency:** 50Hz (20ms per step)
 
 ---
 
 ## Executive Summary
 
-- **LatencyStressor**: baseline 0% success, max degradation 0%, breakpoint at intensity 0.00
-- **DropoutStressor**: baseline 0% success, max degradation 0%, breakpoint at intensity 0.00
+- **LatencyStressor**: baseline 0% success, max degradation 0%, breakpoint at intensity 0.00 (0ms)
+- **DropoutStressor**: baseline 0% success, max degradation 0%, breakpoint at intensity 0.00 (0% dropout)
 - **PhysicsShiftStressor**: baseline 0% success, max degradation 0%, breakpoint at intensity 0.00
 - **EmbodimentStressor**: baseline 0% success, max degradation 0%, breakpoint at intensity 0.00
 - **LongHorizonDriftStressor**: baseline 0% success, max degradation 0%, breakpoint at intensity 0.00
 
 ## LatencyStressor
 
-| Intensity | Success Rate | Catastrophic | Avg Reward | Avg Steps |
-|-----------|-------------|-------------|------------|-----------|
-| 0.00 | 0% | 0% | -146.38 | 200 |
-| 0.10 | 0% | 0% | -146.37 | 200 |
-| 0.20 | 0% | 0% | -146.38 | 200 |
-| 0.30 | 0% | 0% | -146.39 | 200 |
-| 0.50 | 0% | 0% | -146.40 | 200 |
-| 0.70 | 0% | 0% | -146.42 | 200 |
-| 1.00 | 0% | 0% | -146.44 | 200 |
+| Intensity | Real-World Delay | Success Rate | Catastrophic | Avg Reward | Avg Steps |
+|-----------|------------------|-------------|-------------|------------|-----------|
+| 0.00 | 0ms (0 steps) | 0% | 0% | -146.38 | 200 |
+| 0.10 | 20ms (1 steps) | 0% | 0% | -146.37 | 200 |
+| 0.20 | 40ms (2 steps) | 0% | 0% | -146.38 | 200 |
+| 0.30 | 60ms (3 steps) | 0% | 0% | -146.39 | 200 |
+| 0.50 | 100ms (5 steps) | 0% | 0% | -146.40 | 200 |
+| 0.70 | 140ms (7 steps) | 0% | 0% | -146.42 | 200 |
+| 1.00 | 200ms (10 steps) | 0% | 0% | -146.44 | 200 |
 
 ## DropoutStressor
 
-| Intensity | Success Rate | Catastrophic | Avg Reward | Avg Steps |
-|-----------|-------------|-------------|------------|-----------|
-| 0.00 | 0% | 0% | -146.38 | 200 |
-| 0.10 | 0% | 0% | -146.19 | 200 |
-| 0.20 | 0% | 0% | -146.21 | 200 |
-| 0.30 | 0% | 0% | -146.32 | 200 |
-| 0.50 | 0% | 0% | -146.79 | 200 |
-| 0.70 | 0% | 0% | -147.22 | 200 |
-| 1.00 | 0% | 0% | -147.73 | 200 |
+| Intensity | Drop Probability | Success Rate | Catastrophic | Avg Reward | Avg Steps |
+|-----------|------------------|-------------|-------------|------------|-----------|
+| 0.00 | 0% drop prob | 0% | 0% | -146.38 | 200 |
+| 0.10 | 10% drop prob | 0% | 0% | -146.19 | 200 |
+| 0.20 | 20% drop prob | 0% | 0% | -146.21 | 200 |
+| 0.30 | 30% drop prob | 0% | 0% | -146.32 | 200 |
+| 0.50 | 50% drop prob | 0% | 0% | -146.79 | 200 |
+| 0.70 | 70% drop prob | 0% | 0% | -147.22 | 200 |
+| 1.00 | 100% drop prob | 0% | 0% | -147.73 | 200 |
 
 ## PhysicsShiftStressor
 
-| Intensity | Success Rate | Catastrophic | Avg Reward | Avg Steps |
-|-----------|-------------|-------------|------------|-----------|
-| 0.00 | 0% | 0% | -146.38 | 200 |
-| 0.10 | 0% | 0% | -146.38 | 200 |
-| 0.20 | 0% | 0% | -146.38 | 200 |
-| 0.30 | 0% | 0% | -146.38 | 200 |
-| 0.50 | 0% | 0% | -146.38 | 200 |
-| 0.70 | 0% | 0% | -146.38 | 200 |
-| 1.00 | 0% | 0% | -146.38 | 200 |
+| Intensity | Physics Perturbation | Success Rate | Catastrophic | Avg Reward | Avg Steps |
+|-----------|----------------------|-------------|-------------|------------|-----------|
+| 0.00 | nominal | 0% | 0% | -146.38 | 200 |
+| 0.10 | mass 0.9-1.1x, fric 0.9-1.1x | 0% | 0% | -146.38 | 200 |
+| 0.20 | mass 0.9-1.2x, fric 0.9-1.1x | 0% | 0% | -146.38 | 200 |
+| 0.30 | mass 0.8-1.3x, fric 0.8-1.1x | 0% | 0% | -146.38 | 200 |
+| 0.50 | mass 0.8-1.5x, fric 0.7-1.2x | 0% | 0% | -146.38 | 200 |
+| 0.70 | mass 0.7-1.7x, fric 0.5-1.4x | 0% | 0% | -146.38 | 200 |
+| 1.00 | mass 0.5-2.0x, fric 0.3-1.5x | 0% | 0% | -146.38 | 200 |
 
 ## EmbodimentStressor
 
-| Intensity | Success Rate | Catastrophic | Avg Reward | Avg Steps |
-|-----------|-------------|-------------|------------|-----------|
-| 0.00 | 0% | 0% | -146.38 | 200 |
-| 0.10 | 0% | 0% | -146.39 | 200 |
-| 0.20 | 0% | 0% | -146.40 | 200 |
-| 0.30 | 0% | 0% | -146.40 | 200 |
-| 0.50 | 0% | 0% | -146.42 | 200 |
-| 0.70 | 0% | 0% | -146.44 | 200 |
-| 1.00 | 0% | 0% | -146.46 | 200 |
+| Intensity | Embodiment Perturbation | Success Rate | Catastrophic | Avg Reward | Avg Steps |
+|-----------|-------------------------|-------------|-------------|------------|-----------|
+| 0.00 | nominal | 0% | 0% | -146.38 | 200 |
+| 0.10 | links 0.99-1.01x, gains 0.97-1.03x | 0% | 0% | -146.39 | 200 |
+| 0.20 | links 0.98-1.02x, gains 0.94-1.06x | 0% | 0% | -146.40 | 200 |
+| 0.30 | links 0.97-1.03x, gains 0.91-1.09x | 0% | 0% | -146.40 | 200 |
+| 0.50 | links 0.95-1.05x, gains 0.85-1.15x | 0% | 0% | -146.42 | 200 |
+| 0.70 | links 0.93-1.07x, gains 0.79-1.21x | 0% | 0% | -146.44 | 200 |
+| 1.00 | links 0.90-1.10x, gains 0.70-1.30x | 0% | 0% | -146.46 | 200 |
 
 ## LongHorizonDriftStressor
 
-| Intensity | Success Rate | Catastrophic | Avg Reward | Avg Steps |
-|-----------|-------------|-------------|------------|-----------|
-| 0.00 | 0% | 0% | -146.38 | 200 |
-| 0.10 | 0% | 0% | -146.21 | 200 |
-| 0.20 | 0% | 0% | -146.15 | 200 |
-| 0.30 | 0% | 0% | -146.19 | 200 |
-| 0.50 | 0% | 0% | -146.39 | 200 |
-| 0.70 | 0% | 0% | -146.59 | 200 |
-| 1.00 | 0% | 0% | -146.80 | 200 |
+| Intensity | Drift Magnitude | Success Rate | Catastrophic | Avg Reward | Avg Steps |
+|-----------|-----------------|-------------|-------------|------------|-----------|
+| 0.00 | no drift | 0% | 0% | -146.38 | 200 |
+| 0.10 | obs noise 0.10, act noise 0.05 @step100 | 0% | 0% | -146.21 | 200 |
+| 0.20 | obs noise 0.20, act noise 0.10 @step100 | 0% | 0% | -146.15 | 200 |
+| 0.30 | obs noise 0.30, act noise 0.15 @step100 | 0% | 0% | -146.19 | 200 |
+| 0.50 | obs noise 0.50, act noise 0.25 @step100 | 0% | 0% | -146.39 | 200 |
+| 0.70 | obs noise 0.70, act noise 0.35 @step100 | 0% | 0% | -146.59 | 200 |
+| 1.00 | obs noise 1.00, act noise 0.50 @step100 | 0% | 0% | -146.80 | 200 |
 
 ## Breakpoints
 
 The intensity at which success rate drops below 50%:
 
-- **LatencyStressor**: fails at intensity **0.00**
-- **DropoutStressor**: fails at intensity **0.00**
+- **LatencyStressor**: fails at intensity **0.00** (0ms)
+- **DropoutStressor**: fails at intensity **0.00** (0% dropout)
 - **PhysicsShiftStressor**: fails at intensity **0.00**
 - **EmbodimentStressor**: fails at intensity **0.00**
 - **LongHorizonDriftStressor**: fails at intensity **0.00**

@@ -1,29 +1,30 @@
 # Trace Robotics — Robustness Report
 
-**Policy:** Pi0PolicyAdapter  
-**Task:** reach  
-**Modalities:** vision, proprioception  
+**Policy:** Pi0PolicyAdapter
+**Task:** reach
+**Modalities:** vision, proprioception
 **Generated:** 2026-03-04 15:56
+**Control frequency:** 50Hz (20ms per step)
 
 ---
 
 ## Executive Summary
 
-- **LatencyStressor**: baseline 0% success, max degradation 0%, breakpoint at intensity 0.00
+- **LatencyStressor**: baseline 0% success, max degradation 0%, breakpoint at intensity 0.00 (0ms)
 
 ## LatencyStressor
 
-| Intensity | Success Rate | Catastrophic | Avg Reward | Avg Steps |
-|-----------|-------------|-------------|------------|-----------|
-| 0.00 | 0% | 0% | -168.92 | 200 |
-| 0.50 | 0% | 0% | -163.07 | 200 |
-| 1.00 | 0% | 0% | -159.36 | 200 |
+| Intensity | Real-World Delay | Success Rate | Catastrophic | Avg Reward | Avg Steps |
+|-----------|------------------|-------------|-------------|------------|-----------|
+| 0.00 | 0ms (0 steps) | 0% | 0% | -168.92 | 200 |
+| 0.50 | 100ms (5 steps) | 0% | 0% | -163.07 | 200 |
+| 1.00 | 200ms (10 steps) | 0% | 0% | -159.36 | 200 |
 
 ## Breakpoints
 
 The intensity at which success rate drops below 50%:
 
-- **LatencyStressor**: fails at intensity **0.00**
+- **LatencyStressor**: fails at intensity **0.00** (0ms)
 
 ---
 
