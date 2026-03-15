@@ -13,6 +13,7 @@ from trace.config_loader import create_task, load_sweep_configs, load_task_confi
 from trace.policy_adapter.groot_adapter import GR00TAdapter
 from trace.policy_adapter.openvla_adapter import OpenVLAAdapter
 from trace.policy_adapter.pi0_adapter import Pi0PolicyAdapter
+from trace.policy_adapter.pi0fast_adapter import Pi0FastAdapter
 from trace.policy_adapter.random_policy import RandomPolicy
 from trace.policy_adapter.scripted_reach import ScriptedReachPolicy
 from trace.report.generator import ReportGenerator
@@ -24,6 +25,7 @@ logger = logging.getLogger(__name__)
 POLICY_REGISTRY: dict[str, type] = {
     "scripted_reach": ScriptedReachPolicy,
     "pi0": Pi0PolicyAdapter,
+    "pi0fast": Pi0FastAdapter,
     "groot": GR00TAdapter,
     "openvla": OpenVLAAdapter,
 }
@@ -99,6 +101,12 @@ def main() -> None:
         help="Path to cloned openvla-oft repo (added to sys.path)",
     )
     parser.add_argument(
+        "--pi0fast-model",
+        type=str,
+        default=None,
+        help="HuggingFace model ID for pi0fast (default: lerobot/pi0fast-libero)",
+    )
+    parser.add_argument(
         "--output",
         type=str,
         default="output/reports",
@@ -149,6 +157,13 @@ def main() -> None:
                 state_format=state_format,
             )
             policy.set_env(task.get_mujoco_model(), task.get_mujoco_data())
+            policy.set_task_info(task.language_instruction)
+            policy.load("")
+        elif args.policy == "pi0fast":
+            policy = Pi0FastAdapter(
+                model_id=args.pi0fast_model or "lerobot/pi0fast-libero",
+                chunk_size=args.chunk_size if args.chunk_size != 5 else 10,
+            )
             policy.set_task_info(task.language_instruction)
             policy.load("")
         elif args.policy == "groot":
