@@ -1,0 +1,97 @@
+============================================
+LIBERO + Pi0-FAST Test Pipeline
+Node: cn003
+Date: Sun Mar 15 20:19:28 +04 2026
+Job ID: 14388181
+============================================
+Requirement already satisfied: rich>=12.3.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from typer->transformers>=5.3.0) (14.3.3)
+Requirement already satisfied: annotated-doc>=0.0.2 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from typer->transformers>=5.3.0) (0.0.4)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from rich>=12.3.0->typer->transformers>=5.3.0) (4.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from rich>=12.3.0->typer->transformers>=5.3.0) (2.19.2)
+Requirement already satisfied: mdurl~=0.1 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->transformers>=5.3.0) (0.1.2)
+
+[GPU Info]
+NVIDIA A100-PCIE-40GB, 40960 MiB
+
+============================================
+LEVEL 1: LIBERO unit tests
+============================================
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /home/at5282/.conda/envs/trace-pi0/bin/python
+cachedir: .pytest_cache
+rootdir: /scratch/at5282/trace/tracerobotics
+configfile: pyproject.toml
+plugins: cov-7.0.0, anyio-4.12.1, zarr-3.1.5
+collecting ... collected 12 items
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize PASSED    [  8%]
+tests/test_libero_task.py::TestLiberoTaskInit::test_language_instruction PASSED [ 16%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_reset_returns_observation PASSED [ 25%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_observation_keys PASSED [ 33%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_image_shape PASSED  [ 41%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_proprioception_shapes PASSED [ 50%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_returns_tuple PASSED [ 58%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_observation_format PASSED [ 66%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_model PASSED [ 75%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_data PASSED [ 83%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_initial_not_success PASSED [ 91%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_no_catastrophic_failure PASSED [100%]
+
+=============================== warnings summary ===============================
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:53: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("No private macro file found!")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:54: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("It is recommended to use a private macro file")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:55: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("To setup, run: python {}/scripts/setup_macros.py".format(robosuite.__path__[0]))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 12 passed, 3 warnings in 27.87s ========================
+LEVEL 1 PASSED
+
+============================================
+LEVEL 2: LIBERO single-episode evaluation (pi0fast)
+============================================
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/torch/jit/_script.py:362: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+WARNING:root:Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.bias
+WARNING:root:Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.weight
+Traceback (most recent call last):
+  File "<string>", line 21, in <module>
+  File "/scratch/at5282/trace/tracerobotics/trace/runner/episode_runner.py", line 51, in run
+    action = self.policy.act(stressed_obs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/at5282/trace/tracerobotics/trace/policy_adapter/pi0fast_adapter.py", line 87, in act
+    self._refill_buffer(observation)
+  File "/scratch/at5282/trace/tracerobotics/trace/policy_adapter/pi0fast_adapter.py", line 119, in _refill_buffer
+    actions = self._postprocess(actions)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/at5282/trace/lerobot_src/src/lerobot/processor/pipeline.py", line 293, in __call__
+    transition = self.to_transition(data)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/at5282/trace/lerobot_src/src/lerobot/processor/converters.py", line 347, in batch_to_transition
+    raise ValueError(f"EnvTransition must be a dictionary. Got {type(batch).__name__}")
+ValueError: EnvTransition must be a dictionary. Got Tensor
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+Task: libero
+Suite: libero_spatial
+Language instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+The PI0Fast model is a direct port of the OpenPI implementation. 
+This implementation follows the original OpenPI structure for compatibility. 
+Original implementation: https://github.com/Physical-Intelligence/openpi
+Loading model from: lerobot/pi0fast-libero
+✓ Loaded state dict from model.safetensors
+All keys loaded successfully!

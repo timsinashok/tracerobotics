@@ -63,7 +63,13 @@ Using LIBERO constants:
   ACTION_PROPRIO_NORMALIZATION_TYPE = bounds_q99
 If needed, manually set the correct constants in `prismatic/vla/constants.py`!
 Instantiating pretrained VLA policy...
-Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.11it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  3.67it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  3.92it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  4.15it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.94it/s]
+
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]
+Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.11it/s]
+Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  3.67it/s]
+Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  3.92it/s]
+Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  4.15it/s]
+Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.94it/s]
 Success:              True
 Steps:                75
 Reward:               1.000
@@ -100,7 +106,13 @@ Using LIBERO constants:
   ACTION_PROPRIO_NORMALIZATION_TYPE = bounds_q99
 If needed, manually set the correct constants in `prismatic/vla/constants.py`!
 Instantiating pretrained VLA policy...
-Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  2.01it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  2.75it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  3.11it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.56it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.18it/s]
+
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]
+Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  2.01it/s]
+Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  2.75it/s]
+Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  3.11it/s]
+Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.56it/s]
+Loading checkpoint shards: 100%|██████████| 4/4 [00:01<00:00,  3.18it/s]
 LEVEL 3 PASSED
 
 ============================================
@@ -133,4 +145,10 @@ Using LIBERO constants:
   ACTION_PROPRIO_NORMALIZATION_TYPE = bounds_q99
 If needed, manually set the correct constants in `prismatic/vla/constants.py`!
 Instantiating pretrained VLA policy...
-Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.21it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  3.79it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  4.02it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  4.24it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  4.04it/s]
+
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]
+Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:00,  3.21it/s]
+Loading checkpoint shards:  50%|█████     | 2/4 [00:00<00:00,  3.79it/s]
+Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00,  4.02it/s]
+Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  4.24it/s]
+Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00,  4.04it/s]

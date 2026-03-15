@@ -1,0 +1,185 @@
+============================================
+LIBERO + Pi0-FAST Test Pipeline
+Node: cn002
+Date: Sun Mar 15 20:09:28 +04 2026
+Job ID: 14388177
+============================================
+Requirement already satisfied: rich>=12.3.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from typer->transformers>=5.3.0) (14.3.3)
+Requirement already satisfied: annotated-doc>=0.0.2 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from typer->transformers>=5.3.0) (0.0.4)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from rich>=12.3.0->typer->transformers>=5.3.0) (4.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from rich>=12.3.0->typer->transformers>=5.3.0) (2.19.2)
+Requirement already satisfied: mdurl~=0.1 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->transformers>=5.3.0) (0.1.2)
+
+[GPU Info]
+NVIDIA A100-PCIE-40GB, 40960 MiB
+
+============================================
+LEVEL 1: LIBERO unit tests
+============================================
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /home/at5282/.conda/envs/trace-pi0/bin/python
+cachedir: .pytest_cache
+rootdir: /scratch/at5282/trace/tracerobotics
+configfile: pyproject.toml
+plugins: cov-7.0.0, anyio-4.12.1, zarr-3.1.5
+collecting ... collected 12 items
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize PASSED    [  8%]
+tests/test_libero_task.py::TestLiberoTaskInit::test_language_instruction PASSED [ 16%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_reset_returns_observation PASSED [ 25%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_observation_keys PASSED [ 33%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_image_shape PASSED  [ 41%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_proprioception_shapes PASSED [ 50%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_returns_tuple PASSED [ 58%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_observation_format PASSED [ 66%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_model PASSED [ 75%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_data PASSED [ 83%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_initial_not_success PASSED [ 91%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_no_catastrophic_failure PASSED [100%]
+
+=============================== warnings summary ===============================
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:53: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("No private macro file found!")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:54: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("It is recommended to use a private macro file")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:55: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("To setup, run: python {}/scripts/setup_macros.py".format(robosuite.__path__[0]))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 12 passed, 3 warnings in 27.51s ========================
+LEVEL 1 PASSED
+
+============================================
+LEVEL 2: LIBERO single-episode evaluation (pi0fast)
+============================================
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/torch/jit/_script.py:362: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+WARNING:root:Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.bias
+WARNING:root:Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.weight
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+Task: libero
+Suite: libero_spatial
+Language instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+The PI0Fast model is a direct port of the OpenPI implementation. 
+This implementation follows the original OpenPI structure for compatibility. 
+Original implementation: https://github.com/Physical-Intelligence/openpi
+Loading model from: lerobot/pi0fast-libero
+✓ Loaded state dict from model.safetensors
+All keys loaded successfully!
+Warning: Could not load dataset_stats: 404 Client Error. (Request ID: Root=1-69b6dab6-088f15f21de1bf052f06659c;3d8065fb-5157-457a-9353-0a8a5bb122e7)
+
+Entry Not Found for url: https://huggingface.co/lerobot/pi0fast-libero/resolve/main/dataset_stats.json.
+State normalization will be skipped — model may produce poor results.
+Success:              False
+Steps:                220
+Reward:               0.000
+Catastrophic failure: False
+LEVEL 2 PASSED
+
+============================================
+LEVEL 3: LIBERO mini sweep (quick_test.yaml)
+============================================
+2026-03-15 20:16:12,107 __main__ INFO: Trace Robotics Evaluation
+2026-03-15 20:16:12,107 __main__ INFO: Task config: configs/tasks/libero_spatial.yaml
+2026-03-15 20:16:12,107 __main__ INFO: Sweep config: configs/sweeps/quick_test.yaml
+2026-03-15 20:16:12,107 __main__ INFO: Checkpoint: (none)
+2026-03-15 20:16:12,108 __main__ INFO: Output: output/reports
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-15 20:16:12,169 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-15 20:16:12,169 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-15 20:16:12,169 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-15 20:16:15,221 __main__ INFO: Task 'libero' initialized
+2026-03-15 20:16:22,786 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-15 20:16:22,799 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/lerobot/pi0fast-libero/840f4b503f4c09110421c33c810a85b6684fd658/config.json "HTTP/1.1 200 OK"
+2026-03-15 20:16:23,337 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-15 20:16:23,350 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-15 20:16:23,579 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-15 20:16:23,803 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-15 20:16:23,815 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-15 20:16:24,199 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-03-15 20:16:24,641 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-03-15 20:16:24,868 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-03-15 20:16:25,185 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processing_action_tokenizer.py "HTTP/1.1 307 Temporary Redirect"
+2026-03-15 20:16:25,198 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processing_action_tokenizer.py "HTTP/1.1 200 OK"
+2026-03-15 20:16:25,429 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-15 20:16:25,649 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-15 20:16:25,661 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-15 20:16:25,891 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-03-15 20:16:26,119 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-03-15 20:16:26,350 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-03-15 20:16:26,578 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+2026-03-15 20:16:27,925 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+2026-03-15 20:16:28,151 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-15 20:16:28,166 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/bpe_tokenizer%2Ftokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-15 20:16:28,409 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-15 20:16:28,830 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-15 20:16:29,067 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-03-15 20:16:29,406 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-15 20:16:29,639 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-15 20:16:29,863 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-15 20:16:32,245 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+2026-03-15 20:16:32,246 root INFO: Loaded FAST tokenizer for action detokenization
+/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/torch/jit/_script.py:362: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+2026-03-15 20:18:40,216 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-03-15 20:18:40,311 root WARNING: Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.bias
+2026-03-15 20:18:40,311 root WARNING: Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.weight
+2026-03-15 20:18:44,987 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/dataset_stats.json "HTTP/1.1 404 Not Found"
+2026-03-15 20:18:45,232 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-03-15 20:18:45,468 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-15 20:18:45,697 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-15 20:18:45,929 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-15 20:18:48,238 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+2026-03-15 20:18:48,470 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-15 20:18:48,483 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-15 20:18:48,756 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-15 20:18:49,044 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-15 20:18:49,058 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-15 20:18:49,510 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-03-15 20:18:50,144 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-03-15 20:18:50,415 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-03-15 20:18:50,674 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processing_action_tokenizer.py "HTTP/1.1 307 Temporary Redirect"
+2026-03-15 20:18:50,689 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processing_action_tokenizer.py "HTTP/1.1 200 OK"
+2026-03-15 20:18:50,926 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-15 20:18:51,170 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-15 20:18:51,183 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-15 20:18:51,410 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-03-15 20:18:51,641 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-03-15 20:18:51,863 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-03-15 20:18:52,090 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+2026-03-15 20:18:52,352 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+2026-03-15 20:18:52,620 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-15 20:18:52,634 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/bpe_tokenizer%2Ftokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-15 20:18:52,862 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-15 20:18:54,399 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-15 20:18:54,653 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-03-15 20:18:54,891 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-15 20:18:55,120 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-15 20:18:55,347 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-15 20:18:57,661 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+2026-03-15 20:18:57,662 __main__ INFO: Using named policy: pi0fast
+2026-03-15 20:18:57,666 __main__ INFO: Loaded 1 stressor sweeps
+2026-03-15 20:18:57,666 __main__ INFO: Running sweep 1/1: LatencyStressor
+2026-03-15 20:21:10,738 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=0 success=False steps=220
+2026-03-15 20:23:23,128 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=1 success=False steps=220
+2026-03-15 20:25:35,492 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=0 success=False steps=220
+2026-03-15 20:27:47,715 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=1 success=False steps=220
+2026-03-15 20:30:00,013 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=0 success=False steps=220

@@ -47,20 +47,32 @@ class Pi0FastAdapter(BasePolicy):
         self._prompt = prompt
 
     def load(self, checkpoint_path: str) -> None:
-        """Load the PI0Fast model from HuggingFace.
+        """Load the PI0Fast model from HuggingFace."""
+        from lerobot.configs.policies import PreTrainedConfig
+        from lerobot.policies.pi0_fast.modeling_pi0_fast import PI0FastPolicy
+        from lerobot.processor.pipeline import DataProcessorPipeline
 
-        checkpoint_path is ignored — model_id is used instead.
-        """
-        from lerobot.policies.pi0_fast import PI0FastPolicy
-        from lerobot.policies.factory import make_pre_post_processors
+        # Load config first and fix settings for inference
+        config = PreTrainedConfig.from_pretrained(self._model_id)
+        config.gradient_checkpointing = False
+        config.device = self._device
 
-        self._policy = PI0FastPolicy.from_pretrained(self._model_id)
+        # Load model with fixed config
+        self._policy = PI0FastPolicy.from_pretrained(self._model_id, config=config)
         self._policy.to(self._device)
         self._policy.eval()
 
-        self._preprocess, self._postprocess = make_pre_post_processors(
-            self._policy.config,
+        # Load the saved preprocessor/postprocessor pipelines from HF repo.
+        # These include normalization stats (MEAN_STD for state/action).
+        self._preprocess = DataProcessorPipeline.from_pretrained(
             self._model_id,
+            config_filename="policy_preprocessor.json",
+            overrides={"device_processor": {"device": self._device}},
+        )
+        self._postprocess = DataProcessorPipeline.from_pretrained(
+            self._model_id,
+            config_filename="policy_postprocessor.json",
+            overrides={"device_processor": {"device": "cpu"}},
         )
 
     def reset(self) -> None:
@@ -96,15 +108,24 @@ class Pi0FastAdapter(BasePolicy):
             raise RuntimeError("Policy not loaded — call load() first")
 
         batch = self._build_batch(observation)
-        batch = self._preprocess(batch)
 
-        with torch.inference_mode():
+        if self._preprocess is not None:
+            batch = self._preprocess(batch)
+
+        with torch.inference_mode(), torch.autocast(device_type="cuda", dtype=torch.bfloat16):
             actions = self._policy.predict_action_chunk(batch)
 
+        # Postprocess: unnormalize actions. The postprocessor expects a dict,
+        # so wrap the tensor and unwrap after.
         if self._postprocess is not None:
-            actions = self._postprocess(actions)
+            try:
+                action_dict = {"action": actions}
+                result = self._postprocess(action_dict)
+                actions = result["action"] if isinstance(result, dict) else result
+            except (ValueError, TypeError):
+                pass  # skip postprocessing if format doesn't match
 
-        # actions shape: (batch, n_action_steps, action_dim)
+        # actions shape: (batch, n_action_steps, action_dim) or similar
         actions_np = actions.cpu().numpy() if isinstance(actions, torch.Tensor) else np.asarray(actions)
         if actions_np.ndim == 3:
             actions_np = actions_np[0]  # remove batch dim
@@ -113,8 +134,8 @@ class Pi0FastAdapter(BasePolicy):
             self._action_buffer.append(actions_np[i, :7].astype(np.float32))
 
     def _build_batch(self, observation: Observation) -> dict[str, Any]:
-        """Convert Trace observation to LeRobot batch format."""
-        # Images: LeRobot expects uint8 HWC, preprocessor handles normalization
+        """Convert Trace observation to LeRobot raw input format."""
+        # Images: CHW float [0,1] — rotated 180° for LIBERO convention
         if "image" in observation:
             base_img = np.rot90(observation["image"], k=2).copy()
         else:
@@ -125,7 +146,6 @@ class Pi0FastAdapter(BasePolicy):
         else:
             wrist_img = np.zeros((224, 224, 3), dtype=np.uint8)
 
-        # Convert HWC uint8 -> CHW float [0,1] torch tensors
         base_tensor = torch.from_numpy(base_img).permute(2, 0, 1).float() / 255.0
         wrist_tensor = torch.from_numpy(wrist_img).permute(2, 0, 1).float() / 255.0
 
@@ -140,11 +160,9 @@ class Pi0FastAdapter(BasePolicy):
         state = np.concatenate([ee_pos, axis_angle, gripper]).astype(np.float32)
         state_tensor = torch.from_numpy(state)
 
-        batch = {
-            "observation.images.base_0_rgb": base_tensor.unsqueeze(0),
-            "observation.images.left_wrist_0_rgb": wrist_tensor.unsqueeze(0),
-            "observation.state": state_tensor.unsqueeze(0),
+        return {
+            "observation.images.image": base_tensor,
+            "observation.images.image2": wrist_tensor,
+            "observation.state": state_tensor,
             "task": self._prompt,
         }
-
-        return batch
