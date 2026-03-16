@@ -55,6 +55,7 @@ class Pi0FastAdapter(BasePolicy):
         # Load config first and fix settings for inference
         config = PreTrainedConfig.from_pretrained(self._model_id)
         config.gradient_checkpointing = False
+        config.validate_action_token_prefix = False
         config.device = self._device
 
         # Load model with fixed config
