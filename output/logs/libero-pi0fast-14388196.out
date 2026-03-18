@@ -330,3 +330,166 @@ See the migration guide at https://gymnasium.farama.org/introduction/migration_g
 2026-03-15 20:46:31,092 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=0 success=True steps=77
 2026-03-15 20:47:19,853 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=1 success=True steps=74
 2026-03-15 20:48:14,392 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=2 success=True steps=83
+2026-03-15 20:49:03,117 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=3 success=True steps=80
+2026-03-15 20:49:51,983 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=4 success=True steps=79
+2026-03-15 20:50:46,847 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=5 success=True steps=84
+2026-03-15 20:51:36,269 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=6 success=True steps=76
+2026-03-15 20:52:31,707 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=7 success=True steps=84
+2026-03-15 20:53:27,091 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=8 success=True steps=82
+2026-03-15 20:54:16,707 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=9 success=True steps=79
+2026-03-15 20:55:06,225 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=0 success=True steps=77
+2026-03-15 20:56:01,632 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=1 success=True steps=84
+2026-03-15 20:56:56,154 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=2 success=True steps=82
+2026-03-15 20:57:50,954 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=3 success=True steps=81
+2026-03-15 20:58:40,047 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=4 success=True steps=79
+2026-03-15 20:59:29,083 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=5 success=True steps=79
+2026-03-15 21:00:18,632 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=6 success=True steps=78
+2026-03-15 21:01:08,052 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=7 success=True steps=79
+2026-03-15 21:02:02,873 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=8 success=True steps=83
+2026-03-15 21:02:52,036 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=9 success=True steps=77
+2026-03-15 21:03:40,995 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=0 success=True steps=77
+2026-03-15 21:04:47,764 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=1 success=True steps=108
+2026-03-15 21:05:42,563 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=2 success=True steps=88
+2026-03-15 21:06:37,446 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=3 success=True steps=83
+2026-03-15 21:07:26,932 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=4 success=True steps=79
+2026-03-15 21:08:15,995 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=5 success=True steps=76
+2026-03-15 21:09:05,584 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=6 success=True steps=78
+2026-03-15 21:10:06,352 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=7 success=True steps=92
+2026-03-15 21:11:01,116 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=8 success=True steps=81
+2026-03-15 21:11:49,911 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=9 success=True steps=73
+2026-03-15 21:12:39,186 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=0 success=True steps=78
+2026-03-15 21:13:28,216 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=1 success=True steps=72
+2026-03-15 21:14:22,774 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=2 success=True steps=82
+2026-03-15 21:15:12,298 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=3 success=True steps=80
+2026-03-15 21:16:01,434 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=4 success=True steps=80
+2026-03-15 21:16:50,391 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=5 success=True steps=76
+2026-03-15 21:17:39,246 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=6 success=True steps=76
+2026-03-15 21:18:34,072 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=7 success=True steps=82
+2026-03-15 21:19:28,765 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=8 success=True steps=82
+2026-03-15 21:20:17,758 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=9 success=True steps=78
+2026-03-15 21:21:48,297 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=0 success=True steps=144
+2026-03-15 21:22:37,613 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=1 success=True steps=78
+2026-03-15 21:23:32,655 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=2 success=True steps=85
+2026-03-15 21:24:27,278 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=3 success=True steps=82
+2026-03-15 21:25:21,897 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=4 success=True steps=84
+2026-03-15 21:27:16,054 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=5 success=True steps=183
+2026-03-15 21:28:05,186 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=6 success=True steps=72
+2026-03-15 21:28:54,483 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=7 success=True steps=78
+2026-03-15 21:29:49,407 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=8 success=True steps=83
+2026-03-15 21:30:38,534 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=9 success=True steps=76
+2026-03-15 21:31:51,662 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=0 success=True steps=116
+2026-03-15 21:33:28,764 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=1 success=True steps=153
+2026-03-15 21:34:23,327 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=2 success=True steps=89
+2026-03-15 21:35:18,100 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=3 success=True steps=90
+2026-03-15 21:36:12,805 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=4 success=True steps=88
+2026-03-15 21:37:07,886 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=5 success=True steps=82
+2026-03-15 21:38:02,981 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=6 success=True steps=82
+2026-03-15 21:38:58,258 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=7 success=True steps=88
+2026-03-15 21:39:52,886 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=8 success=True steps=86
+2026-03-15 21:40:47,796 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=9 success=True steps=89
+2026-03-15 21:41:42,286 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=0 success=True steps=81
+2026-03-15 21:43:06,463 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=1 success=True steps=136
+2026-03-15 21:44:06,706 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=2 success=True steps=91
+2026-03-15 21:45:01,258 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=3 success=True steps=84
+2026-03-15 21:45:56,188 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=4 success=True steps=85
+2026-03-15 21:46:51,218 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=5 success=True steps=82
+2026-03-15 21:47:45,648 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=6 success=True steps=82
+2026-03-15 21:48:40,345 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=7 success=True steps=88
+2026-03-15 21:49:35,602 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=8 success=True steps=90
+2026-03-15 21:50:30,900 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=9 success=True steps=85
+2026-03-15 21:51:56,222 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=0 success=True steps=136
+2026-03-15 21:53:15,193 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=1 success=True steps=125
+2026-03-15 21:54:57,493 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=2 success=True steps=165
+2026-03-15 21:55:52,148 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=3 success=True steps=85
+2026-03-15 21:56:46,720 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=4 success=True steps=82
+2026-03-15 21:58:00,205 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=5 success=True steps=119
+2026-03-15 21:58:55,479 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=6 success=True steps=86
+2026-03-15 21:59:50,968 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=7 success=True steps=90
+2026-03-15 22:00:46,161 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=8 success=True steps=86
+2026-03-15 22:01:41,382 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=9 success=True steps=84
+2026-03-15 22:03:55,219 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=0 success=False steps=220
+2026-03-15 22:05:20,363 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=1 success=True steps=131
+2026-03-15 22:06:20,815 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=2 success=True steps=91
+2026-03-15 22:07:16,111 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=3 success=True steps=87
+2026-03-15 22:08:11,338 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=4 success=True steps=86
+2026-03-15 22:10:18,813 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=5 success=True steps=208
+2026-03-15 22:11:14,079 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=6 success=True steps=87
+2026-03-15 22:12:09,264 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=7 success=True steps=84
+2026-03-15 22:13:03,722 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=8 success=True steps=89
+2026-03-15 22:13:57,935 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=9 success=True steps=83
+2026-03-15 22:16:11,342 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=0 success=False steps=220
+2026-03-15 22:18:23,393 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=1 success=False steps=220
+2026-03-15 22:19:18,010 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=2 success=True steps=89
+2026-03-15 22:20:12,589 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=3 success=True steps=84
+2026-03-15 22:21:07,260 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=4 success=True steps=85
+2026-03-15 22:23:18,682 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=5 success=False steps=220
+2026-03-15 22:24:59,947 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=6 success=True steps=164
+2026-03-15 22:25:55,221 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=7 success=True steps=88
+2026-03-15 22:26:49,946 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=8 success=True steps=86
+2026-03-15 22:27:45,336 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=9 success=True steps=86
+2026-03-15 22:29:57,607 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=0 success=False steps=220
+2026-03-15 22:32:09,804 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=1 success=False steps=220
+2026-03-15 22:33:22,161 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=2 success=True steps=112
+2026-03-15 22:35:35,455 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=3 success=True steps=220
+2026-03-15 22:37:22,670 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=4 success=True steps=180
+2026-03-15 22:39:32,673 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=5 success=False steps=220
+2026-03-15 22:40:26,776 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=6 success=True steps=88
+2026-03-15 22:41:26,813 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=7 success=True steps=99
+2026-03-15 22:42:26,559 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=8 success=True steps=92
+2026-03-15 22:44:37,153 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=9 success=False steps=220
+2026-03-15 22:45:55,291 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=0 success=True steps=128
+2026-03-15 22:48:05,774 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=1 success=False steps=220
+2026-03-15 22:52:26,485 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=2 success=False steps=220
+2026-03-15 22:53:20,659 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=3 success=True steps=89
+2026-03-15 22:54:27,349 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=4 success=True steps=106
+2026-03-15 22:56:38,314 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=5 success=False steps=220
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/scratch/at5282/trace/tracerobotics/scripts/run_evaluation.py", line 241, in <module>
+    main()
+  File "/scratch/at5282/trace/tracerobotics/scripts/run_evaluation.py", line 219, in main
+    result = sweep_runner.run_sweep(sc)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/at5282/trace/tracerobotics/trace/runner/sweep_runner.py", line 58, in run_sweep
+    result = runner.run(seed=episode_seed)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/at5282/trace/tracerobotics/trace/runner/episode_runner.py", line 51, in run
+    action = self.policy.act(stressed_obs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/at5282/trace/tracerobotics/trace/policy_adapter/pi0fast_adapter.py", line 87, in act
+    self._refill_buffer(observation)
+  File "/scratch/at5282/trace/tracerobotics/trace/policy_adapter/pi0fast_adapter.py", line 116, in _refill_buffer
+    actions = self._policy.predict_action_chunk(batch)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/at5282/trace/lerobot_src/src/lerobot/policies/pi0_fast/modeling_pi0_fast.py", line 1321, in predict_action_chunk
+    continuous_actions = self.detokenize_actions(
+                         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/at5282/trace/lerobot_src/src/lerobot/policies/pi0_fast/modeling_pi0_fast.py", line 1215, in detokenize_actions
+    assert len(token_seq) >= 2 and token_seq[0] == "Action" and token_seq[1] == ":", (
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Token sequence does not start with ['Action', ':']: ['Sub', 'task', ':', '▁', '<loc0567>', '<loc0530>', '<loc0563>', '<loc0529>', '<loc0553>', '<loc0530>', '<loc0518>', '<loc0518>', '<loc0573>', '<loc0558>', '<loc0518>', '<loc0572>', '<loc0470>', '<loc0572>', '<loc0560>', '<loc0529>', '<loc0520>', '<loc0520>', '<loc0572>', '<loc0518>', '<loc0540>', '<loc0567>', '<loc0535>', '<loc0535>', '<loc0563>', '<loc0456>', '<loc0546>', '<loc0563>', '<loc0524>', '<loc0550>', '<loc0546>', '<loc0540>', '<loc0534>', '<loc0544>', '<loc0544>', '<loc0525>', '<loc0554>', '<loc0564>', '<loc0554>', '<loc0559>', '<loc0561>', '<loc0559>', '<loc0559>', '|', '|', '䌀', '\ue01c', '蘗', '<loc0524>', '<loc0561>', '<bos>', 'Action', ':', '▁', '<loc0563>', '<loc0534>', '<bos>', 'Sub', ':', '▁', '<loc0572>', '<loc0431>', '<loc0524>', '<loc0524>', '<loc0524>', '<loc0480>', '<loc0479>', '<loc0552>', '<loc0554>', '<loc0552>', '<loc0569>', '<loc0562>', 'Sub', ':', '▁', '<loc0573>', '<loc0534>', '<loc0552>', '<loc0561>', '<loc0552>', '<loc0569>', '<loc0552>', '▁mouth', '<loc0573>', '<bos>', 'Action', '畎', '⒝', 'ᶫ', '唻', '勫', '⁛', '\ue01c', '唻', '\ue03d', '⊏', '蘗', '\ue01c', '\ue01c', '媄', '𝖨', '🅓', '<eos>', '<eos>', '<eos>', '<eos>', '▁part', '▁of', '▁the', '▁water', '▁bottle', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<bos>', 'Action', ':', '▁', '𝖻', 'Ҥ', '⤙', '毟', '毟', '₾', 'Ӓ', '⍀', '堟', '鎴', 'ѩ', '⽼', 'Ὠ', '籴', 'Ὠ', '⢎', 'Ȣ', '≐', '緇', 'Ȣ', 'Ⓧ', '諴', 'Ⓧ', '읗', '፪', '伅', '氽', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '<eos>', '≐', 'ṗ', '≐', '菒', 'ㆆ', '🈚', '<eos>', '<eos>', '<eos>', '<eos>', '數', '<eos>', '邽', '<eos>', '<eos>', '≐', '⊏', '钇', '߳', '⠎', '⟼', '𝚣', '⠎']
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+The PI0Fast model is a direct port of the OpenPI implementation. 
+This implementation follows the original OpenPI structure for compatibility. 
+Original implementation: https://github.com/Physical-Intelligence/openpi
+Loading model from: lerobot/pi0fast-libero
+✓ Loaded state dict from model.safetensors
+All keys loaded successfully!
+Exception ignored in: <function MjRenderContext.__del__ at 0x1553f32f0680>
+Traceback (most recent call last):
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/utils/binding_utils.py", line 199, in __del__
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/renderers/context/egl_context.py", line 149, in free
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/OpenGL/error.py", line 230, in glCheckError
+OpenGL.raw.EGL._errors.EGLError: <exception str() failed>
+Exception ignored in: <function EGLGLContext.__del__ at 0x1553f32f0540>
+Traceback (most recent call last):
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/renderers/context/egl_context.py", line 155, in __del__
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/renderers/context/egl_context.py", line 149, in free
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/OpenGL/error.py", line 230, in glCheckError
+OpenGL.raw.EGL._errors.EGLError: <exception str() failed>

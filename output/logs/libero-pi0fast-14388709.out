@@ -1,0 +1,1519 @@
+============================================
+LIBERO + Pi0-FAST Test Pipeline
+Node: cn004
+Date: Mon Mar 16 00:14:16 +04 2026
+Job ID: 14388709
+============================================
+Requirement already satisfied: rich>=12.3.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from typer->transformers>=5.3.0) (14.3.3)
+Requirement already satisfied: annotated-doc>=0.0.2 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from typer->transformers>=5.3.0) (0.0.4)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from rich>=12.3.0->typer->transformers>=5.3.0) (4.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from rich>=12.3.0->typer->transformers>=5.3.0) (2.19.2)
+Requirement already satisfied: mdurl~=0.1 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->transformers>=5.3.0) (0.1.2)
+
+[GPU Info]
+NVIDIA A100-PCIE-40GB, 40960 MiB
+
+============================================
+LEVEL 1: LIBERO unit tests
+============================================
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /home/at5282/.conda/envs/trace-pi0/bin/python
+cachedir: .pytest_cache
+rootdir: /scratch/at5282/trace/tracerobotics
+configfile: pyproject.toml
+plugins: cov-7.0.0, anyio-4.12.1, zarr-3.1.5
+collecting ... collected 12 items
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize PASSED    [  8%]
+tests/test_libero_task.py::TestLiberoTaskInit::test_language_instruction PASSED [ 16%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_reset_returns_observation PASSED [ 25%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_observation_keys PASSED [ 33%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_image_shape PASSED  [ 41%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_proprioception_shapes PASSED [ 50%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_returns_tuple PASSED [ 58%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_observation_format PASSED [ 66%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_model PASSED [ 75%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_data PASSED [ 83%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_initial_not_success PASSED [ 91%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_no_catastrophic_failure PASSED [100%]
+
+=============================== warnings summary ===============================
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:53: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("No private macro file found!")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:54: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("It is recommended to use a private macro file")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:55: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("To setup, run: python {}/scripts/setup_macros.py".format(robosuite.__path__[0]))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 12 passed, 3 warnings in 27.88s ========================
+LEVEL 1 PASSED
+
+============================================
+LEVEL 2: LIBERO single-episode evaluation (pi0fast)
+============================================
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/torch/jit/_script.py:362: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+WARNING:root:Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.bias
+WARNING:root:Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.weight
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+Task: libero
+Suite: libero_spatial
+Language instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+The PI0Fast model is a direct port of the OpenPI implementation. 
+This implementation follows the original OpenPI structure for compatibility. 
+Original implementation: https://github.com/Physical-Intelligence/openpi
+Loading model from: lerobot/pi0fast-libero
+✓ Loaded state dict from model.safetensors
+All keys loaded successfully!
+Success:              True
+Steps:                77
+Reward:               1.000
+Catastrophic failure: False
+LEVEL 2 PASSED
+
+============================================
+LEVEL 3: LIBERO mini sweep (quick_test.yaml)
+============================================
+2026-03-16 00:18:55,861 __main__ INFO: Trace Robotics Evaluation
+2026-03-16 00:18:55,861 __main__ INFO: Task config: configs/tasks/libero_spatial.yaml
+2026-03-16 00:18:55,861 __main__ INFO: Sweep config: configs/sweeps/quick_test.yaml
+2026-03-16 00:18:55,861 __main__ INFO: Checkpoint: (none)
+2026-03-16 00:18:55,861 __main__ INFO: Output: output/reports
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-16 00:18:55,928 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-16 00:18:55,928 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-16 00:18:55,928 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-16 00:18:59,141 __main__ INFO: Task 'libero' initialized
+2026-03-16 00:19:06,331 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:19:06,345 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/lerobot/pi0fast-libero/840f4b503f4c09110421c33c810a85b6684fd658/config.json "HTTP/1.1 200 OK"
+2026-03-16 00:19:06,879 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:19:06,893 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:19:07,120 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:19:07,347 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:19:07,361 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:19:07,586 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:19:07,812 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-03-16 00:19:08,036 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:19:08,266 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processing_action_tokenizer.py "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:19:08,283 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processing_action_tokenizer.py "HTTP/1.1 200 OK"
+2026-03-16 00:19:08,515 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:19:08,742 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:19:08,756 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:19:08,983 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:19:09,212 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-03-16 00:19:09,435 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:19:09,665 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:19:09,892 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:19:10,122 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:19:10,136 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/bpe_tokenizer%2Ftokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:19:10,379 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:19:10,609 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-16 00:19:10,848 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-03-16 00:19:11,087 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:19:11,341 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:19:11,572 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-16 00:19:13,971 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+2026-03-16 00:19:13,973 root INFO: Loaded FAST tokenizer for action detokenization
+/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/torch/jit/_script.py:362: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+2026-03-16 00:21:29,986 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-03-16 00:21:30,453 root WARNING: Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.bias
+2026-03-16 00:21:30,454 root WARNING: Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.weight
+2026-03-16 00:21:45,754 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/policy_preprocessor.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:21:45,766 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/lerobot/pi0fast-libero/840f4b503f4c09110421c33c810a85b6684fd658/policy_preprocessor.json "HTTP/1.1 200 OK"
+2026-03-16 00:21:45,998 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-03-16 00:21:46,229 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:21:46,458 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:21:46,688 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-16 00:21:49,032 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+2026-03-16 00:21:49,255 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:21:49,270 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:21:49,524 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:21:49,745 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:21:49,758 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:21:50,004 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:21:50,239 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-03-16 00:21:50,465 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:21:50,690 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processing_action_tokenizer.py "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:21:50,702 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processing_action_tokenizer.py "HTTP/1.1 200 OK"
+2026-03-16 00:21:50,937 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:21:51,165 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:21:51,178 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:21:51,405 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:21:51,630 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-03-16 00:21:51,860 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:21:52,085 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:21:52,311 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:21:52,535 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:21:52,547 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/bpe_tokenizer%2Ftokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:21:52,774 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:21:53,003 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-16 00:21:53,254 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-03-16 00:21:53,514 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:21:53,744 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:21:53,971 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-16 00:21:56,289 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+2026-03-16 00:21:56,515 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/policy_postprocessor.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:21:56,527 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/lerobot/pi0fast-libero/840f4b503f4c09110421c33c810a85b6684fd658/policy_postprocessor.json "HTTP/1.1 200 OK"
+2026-03-16 00:21:56,532 __main__ INFO: Using named policy: pi0fast
+2026-03-16 00:21:56,535 __main__ INFO: Loaded 1 stressor sweeps
+2026-03-16 00:21:56,536 __main__ INFO: Running sweep 1/1: LatencyStressor
+2026-03-16 00:24:09,962 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=0 success=False steps=220
+2026-03-16 00:25:29,013 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=1 success=True steps=127
+2026-03-16 00:27:42,171 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=0 success=False steps=220
+2026-03-16 00:29:54,954 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=1 success=False steps=220
+2026-03-16 00:32:08,572 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=0 success=False steps=220
+2026-03-16 00:34:21,821 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=1 success=False steps=220
+2026-03-16 00:34:21,821 __main__ INFO:   baseline=50%, max_degradation=50%, breakpoint=0.50
+2026-03-16 00:34:21,824 __main__ INFO:   Report updated: output/reports/report_Pi0FastAdapter_libero_20260316_002156.md (1/1 stressors)
+2026-03-16 00:34:21,824 __main__ INFO: Final report: output/reports/report_Pi0FastAdapter_libero_20260316_002156.md
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+The PI0Fast model is a direct port of the OpenPI implementation. 
+This implementation follows the original OpenPI structure for compatibility. 
+Original implementation: https://github.com/Physical-Intelligence/openpi
+Loading model from: lerobot/pi0fast-libero
+✓ Loaded state dict from model.safetensors
+All keys loaded successfully!
+Exception ignored in: <function MjRenderContext.__del__ at 0x1553f32e4680>
+Traceback (most recent call last):
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/utils/binding_utils.py", line 199, in __del__
+    self.gl_ctx.free()
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/renderers/context/egl_context.py", line 149, in free
+    EGL.eglMakeCurrent(EGL_DISPLAY, EGL.EGL_NO_SURFACE, EGL.EGL_NO_SURFACE, EGL.EGL_NO_CONTEXT)
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/OpenGL/error.py", line 230, in glCheckError
+    raise self._errorClass(
+OpenGL.raw.EGL._errors.EGLError: EGLError(
+	err = EGL_NOT_INITIALIZED,
+	baseOperation = eglMakeCurrent,
+	cArguments = (
+		<OpenGL._opaque.EGLDisplay_pointer object at 0x1553e6081250>,
+		<OpenGL._opaque.EGLSurface_pointer object at 0x15553d773da0>,
+		<OpenGL._opaque.EGLSurface_pointer object at 0x15553d773da0>,
+		<OpenGL._opaque.EGLContext_pointer object at 0x15553d773c80>,
+	),
+	result = 0
+)
+Exception ignored in: <function EGLGLContext.__del__ at 0x1553f32e4540>
+Traceback (most recent call last):
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/renderers/context/egl_context.py", line 155, in __del__
+    self.free()
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/renderers/context/egl_context.py", line 149, in free
+    EGL.eglMakeCurrent(EGL_DISPLAY, EGL.EGL_NO_SURFACE, EGL.EGL_NO_SURFACE, EGL.EGL_NO_CONTEXT)
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/OpenGL/error.py", line 230, in glCheckError
+    raise self._errorClass(
+OpenGL.raw.EGL._errors.EGLError: EGLError(
+	err = EGL_NOT_INITIALIZED,
+	baseOperation = eglMakeCurrent,
+	cArguments = (
+		<OpenGL._opaque.EGLDisplay_pointer object at 0x1553e6081250>,
+		<OpenGL._opaque.EGLSurface_pointer object at 0x15553d773da0>,
+		<OpenGL._opaque.EGLSurface_pointer object at 0x15553d773da0>,
+		<OpenGL._opaque.EGLContext_pointer object at 0x15553d773c80>,
+	),
+	result = 0
+)
+LEVEL 3 PASSED
+
+============================================
+LEVEL 4: LIBERO full sweep (default_sweep.yaml)
+============================================
+2026-03-16 00:34:26,840 __main__ INFO: Trace Robotics Evaluation
+2026-03-16 00:34:26,840 __main__ INFO: Task config: configs/tasks/libero_spatial.yaml
+2026-03-16 00:34:26,841 __main__ INFO: Sweep config: configs/sweeps/default_sweep.yaml
+2026-03-16 00:34:26,841 __main__ INFO: Checkpoint: (none)
+2026-03-16 00:34:26,841 __main__ INFO: Output: output/reports
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-16 00:34:26,906 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-16 00:34:26,906 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-16 00:34:26,906 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-16 00:34:30,118 __main__ INFO: Task 'libero' initialized
+2026-03-16 00:34:37,303 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:34:37,316 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/lerobot/pi0fast-libero/840f4b503f4c09110421c33c810a85b6684fd658/config.json "HTTP/1.1 200 OK"
+2026-03-16 00:34:37,853 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:34:37,866 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:34:38,096 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:34:38,329 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:34:38,343 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:34:38,568 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:34:38,803 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-03-16 00:34:39,031 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:34:39,272 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processing_action_tokenizer.py "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:34:39,285 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processing_action_tokenizer.py "HTTP/1.1 200 OK"
+2026-03-16 00:34:39,521 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:34:39,745 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:34:39,758 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:34:39,985 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:34:40,216 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-03-16 00:34:40,449 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:34:40,684 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:34:40,910 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:34:41,137 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:34:41,150 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/bpe_tokenizer%2Ftokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:34:41,379 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:34:41,604 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-16 00:34:41,852 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-03-16 00:34:42,090 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:34:42,323 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:34:42,551 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-16 00:34:44,937 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+2026-03-16 00:34:44,938 root INFO: Loaded FAST tokenizer for action detokenization
+/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/torch/jit/_script.py:362: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+2026-03-16 00:36:59,992 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+2026-03-16 00:37:00,484 root WARNING: Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.bias
+2026-03-16 00:37:00,484 root WARNING: Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.weight
+2026-03-16 00:37:15,592 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/policy_preprocessor.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:37:15,606 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/lerobot/pi0fast-libero/840f4b503f4c09110421c33c810a85b6684fd658/policy_preprocessor.json "HTTP/1.1 200 OK"
+2026-03-16 00:37:15,850 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-03-16 00:37:16,086 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:37:16,321 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:37:16,551 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-16 00:37:18,898 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+2026-03-16 00:37:19,125 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:37:19,138 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:37:19,375 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:37:19,601 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:37:19,615 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:37:19,849 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:37:20,082 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-03-16 00:37:20,309 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:37:20,538 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processing_action_tokenizer.py "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:37:20,551 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processing_action_tokenizer.py "HTTP/1.1 200 OK"
+2026-03-16 00:37:20,790 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:37:21,013 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:37:21,027 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:37:21,253 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:37:21,481 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-03-16 00:37:21,706 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:37:21,938 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:37:22,167 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+2026-03-16 00:37:22,399 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:37:22,412 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/bpe_tokenizer%2Ftokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:37:22,667 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:37:22,891 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-16 00:37:23,133 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 200 OK"
+2026-03-16 00:37:23,367 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-03-16 00:37:23,597 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-03-16 00:37:23,826 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-03-16 00:37:26,170 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+2026-03-16 00:37:26,398 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/policy_postprocessor.json "HTTP/1.1 307 Temporary Redirect"
+2026-03-16 00:37:26,411 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/lerobot/pi0fast-libero/840f4b503f4c09110421c33c810a85b6684fd658/policy_postprocessor.json "HTTP/1.1 200 OK"
+2026-03-16 00:37:26,417 __main__ INFO: Using named policy: pi0fast
+2026-03-16 00:37:26,427 __main__ INFO: Loaded 9 stressor sweeps
+2026-03-16 00:37:26,427 __main__ INFO: Running sweep 1/9: LatencyStressor
+2026-03-16 00:38:15,953 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=0 success=True steps=79
+2026-03-16 00:39:04,943 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=1 success=True steps=78
+2026-03-16 00:39:59,429 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=2 success=True steps=82
+2026-03-16 00:40:54,060 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=3 success=True steps=81
+2026-03-16 00:41:42,875 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=4 success=True steps=79
+2026-03-16 00:42:37,651 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=5 success=True steps=83
+2026-03-16 00:43:26,513 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=6 success=True steps=77
+2026-03-16 00:44:21,207 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=7 success=True steps=82
+2026-03-16 00:45:15,794 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=8 success=True steps=82
+2026-03-16 00:46:04,697 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=9 success=True steps=77
+2026-03-16 00:46:53,600 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=0 success=True steps=76
+2026-03-16 00:48:18,144 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=1 success=True steps=137
+2026-03-16 00:49:12,726 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=2 success=True steps=82
+2026-03-16 00:50:01,786 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=3 success=True steps=80
+2026-03-16 00:50:50,573 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=4 success=True steps=76
+2026-03-16 00:51:39,518 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=5 success=True steps=78
+2026-03-16 00:52:28,747 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=6 success=True steps=72
+2026-03-16 00:53:17,766 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=7 success=True steps=79
+2026-03-16 00:54:12,372 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=8 success=True steps=83
+2026-03-16 00:55:01,196 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=9 success=True steps=78
+2026-03-16 00:55:50,138 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=0 success=True steps=77
+2026-03-16 00:57:20,213 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=1 success=True steps=141
+2026-03-16 00:58:14,893 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=2 success=True steps=90
+2026-03-16 00:59:09,437 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=3 success=True steps=83
+2026-03-16 00:59:58,806 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=4 success=True steps=80
+2026-03-16 01:00:48,123 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=5 success=True steps=79
+2026-03-16 01:01:36,866 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=6 success=True steps=77
+2026-03-16 01:02:31,585 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=7 success=True steps=85
+2026-03-16 01:03:20,437 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=8 success=True steps=80
+2026-03-16 01:04:09,914 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=9 success=True steps=78
+2026-03-16 01:04:58,908 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=0 success=True steps=80
+2026-03-16 01:07:11,287 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=1 success=False steps=220
+2026-03-16 01:07:59,944 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=2 success=True steps=80
+2026-03-16 01:08:48,925 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=3 success=True steps=80
+2026-03-16 01:09:37,792 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=4 success=True steps=77
+2026-03-16 01:10:26,463 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=5 success=True steps=75
+2026-03-16 01:11:15,367 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=6 success=True steps=78
+2026-03-16 01:12:10,024 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=7 success=True steps=83
+2026-03-16 01:13:04,542 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=8 success=True steps=83
+2026-03-16 01:13:53,311 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=9 success=True steps=77
+2026-03-16 01:14:42,241 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=0 success=True steps=79
+2026-03-16 01:15:30,836 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=1 success=True steps=74
+2026-03-16 01:16:25,421 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=2 success=True steps=84
+2026-03-16 01:17:20,051 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=3 success=True steps=82
+2026-03-16 01:18:08,981 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=4 success=True steps=80
+2026-03-16 01:19:03,420 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=5 success=True steps=82
+2026-03-16 01:19:52,060 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=6 success=True steps=72
+2026-03-16 01:20:40,949 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=7 success=True steps=79
+2026-03-16 01:21:29,632 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=8 success=True steps=79
+2026-03-16 01:22:18,460 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=9 success=True steps=78
+2026-03-16 01:23:13,423 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=0 success=True steps=89
+2026-03-16 01:24:43,658 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=1 success=True steps=142
+2026-03-16 01:25:38,359 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=2 success=True steps=90
+2026-03-16 01:26:33,168 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=3 success=True steps=87
+2026-03-16 01:27:27,785 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=4 success=True steps=85
+2026-03-16 01:28:40,312 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=5 success=True steps=114
+2026-03-16 01:29:41,440 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=6 success=True steps=95
+2026-03-16 01:30:36,769 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=7 success=True steps=90
+2026-03-16 01:31:32,020 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=8 success=True steps=87
+2026-03-16 01:32:27,288 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=9 success=True steps=88
+2026-03-16 01:33:16,595 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=0 success=True steps=80
+2026-03-16 01:34:41,516 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=1 success=True steps=135
+2026-03-16 01:35:42,187 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=2 success=True steps=92
+2026-03-16 01:36:37,116 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=3 success=True steps=84
+2026-03-16 01:37:31,902 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=4 success=True steps=85
+2026-03-16 01:39:43,414 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=5 success=False steps=220
+2026-03-16 01:40:32,120 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=6 success=True steps=77
+2026-03-16 01:41:26,435 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=7 success=True steps=86
+2026-03-16 01:42:20,829 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=8 success=True steps=89
+2026-03-16 01:43:15,751 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=9 success=True steps=88
+2026-03-16 01:44:10,098 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=0 success=True steps=83
+2026-03-16 01:45:27,984 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=1 success=True steps=125
+2026-03-16 01:47:27,335 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=2 success=True steps=196
+2026-03-16 01:48:21,597 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=3 success=True steps=85
+2026-03-16 01:49:15,960 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=4 success=True steps=82
+2026-03-16 01:50:10,331 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=5 success=True steps=83
+2026-03-16 01:51:04,787 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=6 success=True steps=87
+2026-03-16 01:51:59,348 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=7 success=True steps=90
+2026-03-16 01:52:53,817 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=8 success=True steps=86
+2026-03-16 01:53:48,136 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=9 success=True steps=84
+2026-03-16 01:55:59,755 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=0 success=False steps=220
+2026-03-16 01:57:35,412 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=1 success=True steps=151
+2026-03-16 01:58:29,804 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=2 success=True steps=90
+2026-03-16 01:59:24,350 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=3 success=True steps=87
+2026-03-16 02:00:18,579 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=4 success=True steps=82
+2026-03-16 02:02:29,816 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=5 success=False steps=220
+2026-03-16 02:03:24,152 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=6 success=True steps=87
+2026-03-16 02:04:18,496 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=7 success=True steps=82
+2026-03-16 02:05:12,745 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=8 success=True steps=87
+2026-03-16 02:06:06,921 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=9 success=True steps=85
+2026-03-16 02:07:01,526 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=0 success=True steps=87
+2026-03-16 02:09:12,851 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=1 success=False steps=220
+2026-03-16 02:11:24,331 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=2 success=False steps=220
+2026-03-16 02:12:18,712 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=3 success=True steps=85
+2026-03-16 02:13:13,113 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=4 success=True steps=86
+2026-03-16 02:15:24,504 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=5 success=False steps=220
+2026-03-16 02:16:18,984 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=6 success=True steps=87
+2026-03-16 02:17:13,340 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=7 success=True steps=86
+2026-03-16 02:18:07,617 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=8 success=True steps=87
+2026-03-16 02:19:01,914 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=9 success=True steps=86
+2026-03-16 02:21:13,364 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=0 success=False steps=220
+2026-03-16 02:23:24,630 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=1 success=False steps=220
+2026-03-16 02:24:36,535 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=2 success=True steps=116
+2026-03-16 02:26:47,596 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=3 success=False steps=220
+2026-03-16 02:28:58,545 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=4 success=False steps=220
+2026-03-16 02:31:10,037 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=5 success=False steps=220
+2026-03-16 02:33:21,121 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=6 success=False steps=220
+2026-03-16 02:34:21,765 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=7 success=True steps=92
+2026-03-16 02:35:21,873 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=8 success=True steps=92
+2026-03-16 02:37:33,235 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=9 success=False steps=220
+2026-03-16 02:39:14,795 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=0 success=True steps=164
+2026-03-16 02:41:26,123 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=1 success=False steps=220
+2026-03-16 02:43:37,177 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=2 success=False steps=220
+2026-03-16 02:44:37,892 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=3 success=True steps=93
+2026-03-16 02:45:38,022 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=4 success=True steps=91
+2026-03-16 02:46:32,544 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=5 success=True steps=88
+2026-03-16 02:48:43,316 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=6 success=False steps=220
+2026-03-16 02:49:43,575 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=7 success=True steps=95
+2026-03-16 02:51:01,428 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=8 success=True steps=129
+2026-03-16 02:53:12,296 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=9 success=False steps=220
+2026-03-16 02:55:23,282 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=0 success=False steps=220
+2026-03-16 02:57:22,321 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=1 success=True steps=197
+2026-03-16 02:59:15,839 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=2 success=True steps=188
+2026-03-16 03:00:45,604 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=3 success=True steps=147
+2026-03-16 03:01:40,091 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=4 success=True steps=88
+2026-03-16 03:03:51,021 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=5 success=False steps=220
+2026-03-16 03:06:01,960 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=6 success=False steps=220
+2026-03-16 03:07:02,049 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=7 success=True steps=96
+2026-03-16 03:07:56,289 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=8 success=True steps=90
+2026-03-16 03:08:50,568 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=9 success=True steps=87
+2026-03-16 03:11:01,349 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=0 success=False steps=220
+2026-03-16 03:13:12,549 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=1 success=False steps=220
+2026-03-16 03:15:23,751 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=2 success=False steps=220
+2026-03-16 03:16:23,764 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=3 success=True steps=94
+2026-03-16 03:18:34,705 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=4 success=False steps=220
+2026-03-16 03:20:45,896 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=5 success=False steps=220
+2026-03-16 03:21:40,352 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=6 success=True steps=89
+2026-03-16 03:22:40,518 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=7 success=True steps=96
+2026-03-16 03:23:40,481 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=8 success=True steps=93
+2026-03-16 03:24:40,737 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=9 success=True steps=93
+2026-03-16 03:26:51,974 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=0 success=False steps=220
+2026-03-16 03:29:03,601 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=1 success=False steps=220
+2026-03-16 03:31:14,524 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=2 success=False steps=220
+2026-03-16 03:32:38,486 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=3 success=True steps=136
+2026-03-16 03:33:39,182 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=4 success=True steps=91
+2026-03-16 03:35:50,326 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=5 success=False steps=220
+2026-03-16 03:36:50,518 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=6 success=True steps=92
+2026-03-16 03:37:50,768 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=7 success=True steps=92
+2026-03-16 03:38:50,946 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=8 success=True steps=97
+2026-03-16 03:41:02,209 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=9 success=False steps=220
+2026-03-16 03:42:31,979 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=0 success=True steps=143
+2026-03-16 03:44:37,067 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=1 success=True steps=209
+2026-03-16 03:46:48,285 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=2 success=False steps=220
+2026-03-16 03:48:59,273 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=3 success=False steps=220
+2026-03-16 03:51:10,153 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=4 success=False steps=220
+2026-03-16 03:53:21,114 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=5 success=False steps=220
+2026-03-16 03:55:32,263 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=6 success=False steps=220
+2026-03-16 03:57:43,286 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=7 success=False steps=220
+2026-03-16 03:59:53,925 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=8 success=False steps=220
+2026-03-16 04:02:04,888 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=9 success=False steps=220
+2026-03-16 04:04:16,408 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=0 success=False steps=220
+2026-03-16 04:06:27,476 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=1 success=False steps=220
+2026-03-16 04:08:03,293 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=2 success=True steps=159
+2026-03-16 04:10:14,214 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=3 success=False steps=220
+2026-03-16 04:12:25,511 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=4 success=False steps=220
+2026-03-16 04:14:37,084 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=5 success=False steps=220
+2026-03-16 04:16:12,819 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=6 success=True steps=155
+2026-03-16 04:18:23,569 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=7 success=False steps=220
+2026-03-16 04:19:53,401 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=8 success=True steps=146
+2026-03-16 04:22:04,485 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=9 success=False steps=220
+2026-03-16 04:24:15,637 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=0 success=False steps=220
+2026-03-16 04:26:26,762 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=1 success=False steps=220
+2026-03-16 04:28:08,461 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=2 success=True steps=166
+2026-03-16 04:30:20,129 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=3 success=False steps=220
+2026-03-16 04:31:55,799 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=4 success=True steps=160
+2026-03-16 04:34:07,043 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=5 success=False steps=220
+2026-03-16 04:36:18,597 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=6 success=False steps=220
+2026-03-16 04:38:12,018 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=7 success=True steps=183
+2026-03-16 04:39:18,007 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=8 success=True steps=101
+2026-03-16 04:41:29,265 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=9 success=False steps=220
+2026-03-16 04:43:40,803 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=0 success=False steps=220
+2026-03-16 04:45:51,798 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=1 success=False steps=220
+2026-03-16 04:48:02,284 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=2 success=False steps=220
+2026-03-16 04:50:13,724 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=3 success=False steps=220
+2026-03-16 04:52:24,927 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=4 success=False steps=220
+2026-03-16 04:54:36,252 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=5 success=False steps=220
+2026-03-16 04:56:47,800 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=6 success=False steps=220
+2026-03-16 04:58:00,003 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=7 success=True steps=111
+2026-03-16 04:59:35,344 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=8 success=True steps=157
+2026-03-16 05:01:46,486 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=9 success=False steps=220
+2026-03-16 05:03:57,542 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=0 success=False steps=220
+2026-03-16 05:05:50,935 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=1 success=True steps=187
+2026-03-16 05:08:01,848 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=2 success=False steps=220
+2026-03-16 05:10:12,828 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=3 success=False steps=220
+2026-03-16 05:12:23,868 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=4 success=False steps=220
+2026-03-16 05:14:34,961 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=5 success=False steps=220
+2026-03-16 05:16:45,954 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=6 success=False steps=220
+2026-03-16 05:17:51,962 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=7 success=True steps=101
+2026-03-16 05:20:02,921 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=8 success=False steps=220
+2026-03-16 05:22:13,735 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=9 success=False steps=220
+2026-03-16 05:24:25,239 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=0 success=False steps=220
+2026-03-16 05:26:36,373 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=1 success=False steps=220
+2026-03-16 05:28:47,646 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=2 success=False steps=220
+2026-03-16 05:30:59,292 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=3 success=False steps=220
+2026-03-16 05:33:10,399 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=4 success=False steps=220
+2026-03-16 05:35:21,616 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=5 success=False steps=220
+2026-03-16 05:37:32,545 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=6 success=False steps=220
+2026-03-16 05:39:44,010 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=7 success=False steps=220
+2026-03-16 05:41:55,523 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=8 success=False steps=220
+2026-03-16 05:44:06,847 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=9 success=False steps=220
+2026-03-16 05:45:54,483 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=0 success=True steps=171
+2026-03-16 05:48:05,450 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=1 success=False steps=220
+2026-03-16 05:49:53,005 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=2 success=True steps=176
+2026-03-16 05:52:04,661 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=3 success=False steps=220
+2026-03-16 05:54:16,011 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=4 success=False steps=220
+2026-03-16 05:56:27,152 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=5 success=False steps=220
+2026-03-16 05:58:38,582 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=6 success=False steps=220
+2026-03-16 06:00:49,839 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=7 success=False steps=220
+2026-03-16 06:03:00,915 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=8 success=True steps=213
+2026-03-16 06:05:12,345 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=9 success=False steps=220
+2026-03-16 06:07:24,010 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=0 success=False steps=220
+2026-03-16 06:09:34,961 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=1 success=False steps=220
+2026-03-16 06:11:45,529 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=2 success=False steps=220
+2026-03-16 06:13:50,678 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=3 success=True steps=201
+2026-03-16 06:16:02,098 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=4 success=False steps=220
+2026-03-16 06:18:13,587 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=5 success=False steps=220
+2026-03-16 06:20:24,910 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=6 success=False steps=220
+2026-03-16 06:22:36,042 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=7 success=False steps=220
+2026-03-16 06:24:47,159 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=8 success=False steps=220
+2026-03-16 06:26:34,763 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=9 success=True steps=174
+2026-03-16 06:28:46,266 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=0 success=False steps=220
+2026-03-16 06:30:57,406 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=1 success=False steps=220
+2026-03-16 06:33:08,203 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=2 success=False steps=220
+2026-03-16 06:35:13,490 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=3 success=True steps=201
+2026-03-16 06:37:24,812 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=4 success=False steps=220
+2026-03-16 06:39:35,898 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=5 success=False steps=220
+2026-03-16 06:41:47,237 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=6 success=False steps=220
+2026-03-16 06:43:35,056 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=7 success=True steps=171
+2026-03-16 06:45:46,102 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=8 success=False steps=220
+2026-03-16 06:47:58,369 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=9 success=False steps=220
+2026-03-16 06:50:09,722 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=0 success=False steps=220
+2026-03-16 06:52:20,826 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=1 success=False steps=220
+2026-03-16 06:54:14,199 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=2 success=True steps=184
+2026-03-16 06:56:25,246 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=3 success=False steps=220
+2026-03-16 06:58:37,030 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=4 success=False steps=220
+2026-03-16 07:00:48,363 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=5 success=False steps=220
+2026-03-16 07:02:59,489 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=6 success=False steps=220
+2026-03-16 07:05:10,709 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=7 success=False steps=220
+2026-03-16 07:07:21,782 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=8 success=False steps=220
+2026-03-16 07:09:33,241 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=9 success=False steps=220
+2026-03-16 07:11:44,477 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=0 success=False steps=220
+2026-03-16 07:13:55,548 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=1 success=False steps=220
+2026-03-16 07:16:06,819 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=2 success=False steps=220
+2026-03-16 07:18:18,179 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=3 success=False steps=220
+2026-03-16 07:20:29,604 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=4 success=False steps=220
+2026-03-16 07:22:41,916 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=5 success=False steps=220
+2026-03-16 07:24:53,118 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=6 success=False steps=220
+2026-03-16 07:27:05,008 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=7 success=False steps=220
+2026-03-16 07:29:16,363 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=8 success=False steps=220
+2026-03-16 07:31:28,340 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=9 success=False steps=220
+2026-03-16 07:33:39,577 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=0 success=False steps=220
+2026-03-16 07:35:52,072 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=1 success=False steps=220
+2026-03-16 07:38:02,975 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=2 success=False steps=220
+2026-03-16 07:40:14,243 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=3 success=False steps=220
+2026-03-16 07:42:25,832 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=4 success=True steps=213
+2026-03-16 07:44:37,519 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=5 success=False steps=220
+2026-03-16 07:46:49,060 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=6 success=False steps=220
+2026-03-16 07:49:00,662 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=7 success=False steps=220
+2026-03-16 07:50:59,951 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=8 success=True steps=197
+2026-03-16 07:53:11,386 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=9 success=False steps=220
+2026-03-16 07:55:22,986 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=0 success=False steps=220
+2026-03-16 07:57:34,518 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=1 success=False steps=220
+2026-03-16 07:59:27,528 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=2 success=True steps=188
+2026-03-16 08:01:40,031 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=3 success=False steps=220
+2026-03-16 08:03:39,699 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=4 success=True steps=195
+2026-03-16 08:05:51,273 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=5 success=False steps=220
+2026-03-16 08:08:03,386 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=6 success=False steps=220
+2026-03-16 08:10:14,889 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=7 success=False steps=220
+2026-03-16 08:12:26,083 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=8 success=False steps=220
+2026-03-16 08:14:37,812 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=9 success=False steps=220
+2026-03-16 08:16:49,616 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=0 success=False steps=220
+2026-03-16 08:19:01,139 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=1 success=False steps=220
+2026-03-16 08:21:12,144 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=2 success=False steps=220
+2026-03-16 08:23:23,656 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=3 success=False steps=220
+2026-03-16 08:25:35,192 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=4 success=False steps=220
+2026-03-16 08:27:46,893 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=5 success=False steps=220
+2026-03-16 08:29:58,415 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=6 success=False steps=220
+2026-03-16 08:31:57,839 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=7 success=True steps=193
+2026-03-16 08:34:09,149 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=8 success=False steps=220
+2026-03-16 08:36:20,751 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=9 success=False steps=220
+2026-03-16 08:38:32,322 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=0 success=False steps=220
+2026-03-16 08:40:43,895 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=1 success=False steps=220
+2026-03-16 08:42:54,732 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=2 success=False steps=220
+2026-03-16 08:45:06,451 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=3 success=False steps=220
+2026-03-16 08:47:18,505 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=4 success=False steps=220
+2026-03-16 08:49:30,682 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=5 success=False steps=220
+2026-03-16 08:51:42,504 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=6 success=True steps=217
+2026-03-16 08:53:55,596 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=7 success=False steps=220
+2026-03-16 08:56:07,161 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=8 success=False steps=220
+2026-03-16 08:58:18,708 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=9 success=False steps=220
+2026-03-16 09:00:30,777 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=0 success=False steps=220
+2026-03-16 09:02:42,470 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=1 success=False steps=220
+2026-03-16 09:04:54,027 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=2 success=False steps=220
+2026-03-16 09:07:05,471 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=3 success=False steps=220
+2026-03-16 09:09:17,410 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=4 success=False steps=220
+2026-03-16 09:11:29,029 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=5 success=False steps=220
+2026-03-16 09:13:40,158 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=6 success=False steps=220
+2026-03-16 09:15:52,048 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=7 success=False steps=220
+2026-03-16 09:18:03,603 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=8 success=False steps=220
+2026-03-16 09:20:14,642 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=9 success=False steps=220
+2026-03-16 09:22:24,743 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=0 success=False steps=220
+2026-03-16 09:24:35,204 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=1 success=False steps=220
+2026-03-16 09:26:46,931 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=2 success=False steps=220
+2026-03-16 09:28:57,871 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=3 success=False steps=220
+2026-03-16 09:31:08,513 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=4 success=False steps=220
+2026-03-16 09:33:19,061 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=5 success=False steps=220
+2026-03-16 09:35:30,004 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=6 success=False steps=220
+2026-03-16 09:37:40,158 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=7 success=False steps=220
+2026-03-16 09:39:50,522 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=8 success=False steps=220
+2026-03-16 09:42:02,239 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=9 success=False steps=220
+2026-03-16 09:44:13,605 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=0 success=False steps=220
+2026-03-16 09:46:25,026 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=1 success=False steps=220
+2026-03-16 09:48:35,798 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=2 success=False steps=220
+2026-03-16 09:50:47,168 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=3 success=False steps=220
+2026-03-16 09:52:59,489 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=4 success=False steps=220
+2026-03-16 09:55:10,951 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=5 success=False steps=220
+2026-03-16 09:57:22,291 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=6 success=False steps=220
+2026-03-16 09:59:33,940 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=7 success=False steps=220
+2026-03-16 10:01:45,703 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=8 success=False steps=220
+2026-03-16 10:03:57,904 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=9 success=False steps=220
+2026-03-16 10:05:39,853 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=0 success=True steps=165
+2026-03-16 10:07:51,408 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=1 success=False steps=220
+2026-03-16 10:10:02,808 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=2 success=False steps=220
+2026-03-16 10:12:14,780 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=3 success=False steps=220
+2026-03-16 10:14:26,360 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=4 success=False steps=220
+2026-03-16 10:16:38,056 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=5 success=False steps=220
+2026-03-16 10:18:49,491 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=6 success=False steps=220
+2026-03-16 10:20:59,749 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=7 success=False steps=220
+2026-03-16 10:23:10,380 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=8 success=False steps=220
+2026-03-16 10:25:20,781 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=9 success=False steps=220
+2026-03-16 10:27:32,099 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=0 success=False steps=220
+2026-03-16 10:29:44,019 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=1 success=False steps=220
+2026-03-16 10:31:55,100 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=2 success=False steps=220
+2026-03-16 10:34:07,100 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=3 success=False steps=220
+2026-03-16 10:36:18,651 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=4 success=False steps=220
+2026-03-16 10:38:30,667 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=5 success=False steps=220
+2026-03-16 10:40:42,296 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=6 success=False steps=220
+2026-03-16 10:42:55,355 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=7 success=False steps=220
+2026-03-16 10:45:07,121 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=8 success=False steps=220
+2026-03-16 10:47:18,956 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=9 success=False steps=220
+2026-03-16 10:47:18,961 __main__ INFO:   baseline=98%, max_degradation=96%, breakpoint=0.30
+2026-03-16 10:47:18,965 __main__ INFO:   Report updated: output/reports/report_Pi0FastAdapter_libero_20260316_003726.md (1/9 stressors)
+2026-03-16 10:47:18,965 __main__ INFO: Running sweep 2/9: DropoutStressor
+2026-03-16 10:48:07,418 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=0 success=True steps=76
+2026-03-16 10:49:01,659 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=1 success=True steps=83
+2026-03-16 10:49:55,721 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=2 success=True steps=82
+2026-03-16 10:50:50,047 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=3 success=True steps=81
+2026-03-16 10:51:38,572 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=4 success=True steps=80
+2026-03-16 10:52:32,925 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=5 success=True steps=84
+2026-03-16 10:53:21,519 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=6 success=True steps=80
+2026-03-16 10:54:15,849 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=7 success=True steps=82
+2026-03-16 10:55:10,826 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=8 success=True steps=81
+2026-03-16 10:55:59,405 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=9 success=True steps=77
+2026-03-16 10:56:47,942 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=0 success=True steps=75
+2026-03-16 10:58:59,363 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=1 success=False steps=220
+2026-03-16 10:59:53,438 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=2 success=True steps=82
+2026-03-16 11:00:42,153 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=3 success=True steps=80
+2026-03-16 11:01:30,521 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=4 success=True steps=73
+2026-03-16 11:02:24,801 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=5 success=True steps=82
+2026-03-16 11:03:13,171 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=6 success=True steps=73
+2026-03-16 11:04:07,608 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=7 success=True steps=83
+2026-03-16 11:05:01,914 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=8 success=True steps=82
+2026-03-16 11:05:50,486 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=9 success=True steps=78
+2026-03-16 11:06:39,179 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=0 success=True steps=79
+2026-03-16 11:08:08,989 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=1 success=True steps=141
+2026-03-16 11:09:03,940 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=2 success=True steps=83
+2026-03-16 11:09:58,381 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=3 success=True steps=83
+2026-03-16 11:10:47,094 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=4 success=True steps=80
+2026-03-16 11:11:35,728 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=5 success=True steps=79
+2026-03-16 11:12:24,312 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=6 success=True steps=78
+2026-03-16 11:13:18,753 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=7 success=True steps=85
+2026-03-16 11:14:07,360 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=8 success=True steps=80
+2026-03-16 11:14:56,011 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=9 success=True steps=78
+2026-03-16 11:15:44,574 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=0 success=True steps=75
+2026-03-16 11:16:33,008 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=1 success=True steps=72
+2026-03-16 11:17:27,351 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=2 success=True steps=84
+2026-03-16 11:18:21,732 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=3 success=True steps=81
+2026-03-16 11:19:10,518 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=4 success=True steps=80
+2026-03-16 11:19:58,880 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=5 success=True steps=74
+2026-03-16 11:20:47,524 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=6 success=True steps=78
+2026-03-16 11:21:41,907 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=7 success=True steps=82
+2026-03-16 11:22:36,084 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=8 success=True steps=82
+2026-03-16 11:23:24,676 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=9 success=True steps=78
+2026-03-16 11:24:36,714 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=0 success=True steps=112
+2026-03-16 11:25:25,181 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=1 success=True steps=77
+2026-03-16 11:26:19,384 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=2 success=True steps=85
+2026-03-16 11:27:13,732 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=3 success=True steps=82
+2026-03-16 11:28:08,103 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=4 success=True steps=84
+2026-03-16 11:29:20,493 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=5 success=True steps=118
+2026-03-16 11:30:09,073 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=6 success=True steps=74
+2026-03-16 11:30:57,674 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=7 success=True steps=79
+2026-03-16 11:31:51,921 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=8 success=True steps=82
+2026-03-16 11:32:40,354 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=9 success=True steps=75
+2026-03-16 11:33:35,001 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=0 success=True steps=88
+2026-03-16 11:34:23,513 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=1 success=True steps=77
+2026-03-16 11:35:18,166 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=2 success=True steps=82
+2026-03-16 11:36:06,827 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=3 success=True steps=79
+2026-03-16 11:37:01,465 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=4 success=True steps=90
+2026-03-16 11:38:07,489 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=5 success=True steps=101
+2026-03-16 11:39:43,912 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=6 success=True steps=154
+2026-03-16 11:41:56,558 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=7 success=False steps=220
+2026-03-16 11:42:51,111 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=8 success=True steps=84
+2026-03-16 11:43:51,491 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=9 success=True steps=99
+2026-03-16 11:44:45,941 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=0 success=True steps=83
+2026-03-16 11:45:58,064 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=1 success=True steps=116
+2026-03-16 11:47:04,114 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=2 success=True steps=109
+2026-03-16 11:48:16,589 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=3 success=True steps=120
+2026-03-16 11:49:22,703 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=4 success=True steps=104
+2026-03-16 11:50:17,024 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=5 success=True steps=81
+2026-03-16 11:51:11,345 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=6 success=True steps=82
+2026-03-16 11:51:59,810 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=7 success=True steps=74
+2026-03-16 11:52:48,263 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=8 success=True steps=74
+2026-03-16 11:53:36,719 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=9 success=True steps=73
+2026-03-16 11:54:48,975 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=0 success=True steps=116
+2026-03-16 11:55:43,320 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=1 success=True steps=84
+2026-03-16 11:57:13,468 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=2 success=True steps=147
+2026-03-16 11:58:13,880 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=3 success=True steps=100
+2026-03-16 11:59:02,621 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=4 success=True steps=80
+2026-03-16 11:59:57,020 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=5 success=True steps=86
+2026-03-16 12:00:51,522 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=6 success=True steps=86
+2026-03-16 12:01:51,847 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=7 success=True steps=94
+2026-03-16 12:02:46,083 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=8 success=True steps=85
+2026-03-16 12:03:40,292 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=9 success=True steps=83
+2026-03-16 12:04:34,820 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=0 success=True steps=90
+2026-03-16 12:05:29,263 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=1 success=True steps=88
+2026-03-16 12:06:23,371 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=2 success=True steps=85
+2026-03-16 12:07:35,715 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=3 success=True steps=118
+2026-03-16 12:08:35,717 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=4 success=True steps=91
+2026-03-16 12:09:42,223 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=5 success=True steps=107
+2026-03-16 12:10:36,568 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=6 success=True steps=83
+2026-03-16 12:11:42,624 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=7 success=True steps=103
+2026-03-16 12:13:54,434 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=8 success=False steps=220
+2026-03-16 12:14:49,012 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=9 success=True steps=86
+2026-03-16 12:16:13,132 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=0 success=True steps=132
+2026-03-16 12:17:07,345 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=1 success=True steps=82
+2026-03-16 12:18:07,314 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=2 success=True steps=91
+2026-03-16 12:19:01,695 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=3 success=True steps=84
+2026-03-16 12:20:01,853 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=4 success=True steps=92
+2026-03-16 12:22:13,304 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=5 success=False steps=220
+2026-03-16 12:24:24,935 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=6 success=False steps=220
+2026-03-16 12:25:25,401 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=7 success=True steps=91
+2026-03-16 12:26:49,312 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=8 success=True steps=133
+2026-03-16 12:28:37,095 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=9 success=True steps=176
+2026-03-16 12:30:48,635 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=0 success=False steps=220
+2026-03-16 12:33:00,201 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=1 success=False steps=220
+2026-03-16 12:35:11,692 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=2 success=False steps=220
+2026-03-16 12:36:11,994 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=3 success=True steps=91
+2026-03-16 12:37:41,994 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=4 success=True steps=145
+2026-03-16 12:38:42,382 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=5 success=True steps=97
+2026-03-16 12:40:54,715 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=6 success=False steps=220
+2026-03-16 12:42:01,117 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=7 success=True steps=107
+2026-03-16 12:43:25,209 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=8 success=True steps=134
+2026-03-16 12:44:49,381 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=9 success=True steps=136
+2026-03-16 12:45:38,106 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=0 success=True steps=80
+2026-03-16 12:47:49,682 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=1 success=False steps=220
+2026-03-16 12:49:01,849 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=2 success=True steps=120
+2026-03-16 12:50:25,885 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=3 success=True steps=139
+2026-03-16 12:51:55,673 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=4 success=True steps=142
+2026-03-16 12:54:07,860 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=5 success=False steps=220
+2026-03-16 12:54:56,297 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=6 success=True steps=74
+2026-03-16 12:55:50,858 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=7 success=True steps=88
+2026-03-16 12:56:45,151 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=8 success=True steps=86
+2026-03-16 12:58:03,185 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=9 success=True steps=123
+2026-03-16 12:59:57,258 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=0 success=True steps=185
+2026-03-16 13:01:26,957 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=1 success=True steps=143
+2026-03-16 13:02:56,788 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=2 success=True steps=150
+2026-03-16 13:05:08,594 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=3 success=False steps=220
+2026-03-16 13:06:08,841 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=4 success=True steps=95
+2026-03-16 13:07:32,926 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=5 success=True steps=137
+2026-03-16 13:09:26,489 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=6 success=True steps=186
+2026-03-16 13:11:02,470 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=7 success=True steps=155
+2026-03-16 13:12:26,217 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=8 success=True steps=131
+2026-03-16 13:14:37,713 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=9 success=False steps=220
+2026-03-16 13:15:32,012 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=0 success=True steps=83
+2026-03-16 13:16:44,219 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=1 success=True steps=111
+2026-03-16 13:17:38,233 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=2 success=True steps=83
+2026-03-16 13:19:02,227 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=3 success=True steps=136
+2026-03-16 13:19:56,541 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=4 success=True steps=82
+2026-03-16 13:21:44,222 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=5 success=True steps=180
+2026-03-16 13:23:55,617 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=6 success=False steps=220
+2026-03-16 13:25:08,017 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=7 success=True steps=118
+2026-03-16 13:26:49,449 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=8 success=True steps=161
+2026-03-16 13:27:43,814 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=9 success=True steps=85
+2026-03-16 13:29:43,232 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=0 success=True steps=193
+2026-03-16 13:31:54,466 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=1 success=False steps=220
+2026-03-16 13:34:05,186 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=2 success=False steps=220
+2026-03-16 13:35:11,523 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=3 success=True steps=109
+2026-03-16 13:37:05,456 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=4 success=True steps=188
+2026-03-16 13:39:16,949 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=5 success=False steps=220
+2026-03-16 13:40:23,555 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=6 success=True steps=104
+2026-03-16 13:41:18,161 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=7 success=True steps=89
+2026-03-16 13:43:29,599 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=8 success=False steps=220
+2026-03-16 13:44:23,893 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=9 success=True steps=82
+2026-03-16 13:45:53,559 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=0 success=True steps=141
+2026-03-16 13:48:04,941 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=1 success=False steps=220
+2026-03-16 13:50:16,501 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=2 success=False steps=220
+2026-03-16 13:51:22,755 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=3 success=True steps=106
+2026-03-16 13:53:34,356 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=4 success=False steps=220
+2026-03-16 13:55:33,668 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=5 success=True steps=191
+2026-03-16 13:57:45,374 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=6 success=False steps=220
+2026-03-16 13:59:56,923 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=7 success=False steps=220
+2026-03-16 14:01:44,763 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=8 success=True steps=174
+2026-03-16 14:02:50,888 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=9 success=True steps=102
+2026-03-16 14:03:45,539 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=0 success=True steps=89
+2026-03-16 14:05:57,355 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=1 success=False steps=220
+2026-03-16 14:07:21,554 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=2 success=True steps=136
+2026-03-16 14:08:21,848 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=3 success=True steps=97
+2026-03-16 14:10:03,545 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=4 success=True steps=162
+2026-03-16 14:11:03,735 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=5 success=True steps=91
+2026-03-16 14:12:39,708 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=6 success=True steps=152
+2026-03-16 14:14:51,204 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=7 success=False steps=220
+2026-03-16 14:15:57,464 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=8 success=True steps=108
+2026-03-16 14:17:39,863 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=9 success=True steps=165
+2026-03-16 14:18:52,295 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=0 success=True steps=119
+2026-03-16 14:21:04,899 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=1 success=False steps=220
+2026-03-16 14:23:15,854 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=2 success=False steps=220
+2026-03-16 14:25:27,600 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=3 success=False steps=220
+2026-03-16 14:27:39,371 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=4 success=False steps=220
+2026-03-16 14:29:50,810 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=5 success=False steps=220
+2026-03-16 14:32:02,853 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=6 success=False steps=220
+2026-03-16 14:33:33,017 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=7 success=True steps=148
+2026-03-16 14:35:43,498 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=8 success=False steps=220
+2026-03-16 14:37:36,175 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=9 success=True steps=182
+2026-03-16 14:39:47,114 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=0 success=False steps=220
+2026-03-16 14:40:59,236 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=1 success=True steps=118
+2026-03-16 14:43:10,049 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=2 success=False steps=220
+2026-03-16 14:45:21,670 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=3 success=False steps=220
+2026-03-16 14:47:33,313 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=4 success=False steps=220
+2026-03-16 14:49:14,918 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=5 success=True steps=161
+2026-03-16 14:50:33,048 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=6 success=True steps=127
+2026-03-16 14:52:44,838 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=7 success=False steps=220
+2026-03-16 14:53:50,811 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=8 success=True steps=104
+2026-03-16 14:56:02,777 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=9 success=False steps=220
+2026-03-16 14:58:14,425 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=0 success=False steps=220
+2026-03-16 15:00:25,847 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=1 success=False steps=220
+2026-03-16 15:02:38,039 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=2 success=False steps=220
+2026-03-16 15:04:50,125 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=3 success=False steps=220
+2026-03-16 15:06:49,598 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=4 success=True steps=195
+2026-03-16 15:07:56,112 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=5 success=True steps=109
+2026-03-16 15:08:44,708 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=6 success=True steps=79
+2026-03-16 15:09:45,263 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=7 success=True steps=99
+2026-03-16 15:10:51,958 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=8 success=True steps=107
+2026-03-16 15:13:03,444 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=9 success=False steps=220
+2026-03-16 15:15:14,962 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=0 success=False steps=220
+2026-03-16 15:17:26,484 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=1 success=False steps=220
+2026-03-16 15:19:37,394 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=2 success=False steps=220
+2026-03-16 15:21:19,330 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=3 success=True steps=166
+2026-03-16 15:22:37,431 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=4 success=True steps=122
+2026-03-16 15:24:49,107 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=5 success=False steps=220
+2026-03-16 15:27:00,965 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=6 success=False steps=220
+2026-03-16 15:29:12,901 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=7 success=False steps=220
+2026-03-16 15:31:24,808 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=8 success=False steps=220
+2026-03-16 15:33:18,741 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=9 success=True steps=187
+2026-03-16 15:35:30,539 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=0 success=False steps=220
+2026-03-16 15:37:42,545 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=1 success=False steps=220
+2026-03-16 15:39:53,592 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=2 success=False steps=220
+2026-03-16 15:42:05,141 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=3 success=False steps=220
+2026-03-16 15:44:16,689 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=4 success=False steps=220
+2026-03-16 15:46:28,035 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=5 success=False steps=220
+2026-03-16 15:48:39,614 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=6 success=False steps=220
+2026-03-16 15:50:51,032 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=7 success=False steps=220
+2026-03-16 15:53:02,648 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=8 success=False steps=220
+2026-03-16 15:54:38,993 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=9 success=True steps=160
+2026-03-16 15:56:50,788 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=0 success=False steps=220
+2026-03-16 15:59:02,195 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=1 success=False steps=220
+2026-03-16 16:01:13,206 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=2 success=False steps=220
+2026-03-16 16:03:24,783 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=3 success=False steps=220
+2026-03-16 16:05:36,506 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=4 success=False steps=220
+2026-03-16 16:07:48,094 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=5 success=False steps=220
+2026-03-16 16:10:00,017 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=6 success=False steps=220
+2026-03-16 16:12:11,496 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=7 success=False steps=220
+2026-03-16 16:14:23,297 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=8 success=False steps=220
+2026-03-16 16:16:35,306 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=9 success=False steps=220
+2026-03-16 16:18:47,128 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=0 success=False steps=220
+2026-03-16 16:20:59,130 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=1 success=False steps=220
+2026-03-16 16:23:11,066 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=2 success=False steps=220
+2026-03-16 16:25:23,214 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=3 success=False steps=220
+2026-03-16 16:27:34,988 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=4 success=False steps=220
+2026-03-16 16:29:46,823 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=5 success=False steps=220
+2026-03-16 16:31:58,415 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=6 success=False steps=220
+2026-03-16 16:34:10,586 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=7 success=False steps=220
+2026-03-16 16:36:22,741 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=8 success=False steps=220
+2026-03-16 16:38:34,513 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=9 success=False steps=220
+2026-03-16 16:39:58,799 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=0 success=True steps=139
+2026-03-16 16:41:40,864 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=1 success=True steps=166
+2026-03-16 16:43:10,675 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=2 success=True steps=144
+2026-03-16 16:45:22,373 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=3 success=False steps=220
+2026-03-16 16:47:34,577 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=4 success=False steps=220
+2026-03-16 16:49:46,272 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=5 success=False steps=220
+2026-03-16 16:51:58,165 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=6 success=False steps=220
+2026-03-16 16:54:09,965 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=7 success=False steps=220
+2026-03-16 16:56:21,956 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=8 success=False steps=220
+2026-03-16 16:58:33,801 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=9 success=False steps=220
+2026-03-16 17:00:45,576 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=0 success=False steps=220
+2026-03-16 17:02:57,263 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=1 success=False steps=220
+2026-03-16 17:05:08,239 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=2 success=False steps=220
+2026-03-16 17:07:20,026 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=3 success=False steps=220
+2026-03-16 17:09:31,711 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=4 success=False steps=220
+2026-03-16 17:11:43,532 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=5 success=False steps=220
+2026-03-16 17:13:56,169 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=6 success=False steps=220
+2026-03-16 17:16:08,061 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=7 success=False steps=220
+2026-03-16 17:18:19,406 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=8 success=False steps=220
+2026-03-16 17:20:31,307 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=9 success=False steps=220
+2026-03-16 17:22:43,031 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=0 success=False steps=220
+2026-03-16 17:24:54,511 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=1 success=False steps=220
+2026-03-16 17:27:05,761 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=2 success=False steps=220
+2026-03-16 17:29:17,252 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=3 success=False steps=220
+2026-03-16 17:31:28,981 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=4 success=False steps=220
+2026-03-16 17:33:40,724 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=5 success=False steps=220
+2026-03-16 17:35:52,796 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=6 success=False steps=220
+2026-03-16 17:38:04,601 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=7 success=False steps=220
+2026-03-16 17:40:16,625 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=8 success=False steps=220
+2026-03-16 17:42:28,618 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=9 success=False steps=220
+2026-03-16 17:44:40,850 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=0 success=False steps=220
+2026-03-16 17:46:52,732 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=1 success=False steps=220
+2026-03-16 17:49:03,701 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=2 success=False steps=220
+2026-03-16 17:51:15,649 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=3 success=False steps=220
+2026-03-16 17:53:27,195 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=4 success=False steps=220
+2026-03-16 17:55:38,934 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=5 success=False steps=220
+2026-03-16 17:57:50,602 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=6 success=False steps=220
+2026-03-16 18:00:02,188 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=7 success=False steps=220
+2026-03-16 18:02:14,394 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=8 success=False steps=220
+2026-03-16 18:04:25,965 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=9 success=False steps=220
+2026-03-16 18:06:37,371 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=0 success=False steps=220
+2026-03-16 18:08:49,192 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=1 success=False steps=220
+2026-03-16 18:11:00,507 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=2 success=False steps=220
+2026-03-16 18:13:12,350 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=3 success=False steps=220
+2026-03-16 18:15:24,109 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=4 success=False steps=220
+2026-03-16 18:17:35,750 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=5 success=False steps=220
+2026-03-16 18:19:47,232 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=6 success=False steps=220
+2026-03-16 18:21:59,062 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=7 success=False steps=220
+2026-03-16 18:24:10,539 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=8 success=False steps=220
+2026-03-16 18:26:22,157 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=9 success=False steps=220
+2026-03-16 18:28:33,950 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=0 success=False steps=220
+2026-03-16 18:30:45,736 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=1 success=False steps=220
+2026-03-16 18:32:56,749 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=2 success=False steps=220
+2026-03-16 18:35:08,478 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=3 success=False steps=220
+2026-03-16 18:37:20,032 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=4 success=False steps=220
+2026-03-16 18:39:31,599 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=5 success=False steps=220
+2026-03-16 18:41:43,317 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=6 success=False steps=220
+2026-03-16 18:43:55,885 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=7 success=False steps=220
+2026-03-16 18:46:07,547 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=8 success=False steps=220
+2026-03-16 18:48:19,380 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=9 success=False steps=220
+2026-03-16 18:50:31,101 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=0 success=False steps=220
+2026-03-16 18:52:42,806 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=1 success=False steps=220
+2026-03-16 18:54:54,042 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=2 success=False steps=220
+2026-03-16 18:57:05,837 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=3 success=False steps=220
+2026-03-16 18:59:17,525 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=4 success=False steps=220
+2026-03-16 19:01:29,128 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=5 success=False steps=220
+2026-03-16 19:03:40,773 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=6 success=False steps=220
+2026-03-16 19:05:52,653 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=7 success=False steps=220
+2026-03-16 19:08:04,296 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=8 success=False steps=220
+2026-03-16 19:10:15,855 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=9 success=False steps=220
+2026-03-16 19:12:27,442 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=0 success=False steps=220
+2026-03-16 19:14:38,934 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=1 success=False steps=220
+2026-03-16 19:16:50,165 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=2 success=False steps=220
+2026-03-16 19:19:01,784 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=3 success=False steps=220
+2026-03-16 19:21:13,501 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=4 success=False steps=220
+2026-03-16 19:23:25,054 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=5 success=False steps=220
+2026-03-16 19:25:36,832 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=6 success=False steps=220
+2026-03-16 19:27:48,584 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=7 success=False steps=220
+2026-03-16 19:30:00,334 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=8 success=False steps=220
+2026-03-16 19:32:12,226 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=9 success=False steps=220
+2026-03-16 19:34:24,045 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=0 success=False steps=220
+2026-03-16 19:36:35,707 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=1 success=False steps=220
+2026-03-16 19:38:46,961 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=2 success=False steps=220
+2026-03-16 19:40:58,723 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=3 success=False steps=220
+2026-03-16 19:43:10,276 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=4 success=False steps=220
+2026-03-16 19:45:21,813 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=5 success=False steps=220
+2026-03-16 19:47:33,805 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=6 success=False steps=220
+2026-03-16 19:49:45,604 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=7 success=False steps=220
+2026-03-16 19:51:57,197 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=8 success=False steps=220
+2026-03-16 19:54:08,979 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=9 success=False steps=220
+2026-03-16 19:56:20,717 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=0 success=False steps=220
+2026-03-16 19:58:32,390 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=1 success=False steps=220
+2026-03-16 20:00:43,489 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=2 success=False steps=220
+2026-03-16 20:02:55,381 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=3 success=False steps=220
+2026-03-16 20:05:07,093 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=4 success=False steps=220
+2026-03-16 20:07:18,995 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=5 success=False steps=220
+2026-03-16 20:09:30,945 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=6 success=False steps=220
+2026-03-16 20:11:42,717 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=7 success=False steps=220
+2026-03-16 20:13:54,609 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=8 success=False steps=220
+2026-03-16 20:16:06,523 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=9 success=False steps=220
+2026-03-16 20:18:18,280 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=0 success=False steps=220
+2026-03-16 20:20:29,979 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=1 success=False steps=220
+2026-03-16 20:22:41,140 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=2 success=False steps=220
+2026-03-16 20:24:53,156 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=3 success=False steps=220
+2026-03-16 20:27:05,066 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=4 success=False steps=220
+2026-03-16 20:29:16,776 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=5 success=False steps=220
+2026-03-16 20:31:28,694 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=6 success=False steps=220
+2026-03-16 20:33:40,664 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=7 success=False steps=220
+2026-03-16 20:35:52,436 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=8 success=False steps=220
+2026-03-16 20:38:04,213 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=9 success=False steps=220
+2026-03-16 20:38:04,216 __main__ INFO:   baseline=98%, max_degradation=98%, breakpoint=0.50
+2026-03-16 20:38:04,221 __main__ INFO:   Report updated: output/reports/report_Pi0FastAdapter_libero_20260316_003726.md (2/9 stressors)
+2026-03-16 20:38:04,221 __main__ INFO: Running sweep 3/9: PhysicsShiftStressor
+2026-03-16 20:38:58,728 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=0 success=True steps=81
+2026-03-16 20:41:10,698 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=1 success=False steps=220
+2026-03-16 20:42:04,949 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=2 success=True steps=82
+2026-03-16 20:42:53,794 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=3 success=True steps=80
+2026-03-16 20:43:48,172 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=4 success=True steps=82
+2026-03-16 20:44:42,648 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=5 success=True steps=84
+2026-03-16 20:45:55,323 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=6 success=True steps=116
+2026-03-16 20:46:44,113 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=7 success=True steps=79
+2026-03-16 20:47:38,600 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=8 success=True steps=82
+2026-03-16 20:48:27,382 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=9 success=True steps=77
+2026-03-16 20:49:16,019 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=0 success=True steps=75
+2026-03-16 20:50:40,195 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=1 success=True steps=132
+2026-03-16 20:51:34,638 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=2 success=True steps=83
+2026-03-16 20:52:29,163 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=3 success=True steps=82
+2026-03-16 20:53:17,644 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=4 success=True steps=73
+2026-03-16 20:54:12,074 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=5 success=True steps=81
+2026-03-16 20:55:00,727 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=6 success=True steps=73
+2026-03-16 20:55:49,575 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=7 success=True steps=79
+2026-03-16 20:56:44,197 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=8 success=True steps=85
+2026-03-16 20:57:32,981 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=9 success=True steps=77
+2026-03-16 20:58:21,605 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=0 success=True steps=76
+2026-03-16 20:59:51,522 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=1 success=True steps=141
+2026-03-16 21:00:45,997 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=2 success=True steps=87
+2026-03-16 21:01:34,765 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=3 success=True steps=80
+2026-03-16 21:02:23,695 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=4 success=True steps=80
+2026-03-16 21:03:12,264 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=5 success=True steps=74
+2026-03-16 21:04:00,824 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=6 success=True steps=77
+2026-03-16 21:04:55,318 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=7 success=True steps=84
+2026-03-16 21:05:49,764 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=8 success=True steps=81
+2026-03-16 21:06:38,425 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=9 success=True steps=78
+2026-03-16 21:07:27,254 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=0 success=True steps=79
+2026-03-16 21:08:15,838 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=1 success=True steps=72
+2026-03-16 21:09:10,265 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=2 success=True steps=84
+2026-03-16 21:10:04,875 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=3 success=True steps=83
+2026-03-16 21:10:53,488 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=4 success=True steps=76
+2026-03-16 21:11:42,261 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=5 success=True steps=79
+2026-03-16 21:12:31,106 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=6 success=True steps=80
+2026-03-16 21:13:25,596 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=7 success=True steps=82
+2026-03-16 21:14:14,391 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=8 success=True steps=80
+2026-03-16 21:15:03,163 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=9 success=True steps=77
+2026-03-16 21:15:58,088 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=0 success=True steps=81
+2026-03-16 21:16:46,548 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=1 success=True steps=73
+2026-03-16 21:17:41,049 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=2 success=True steps=84
+2026-03-16 21:18:35,592 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=3 success=True steps=82
+2026-03-16 21:19:30,143 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=4 success=True steps=85
+2026-03-16 21:20:18,877 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=5 success=True steps=75
+2026-03-16 21:21:07,653 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=6 success=True steps=78
+2026-03-16 21:21:56,429 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=7 success=True steps=78
+2026-03-16 21:22:50,958 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=8 success=True steps=83
+2026-03-16 21:23:39,635 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=9 success=True steps=75
+2026-03-16 21:24:28,414 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=0 success=True steps=79
+2026-03-16 21:25:17,115 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=1 success=True steps=73
+2026-03-16 21:26:11,468 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=2 success=True steps=83
+2026-03-16 21:27:05,920 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=3 success=True steps=82
+2026-03-16 21:27:54,758 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=4 success=True steps=80
+2026-03-16 21:28:43,577 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=5 success=True steps=77
+2026-03-16 21:29:32,346 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=6 success=True steps=79
+2026-03-16 21:30:26,916 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=7 success=True steps=83
+2026-03-16 21:31:21,354 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=8 success=True steps=82
+2026-03-16 21:32:10,169 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=9 success=True steps=80
+2026-03-16 21:32:58,851 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=0 success=True steps=74
+2026-03-16 21:33:53,404 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=1 success=True steps=85
+2026-03-16 21:34:47,733 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=2 success=True steps=82
+2026-03-16 21:35:42,428 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=3 success=True steps=82
+2026-03-16 21:36:30,946 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=4 success=True steps=74
+2026-03-16 21:37:19,714 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=5 success=True steps=80
+2026-03-16 21:38:08,554 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=6 success=True steps=78
+2026-03-16 21:39:03,013 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=7 success=True steps=82
+2026-03-16 21:39:57,551 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=8 success=True steps=85
+2026-03-16 21:40:46,351 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=9 success=True steps=77
+2026-03-16 21:41:40,745 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=0 success=True steps=81
+2026-03-16 21:42:29,290 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=1 success=True steps=74
+2026-03-16 21:43:23,699 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=2 success=True steps=87
+2026-03-16 21:44:18,254 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=3 success=True steps=84
+2026-03-16 21:45:07,052 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=4 success=True steps=80
+2026-03-16 21:45:55,729 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=5 success=True steps=76
+2026-03-16 21:46:44,566 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=6 success=True steps=78
+2026-03-16 21:47:39,045 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=7 success=True steps=83
+2026-03-16 21:48:27,795 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=8 success=True steps=79
+2026-03-16 21:49:16,415 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=9 success=True steps=76
+2026-03-16 21:50:05,117 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=0 success=True steps=74
+2026-03-16 21:51:23,671 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=1 success=True steps=125
+2026-03-16 21:52:17,947 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=2 success=True steps=81
+2026-03-16 21:53:12,570 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=3 success=True steps=84
+2026-03-16 21:54:07,024 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=4 success=True steps=81
+2026-03-16 21:55:14,253 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=5 success=True steps=101
+2026-03-16 21:56:02,960 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=6 success=True steps=76
+2026-03-16 21:56:57,576 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=7 success=True steps=83
+2026-03-16 21:57:51,992 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=8 success=True steps=82
+2026-03-16 21:58:40,758 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=9 success=True steps=77
+2026-03-16 21:59:29,607 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=0 success=True steps=78
+2026-03-16 22:00:18,290 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=1 success=True steps=76
+2026-03-16 22:01:06,937 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=2 success=True steps=79
+2026-03-16 22:02:01,458 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=3 success=True steps=81
+2026-03-16 22:02:50,174 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=4 success=True steps=80
+2026-03-16 22:03:39,011 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=5 success=True steps=78
+2026-03-16 22:04:28,053 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=6 success=True steps=80
+2026-03-16 22:05:16,664 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=7 success=True steps=79
+2026-03-16 22:06:11,136 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=8 success=True steps=84
+2026-03-16 22:07:06,558 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=9 success=True steps=83
+2026-03-16 22:07:55,365 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=0 success=True steps=78
+2026-03-16 22:10:07,270 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=1 success=False steps=220
+2026-03-16 22:11:01,511 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=2 success=True steps=81
+2026-03-16 22:11:50,274 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=3 success=True steps=79
+2026-03-16 22:12:39,168 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=4 success=True steps=80
+2026-03-16 22:13:27,821 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=5 success=True steps=76
+2026-03-16 22:14:16,446 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=6 success=True steps=73
+2026-03-16 22:15:11,033 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=7 success=True steps=81
+2026-03-16 22:16:05,581 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=8 success=True steps=83
+2026-03-16 22:16:54,477 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=9 success=True steps=79
+2026-03-16 22:17:43,225 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=0 success=True steps=76
+2026-03-16 22:19:55,112 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=1 success=False steps=220
+2026-03-16 22:20:49,477 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=2 success=True steps=82
+2026-03-16 22:21:38,212 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=3 success=True steps=76
+2026-03-16 22:22:27,048 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=4 success=True steps=79
+2026-03-16 22:23:15,661 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=5 success=True steps=72
+2026-03-16 22:23:58,647 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=6 success=True steps=70
+2026-03-16 22:24:53,127 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=7 success=True steps=81
+2026-03-16 22:25:47,652 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=8 success=True steps=84
+2026-03-16 22:26:36,365 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=9 success=True steps=76
+2026-03-16 22:27:25,098 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=0 success=True steps=75
+2026-03-16 22:28:31,644 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=1 success=True steps=107
+2026-03-16 22:29:26,229 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=2 success=True steps=88
+2026-03-16 22:30:20,842 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=3 success=True steps=83
+2026-03-16 22:31:09,606 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=4 success=True steps=79
+2026-03-16 22:31:58,172 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=5 success=True steps=72
+2026-03-16 22:32:46,994 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=6 success=True steps=78
+2026-03-16 22:33:41,569 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=7 success=True steps=85
+2026-03-16 22:34:30,302 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=8 success=True steps=77
+2026-03-16 22:35:18,908 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=9 success=True steps=73
+2026-03-16 22:36:13,370 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=0 success=True steps=81
+2026-03-16 22:37:01,936 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=1 success=True steps=74
+2026-03-16 22:37:56,293 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=2 success=True steps=83
+2026-03-16 22:38:45,160 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=3 success=True steps=76
+2026-03-16 22:39:34,006 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=4 success=True steps=80
+2026-03-16 22:40:22,647 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=5 success=True steps=76
+2026-03-16 22:41:11,191 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=6 success=True steps=75
+2026-03-16 22:42:05,713 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=7 success=True steps=83
+2026-03-16 22:43:00,075 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=8 success=True steps=81
+2026-03-16 22:43:48,623 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=9 success=True steps=73
+2026-03-16 22:44:37,363 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=0 success=True steps=78
+2026-03-16 22:46:49,451 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=1 success=False steps=220
+2026-03-16 22:47:43,798 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=2 success=True steps=85
+2026-03-16 22:49:02,701 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=3 success=True steps=126
+2026-03-16 22:49:57,214 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=4 success=True steps=81
+2026-03-16 22:52:09,196 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=5 success=False steps=220
+2026-03-16 22:52:57,947 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=6 success=True steps=77
+2026-03-16 22:53:46,794 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=7 success=True steps=80
+2026-03-16 22:54:41,375 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=8 success=True steps=86
+2026-03-16 22:55:36,086 trace.runner.sweep_runner INFO: intensity=0.20 seed=4 ep=9 success=True steps=83
+2026-03-16 22:56:24,734 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=0 success=True steps=75
+2026-03-16 22:58:36,449 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=1 success=False steps=220
+2026-03-16 22:59:30,792 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=2 success=True steps=83
+2026-03-16 23:00:25,299 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=3 success=True steps=82
+2026-03-16 23:01:13,984 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=4 success=True steps=79
+2026-03-16 23:02:14,657 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=5 success=True steps=100
+2026-03-16 23:03:03,602 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=6 success=True steps=80
+2026-03-16 23:03:58,206 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=7 success=True steps=84
+2026-03-16 23:04:52,830 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=8 success=True steps=82
+2026-03-16 23:05:41,559 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=9 success=True steps=77
+2026-03-16 23:06:30,345 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=0 success=True steps=77
+2026-03-16 23:07:54,679 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=1 success=True steps=134
+2026-03-16 23:08:48,961 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=2 success=True steps=81
+2026-03-16 23:09:37,831 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=3 success=True steps=79
+2026-03-16 23:10:26,654 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=4 success=True steps=79
+2026-03-16 23:11:15,380 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=5 success=True steps=75
+2026-03-16 23:12:04,209 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=6 success=True steps=77
+2026-03-16 23:12:59,164 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=7 success=True steps=89
+2026-03-16 23:13:53,843 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=8 success=True steps=83
+2026-03-16 23:14:42,542 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=9 success=True steps=75
+2026-03-16 23:15:31,433 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=0 success=True steps=78
+2026-03-16 23:16:20,160 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=1 success=True steps=76
+2026-03-16 23:17:14,774 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=2 success=True steps=85
+2026-03-16 23:18:03,711 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=3 success=True steps=80
+2026-03-16 23:18:52,444 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=4 success=True steps=80
+2026-03-16 23:19:40,999 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=5 success=True steps=74
+2026-03-16 23:20:29,760 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=6 success=True steps=77
+2026-03-16 23:21:24,496 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=7 success=True steps=84
+2026-03-16 23:22:13,382 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=8 success=True steps=80
+2026-03-16 23:23:02,053 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=9 success=True steps=75
+2026-03-16 23:23:50,918 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=0 success=True steps=79
+2026-03-16 23:24:39,586 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=1 success=True steps=76
+2026-03-16 23:25:34,120 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=2 success=True steps=82
+2026-03-16 23:26:28,748 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=3 success=True steps=82
+2026-03-16 23:27:17,476 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=4 success=True steps=75
+2026-03-16 23:28:06,095 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=5 success=True steps=75
+2026-03-16 23:28:54,990 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=6 success=True steps=76
+2026-03-16 23:29:49,542 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=7 success=True steps=83
+2026-03-16 23:30:44,169 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=8 success=True steps=83
+2026-03-16 23:31:38,834 trace.runner.sweep_runner INFO: intensity=0.30 seed=3 ep=9 success=True steps=81
+2026-03-16 23:32:27,486 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=0 success=True steps=72
+2026-03-16 23:33:16,302 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=1 success=True steps=78
+2026-03-16 23:34:10,992 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=2 success=True steps=85
+2026-03-16 23:34:59,866 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=3 success=True steps=79
+2026-03-16 23:35:54,397 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=4 success=True steps=83
+2026-03-16 23:36:43,224 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=5 success=True steps=77
+2026-03-16 23:37:32,054 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=6 success=True steps=80
+2026-03-16 23:38:20,895 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=7 success=True steps=80
+2026-03-16 23:39:15,468 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=8 success=True steps=82
+2026-03-16 23:40:10,709 trace.runner.sweep_runner INFO: intensity=0.30 seed=4 ep=9 success=True steps=81
+2026-03-16 23:40:59,635 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=0 success=True steps=79
+2026-03-16 23:41:48,371 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=1 success=True steps=79
+2026-03-16 23:42:42,822 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=2 success=True steps=86
+2026-03-16 23:43:31,562 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=3 success=True steps=77
+2026-03-16 23:44:20,313 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=4 success=True steps=78
+2026-03-16 23:45:09,249 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=5 success=True steps=80
+2026-03-16 23:45:57,965 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=6 success=True steps=74
+2026-03-16 23:46:52,659 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=7 success=True steps=83
+2026-03-16 23:47:41,458 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=8 success=True steps=79
+2026-03-16 23:48:30,260 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=9 success=True steps=79
+2026-03-16 23:49:18,947 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=0 success=True steps=74
+2026-03-16 23:50:31,553 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=1 success=True steps=118
+2026-03-16 23:51:25,954 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=2 success=True steps=82
+2026-03-16 23:52:14,655 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=3 success=True steps=78
+2026-03-16 23:53:03,321 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=4 success=True steps=77
+2026-03-16 23:53:52,159 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=5 success=True steps=79
+2026-03-16 23:54:40,911 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=6 success=True steps=76
+2026-03-16 23:55:35,413 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=7 success=True steps=81
+2026-03-16 23:57:47,514 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=8 success=False steps=220
+2026-03-16 23:58:36,249 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=9 success=True steps=78
+2026-03-16 23:59:25,215 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=0 success=True steps=80
+2026-03-17 00:00:13,849 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=1 success=True steps=75
+2026-03-17 00:01:08,324 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=2 success=True steps=84
+2026-03-17 00:02:02,938 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=3 success=True steps=84
+2026-03-17 00:02:51,837 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=4 success=True steps=80
+2026-03-17 00:03:40,517 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=5 success=True steps=77
+2026-03-17 00:04:29,419 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=6 success=True steps=79
+2026-03-17 00:05:29,955 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=7 success=True steps=94
+2026-03-17 00:06:24,580 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=8 success=True steps=83
+2026-03-17 00:07:13,198 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=9 success=True steps=74
+2026-03-17 00:08:01,927 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=0 success=True steps=76
+2026-03-17 00:08:50,611 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=1 success=True steps=77
+2026-03-17 00:09:45,103 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=2 success=True steps=82
+2026-03-17 00:10:34,054 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=3 success=True steps=80
+2026-03-17 00:11:22,911 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=4 success=True steps=78
+2026-03-17 00:12:11,451 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=5 success=True steps=71
+2026-03-17 00:13:00,094 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=6 success=True steps=73
+2026-03-17 00:13:54,731 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=7 success=True steps=83
+2026-03-17 00:14:49,209 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=8 success=True steps=85
+2026-03-17 00:15:38,038 trace.runner.sweep_runner INFO: intensity=0.50 seed=3 ep=9 success=True steps=77
+2026-03-17 00:16:27,041 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=0 success=True steps=80
+2026-03-17 00:17:21,449 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=1 success=True steps=81
+2026-03-17 00:18:16,014 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=2 success=True steps=82
+2026-03-17 00:19:04,844 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=3 success=True steps=79
+2026-03-17 00:19:53,798 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=4 success=True steps=80
+2026-03-17 00:22:05,965 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=5 success=False steps=220
+2026-03-17 00:22:54,799 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=6 success=True steps=78
+2026-03-17 00:23:49,352 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=7 success=True steps=81
+2026-03-17 00:24:43,752 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=8 success=True steps=82
+2026-03-17 00:25:32,416 trace.runner.sweep_runner INFO: intensity=0.50 seed=4 ep=9 success=True steps=75
+2026-03-17 00:27:44,943 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=0 success=False steps=220
+2026-03-17 00:28:33,557 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=1 success=True steps=75
+2026-03-17 00:29:28,013 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=2 success=True steps=82
+2026-03-17 00:30:16,803 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=3 success=True steps=78
+2026-03-17 00:31:05,597 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=4 success=True steps=79
+2026-03-17 00:31:54,165 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=5 success=True steps=76
+2026-03-17 00:32:42,912 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=6 success=True steps=73
+2026-03-17 00:33:37,508 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=7 success=True steps=86
+2026-03-17 00:34:32,012 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=8 success=True steps=83
+2026-03-17 00:35:20,919 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=9 success=True steps=80
+2026-03-17 00:36:09,518 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=0 success=True steps=73
+2026-03-17 00:36:58,117 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=1 success=True steps=76
+2026-03-17 00:37:52,597 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=2 success=True steps=81
+2026-03-17 00:38:47,078 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=3 success=True steps=83
+2026-03-17 00:39:35,854 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=4 success=True steps=79
+2026-03-17 00:40:24,705 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=5 success=True steps=80
+2026-03-17 00:41:13,432 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=6 success=True steps=76
+2026-03-17 00:42:07,814 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=7 success=True steps=82
+2026-03-17 00:43:02,295 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=8 success=True steps=84
+2026-03-17 00:43:56,740 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=9 success=True steps=82
+2026-03-17 00:44:45,529 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=0 success=True steps=79
+2026-03-17 00:46:21,436 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=1 success=True steps=153
+2026-03-17 00:47:16,232 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=2 success=True steps=88
+2026-03-17 00:48:04,922 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=3 success=True steps=79
+2026-03-17 00:48:53,833 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=4 success=True steps=80
+2026-03-17 00:49:42,701 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=5 success=True steps=79
+2026-03-17 00:50:31,480 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=6 success=True steps=79
+2026-03-17 00:51:26,070 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=7 success=True steps=84
+2026-03-17 00:52:20,626 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=8 success=True steps=84
+2026-03-17 00:53:09,238 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=9 success=True steps=72
+2026-03-17 00:54:03,870 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=0 success=True steps=81
+2026-03-17 00:54:52,663 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=1 success=True steps=74
+2026-03-17 00:55:48,040 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=2 success=True steps=85
+2026-03-17 00:56:42,614 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=3 success=True steps=83
+2026-03-17 00:57:31,387 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=4 success=True steps=78
+2026-03-17 00:58:20,000 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=5 success=True steps=73
+2026-03-17 00:59:08,892 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=6 success=True steps=78
+2026-03-17 01:00:03,370 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=7 success=True steps=83
+2026-03-17 01:00:57,818 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=8 success=True steps=83
+2026-03-17 01:01:46,675 trace.runner.sweep_runner INFO: intensity=0.70 seed=3 ep=9 success=True steps=80
+2026-03-17 01:02:35,590 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=0 success=True steps=78
+2026-03-17 01:03:30,305 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=1 success=True steps=81
+2026-03-17 01:04:25,123 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=2 success=True steps=85
+2026-03-17 01:05:19,579 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=3 success=True steps=81
+2026-03-17 01:06:14,274 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=4 success=True steps=85
+2026-03-17 01:08:26,312 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=5 success=False steps=220
+2026-03-17 01:09:20,804 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=6 success=True steps=81
+2026-03-17 01:10:09,729 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=7 success=True steps=80
+2026-03-17 01:11:04,314 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=8 success=True steps=85
+2026-03-17 01:11:53,141 trace.runner.sweep_runner INFO: intensity=0.70 seed=4 ep=9 success=True steps=79
+2026-03-17 01:12:41,928 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=0 success=True steps=76
+2026-03-17 01:13:36,426 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=1 success=True steps=83
+2026-03-17 01:14:30,609 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=2 success=True steps=81
+2026-03-17 01:16:43,384 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=3 success=False steps=220
+2026-03-17 01:17:32,179 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=4 success=True steps=78
+2026-03-17 01:19:44,284 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=5 success=False steps=220
+2026-03-17 01:21:56,422 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=6 success=False steps=220
+2026-03-17 01:22:50,948 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=7 success=True steps=82
+2026-03-17 01:23:45,551 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=8 success=True steps=84
+2026-03-17 01:25:58,403 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=9 success=False steps=220
+2026-03-17 01:26:47,150 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=0 success=True steps=74
+2026-03-17 01:29:01,826 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=1 success=False steps=220
+2026-03-17 01:29:57,031 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=2 success=True steps=81
+2026-03-17 01:30:45,950 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=3 success=True steps=80
+2026-03-17 01:31:34,723 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=4 success=True steps=78
+2026-03-17 01:32:23,506 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=5 success=True steps=78
+2026-03-17 01:33:12,437 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=6 success=True steps=80
+2026-03-17 01:34:06,942 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=7 success=True steps=81
+2026-03-17 01:36:20,373 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=8 success=False steps=220
+2026-03-17 01:38:32,398 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=9 success=False steps=220
+2026-03-17 01:39:21,340 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=0 success=True steps=80
+2026-03-17 01:40:57,444 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=1 success=True steps=152
+2026-03-17 01:41:52,264 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=2 success=True steps=87
+2026-03-17 01:42:46,843 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=3 success=True steps=81
+2026-03-17 01:43:35,750 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=4 success=True steps=79
+2026-03-17 01:44:24,305 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=5 success=True steps=71
+2026-03-17 01:45:13,371 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=6 success=True steps=78
+2026-03-17 01:46:07,972 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=7 success=True steps=83
+2026-03-17 01:47:02,693 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=8 success=True steps=84
+2026-03-17 01:47:51,526 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=9 success=True steps=74
+2026-03-17 01:48:46,056 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=0 success=True steps=81
+2026-03-17 01:49:40,604 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=1 success=True steps=81
+2026-03-17 01:50:35,383 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=2 success=True steps=85
+2026-03-17 01:51:29,976 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=3 success=True steps=82
+2026-03-17 01:52:24,532 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=4 success=True steps=82
+2026-03-17 01:54:39,228 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=5 success=False steps=220
+2026-03-17 01:55:28,176 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=6 success=True steps=78
+2026-03-17 01:57:41,368 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=7 success=False steps=220
+2026-03-17 01:58:30,478 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=8 success=True steps=79
+2026-03-17 01:59:19,489 trace.runner.sweep_runner INFO: intensity=1.00 seed=3 ep=9 success=True steps=76
+2026-03-17 02:01:33,337 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=0 success=False steps=220
+2026-03-17 02:02:22,250 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=1 success=True steps=76
+2026-03-17 02:03:17,217 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=2 success=True steps=86
+2026-03-17 02:05:30,171 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=3 success=False steps=220
+2026-03-17 02:06:24,889 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=4 success=True steps=81
+2026-03-17 02:07:31,668 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=5 success=True steps=108
+2026-03-17 02:08:20,734 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=6 success=True steps=77
+2026-03-17 02:10:34,053 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=7 success=False steps=220
+2026-03-17 02:11:23,147 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=8 success=True steps=78
+2026-03-17 02:13:37,522 trace.runner.sweep_runner INFO: intensity=1.00 seed=4 ep=9 success=False steps=220
+2026-03-17 02:13:37,526 __main__ INFO:   baseline=98%, max_degradation=24%, breakpoint=none
+2026-03-17 02:13:37,532 __main__ INFO:   Report updated: output/reports/report_Pi0FastAdapter_libero_20260316_003726.md (3/9 stressors)
+2026-03-17 02:13:37,532 __main__ INFO: Running sweep 4/9: EmbodimentStressor
+2026-03-17 02:15:50,211 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=0 success=False steps=220
+2026-03-17 02:16:39,010 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=1 success=True steps=73
+2026-03-17 02:17:34,008 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=2 success=True steps=82
+2026-03-17 02:18:28,758 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=3 success=True steps=82
+2026-03-17 02:19:17,733 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=4 success=True steps=78
+2026-03-17 02:20:12,679 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=5 success=True steps=84
+2026-03-17 02:21:07,420 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=6 success=True steps=82
+2026-03-17 02:21:56,645 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=7 success=True steps=80
+2026-03-17 02:22:51,390 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=8 success=True steps=82
+2026-03-17 02:23:40,352 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=9 success=True steps=78
+2026-03-17 02:24:29,397 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=0 success=True steps=75
+2026-03-17 02:26:42,166 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=1 success=False steps=220
+2026-03-17 02:27:36,947 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=2 success=True steps=81
+2026-03-17 02:28:31,829 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=3 success=True steps=81
+2026-03-17 02:29:20,877 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=4 success=True steps=77
+2026-03-17 02:30:10,031 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=5 success=True steps=79
+2026-03-17 02:30:58,968 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=6 success=True steps=73
+2026-03-17 02:31:53,865 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=7 success=True steps=83
+2026-03-17 02:32:48,763 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=8 success=True steps=83
+2026-03-17 02:33:37,916 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=9 success=True steps=78
+2026-03-17 02:34:27,085 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=0 success=True steps=79
+2026-03-17 02:35:15,981 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=1 success=True steps=74
+2026-03-17 02:36:10,827 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=2 success=True steps=88
+2026-03-17 02:37:05,715 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=3 success=True steps=81
+2026-03-17 02:37:54,768 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=4 success=True steps=80
+2026-03-17 02:38:43,921 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=5 success=True steps=79
+2026-03-17 02:39:33,585 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=6 success=True steps=79
+2026-03-17 02:40:28,402 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=7 success=True steps=85
+2026-03-17 02:41:23,113 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=8 success=True steps=81
+2026-03-17 02:42:11,920 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=9 success=True steps=73
+2026-03-17 02:43:06,673 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=0 success=True steps=81
+2026-03-17 02:43:55,546 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=1 success=True steps=74
+2026-03-17 02:44:44,366 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=2 success=True steps=80
+2026-03-17 02:45:39,172 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=3 success=True steps=81
+2026-03-17 02:46:28,186 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=4 success=True steps=77
+2026-03-17 02:47:17,068 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=5 success=True steps=75
+2026-03-17 02:48:05,985 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=6 success=True steps=77
+2026-03-17 02:49:00,169 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=7 success=True steps=84
+2026-03-17 02:49:55,053 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=8 success=True steps=83
+2026-03-17 02:50:43,493 trace.runner.sweep_runner INFO: intensity=0.00 seed=3 ep=9 success=True steps=77
+2026-03-17 02:51:55,194 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=0 success=True steps=112
+2026-03-17 02:52:43,456 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=1 success=True steps=78
+2026-03-17 02:53:37,096 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=2 success=True steps=82
+2026-03-17 02:54:31,267 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=3 success=True steps=82
+2026-03-17 02:55:19,728 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=4 success=True steps=80
+2026-03-17 02:56:08,322 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=5 success=True steps=79
+2026-03-17 02:56:56,569 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=6 success=True steps=72
+2026-03-17 02:57:51,204 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=7 success=True steps=85
+2026-03-17 02:58:45,688 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=8 success=True steps=83
+2026-03-17 02:59:34,534 trace.runner.sweep_runner INFO: intensity=0.00 seed=4 ep=9 success=True steps=79
+2026-03-17 03:01:47,218 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=0 success=False steps=220
+2026-03-17 03:02:36,449 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=1 success=True steps=80
+2026-03-17 03:03:25,880 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=2 success=True steps=80
+2026-03-17 03:04:15,502 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=3 success=True steps=80
+2026-03-17 03:05:04,522 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=4 success=True steps=79
+2026-03-17 03:05:53,701 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=5 success=True steps=80
+2026-03-17 03:06:42,860 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=6 success=True steps=79
+2026-03-17 03:07:37,832 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=7 success=True steps=84
+2026-03-17 03:08:27,098 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=8 success=True steps=80
+2026-03-17 03:09:21,780 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=9 success=True steps=81
+2026-03-17 03:10:04,909 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=0 success=True steps=70
+2026-03-17 03:11:53,472 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=1 success=True steps=179
+2026-03-17 03:12:48,304 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=2 success=True steps=83
+2026-03-17 03:13:37,424 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=3 success=True steps=79
+2026-03-17 03:14:26,464 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=4 success=True steps=75
+2026-03-17 03:15:15,466 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=5 success=True steps=76
+2026-03-17 03:16:04,499 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=6 success=True steps=77
+2026-03-17 03:16:59,425 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=7 success=True steps=82
+2026-03-17 03:17:54,015 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=8 success=True steps=83
+2026-03-17 03:18:43,148 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=9 success=True steps=78
+2026-03-17 03:19:50,280 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=0 success=True steps=107
+2026-03-17 03:20:39,174 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=1 success=True steps=74
+2026-03-17 03:21:33,921 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=2 success=True steps=85
+2026-03-17 03:22:23,132 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=3 success=True steps=80
+2026-03-17 03:23:12,115 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=4 success=True steps=79
+2026-03-17 03:24:01,166 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=5 success=True steps=77
+2026-03-17 03:24:55,939 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=6 success=True steps=81
+2026-03-17 03:25:50,746 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=7 success=True steps=82
+2026-03-17 03:26:45,816 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=8 success=True steps=87
+2026-03-17 03:27:34,810 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=9 success=True steps=74
+2026-03-17 03:28:23,918 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=0 success=True steps=80
+2026-03-17 03:29:12,942 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=1 success=True steps=79
+2026-03-17 03:31:25,562 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=2 success=False steps=220
+2026-03-17 03:32:14,708 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=3 success=True steps=77
+2026-03-17 03:33:03,687 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=4 success=True steps=77
+2026-03-17 03:33:52,542 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=5 success=True steps=75
+2026-03-17 03:34:41,501 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=6 success=True steps=76
+2026-03-17 03:35:36,159 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=7 success=True steps=83
+2026-03-17 03:36:30,889 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=8 success=True steps=83
+2026-03-17 03:37:19,604 trace.runner.sweep_runner INFO: intensity=0.10 seed=3 ep=9 success=True steps=71
+2026-03-17 03:38:08,417 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=0 success=True steps=75
+2026-03-17 03:38:57,306 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=1 success=True steps=73
+2026-03-17 03:39:52,207 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=2 success=True steps=83
+2026-03-17 03:40:47,043 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=3 success=True steps=81
+2026-03-17 03:41:41,858 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=4 success=True steps=81
+2026-03-17 03:42:48,801 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=5 success=True steps=107
+2026-03-17 03:43:37,725 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=6 success=True steps=74
+2026-03-17 03:44:26,703 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=7 success=True steps=78
+2026-03-17 03:45:15,809 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=8 success=True steps=79
+2026-03-17 03:46:04,752 trace.runner.sweep_runner INFO: intensity=0.10 seed=4 ep=9 success=True steps=79
+2026-03-17 03:46:53,735 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=0 success=True steps=75
+2026-03-17 03:47:48,399 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=1 success=True steps=81
+2026-03-17 03:48:43,442 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=2 success=True steps=84
+2026-03-17 03:49:32,536 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=3 success=True steps=79
+2026-03-17 03:50:21,461 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=4 success=True steps=80
+2026-03-17 03:51:34,258 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=5 success=True steps=116
+2026-03-17 03:52:23,198 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=6 success=True steps=73
+2026-03-17 03:53:18,096 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=7 success=True steps=84
+2026-03-17 03:54:13,083 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=8 success=True steps=84
+2026-03-17 03:55:02,147 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=9 success=True steps=77
+2026-03-17 03:55:51,261 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=0 success=True steps=75
+2026-03-17 03:58:03,714 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=1 success=False steps=220
+2026-03-17 03:58:58,336 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=2 success=True steps=83
+2026-03-17 03:59:47,431 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=3 success=True steps=78
+2026-03-17 04:00:36,739 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=4 success=True steps=80
+2026-03-17 04:01:25,829 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=5 success=True steps=78
+2026-03-17 04:02:14,815 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=6 success=True steps=74
+2026-03-17 04:03:09,618 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=7 success=True steps=82
+2026-03-17 04:04:04,510 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=8 success=True steps=85
+2026-03-17 04:04:53,573 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=9 success=True steps=79
+2026-03-17 04:06:06,415 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=0 success=True steps=114
+2026-03-17 04:06:55,402 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=1 success=True steps=76
+2026-03-17 04:07:50,021 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=2 success=True steps=84
+2026-03-17 04:08:39,039 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=3 success=True steps=79
+2026-03-17 04:09:28,163 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=4 success=True steps=78
+2026-03-17 04:10:17,064 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=5 success=True steps=75
+2026-03-17 04:11:06,084 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=6 success=True steps=77
+2026-03-17 04:12:01,076 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=7 success=True steps=85
+2026-03-17 04:12:50,236 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=8 success=True steps=80
+2026-03-17 04:13:39,071 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=9 success=True steps=74
+2026-03-17 04:14:28,040 trace.runner.sweep_runner INFO: intensity=0.20 seed=3 ep=0 success=True steps=76
