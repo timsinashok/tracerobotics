@@ -1,0 +1,78 @@
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-19 17:38:34,271 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-19 17:38:34,272 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-19 17:38:34,272 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-19 17:38:37,587 __main__ INFO: Task: libero_spatial (task_id=0)
+2026-03-19 17:38:37,587 __main__ INFO: Instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+2026-03-19 17:38:37,588 __main__ INFO: Policy: openvla
+2026-03-19 17:38:37,588 __main__ INFO: Recording episode at 512x512 resolution...
+2026-03-19 17:38:47,180 __main__ INFO: Episode result: success=False, steps=220, reward=0.000
+2026-03-19 17:38:47,585 __main__ INFO: Saved video (cv2): /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_baseline_s0_20260319_173847.mp4 (221 frames, 20 fps)
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-19 17:38:50,944 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-19 17:38:50,945 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-19 17:38:50,945 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-19 17:38:54,011 __main__ INFO: Task: libero_spatial (task_id=4)
+2026-03-19 17:38:54,012 __main__ INFO: Instruction: pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate
+2026-03-19 17:38:54,013 __main__ INFO: Policy: openvla
+2026-03-19 17:38:54,013 __main__ INFO: Recording episode at 512x512 resolution...
+2026-03-19 17:39:04,532 __main__ INFO: Episode result: success=False, steps=220, reward=0.000
+2026-03-19 17:39:04,903 __main__ INFO: Saved video (cv2): /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t4_baseline_s0_20260319_173904.mp4 (221 frames, 20 fps)
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-19 17:39:07,730 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-19 17:39:07,730 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-19 17:39:07,731 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-19 17:39:10,582 __main__ INFO: Task: libero_spatial (task_id=0)
+2026-03-19 17:39:10,582 __main__ INFO: Instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+2026-03-19 17:39:10,583 __main__ INFO: Policy: openvla
+2026-03-19 17:39:10,583 __main__ INFO: Stressor: LatencyStressor @ intensity 0.30
+2026-03-19 17:39:10,583 __main__ INFO: Recording episode at 512x512 resolution...
+2026-03-19 17:39:20,273 __main__ INFO: Episode result: success=False, steps=220, reward=0.000
+2026-03-19 17:39:20,644 __main__ INFO: Saved video (cv2): /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_LatencyStressor_i0.30_s0_20260319_173920.mp4 (221 frames, 20 fps)
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-19 17:39:23,394 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-19 17:39:23,394 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-19 17:39:23,394 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-19 17:39:26,253 __main__ INFO: Task: libero_spatial (task_id=0)
+2026-03-19 17:39:26,253 __main__ INFO: Instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+2026-03-19 17:39:26,254 __main__ INFO: Policy: openvla
+2026-03-19 17:39:26,254 __main__ INFO: Stressor: ImageNoiseStressor @ intensity 0.50
+2026-03-19 17:39:26,254 __main__ INFO: Recording episode at 512x512 resolution...
+2026-03-19 17:39:37,426 __main__ INFO: Episode result: success=False, steps=220, reward=0.000
+2026-03-19 17:39:37,795 __main__ INFO: Saved video (cv2): /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_ImageNoiseStressor_i0.50_s0_20260319_173937.mp4 (221 frames, 20 fps)
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-19 17:39:40,673 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-19 17:39:40,673 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-19 17:39:40,673 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-19 17:39:43,576 __main__ INFO: Task: libero_spatial (task_id=0)
+2026-03-19 17:39:43,576 __main__ INFO: Instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+2026-03-19 17:39:43,578 __main__ INFO: Policy: openvla
+2026-03-19 17:39:43,578 __main__ INFO: Stressor: DropoutStressor @ intensity 0.30
+2026-03-19 17:39:43,578 __main__ INFO: Recording episode at 512x512 resolution...
+2026-03-19 17:39:53,250 __main__ INFO: Episode result: success=False, steps=220, reward=0.000
+2026-03-19 17:39:53,616 __main__ INFO: Saved video (cv2): /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_DropoutStressor_i0.30_s0_20260319_173953.mp4 (221 frames, 20 fps)

@@ -1,0 +1,84 @@
+============================================
+Pi0.5 Episode Visualization
+Node: cn005
+Date: Thu Mar 19 17:40:48 +04 2026
+Job ID: 14427097
+============================================
+
+[GPU Info]
+NVIDIA A100-PCIE-40GB, 40960 MiB
+
+Starting pi0 server on port 8000...
+Waiting for server (PID 3949646)...
+Server ready (45s).
+
+============================================
+Recording episodes...
+============================================
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+
+SUCCESS — 68 steps, reward 1.000
+Video: /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_baseline_s0_20260319_174229.mp4
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+
+SUCCESS — 128 steps, reward 1.000
+Video: /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t4_baseline_s0_20260319_174244.mp4
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+
+SUCCESS — 136 steps, reward 1.000
+Video: /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_object_t0_baseline_s0_20260319_174258.mp4
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+
+SUCCESS — 87 steps, reward 1.000
+Video: /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_LatencyStressor_i0.30_s0_20260319_174310.mp4
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+
+FAILURE — 220 steps, reward 0.000
+Video: /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_LatencyStressor_i0.70_s0_20260319_174329.mp4
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+
+SUCCESS — 128 steps, reward 1.000
+Video: /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_DropoutStressor_i0.30_s0_20260319_174344.mp4
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+
+SUCCESS — 79 steps, reward 1.000
+Video: /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_ImageNoiseStressor_i0.50_s0_20260319_174356.mp4
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+
+SUCCESS — 77 steps, reward 1.000
+Video: /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_OcclusionStressor_i0.50_s0_20260319_174408.mp4
+
+============================================
+All videos saved to: /scratch/at5282/trace/tracerobotics/output/videos
+============================================
+-rw-r--r-- 1 at5282 users 400K Mar 19 17:39 /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_DropoutStressor_i0.30_s0_20260319_173953.mp4
+-rw-r--r-- 1 at5282 users 400K Mar 19 17:39 /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_ImageNoiseStressor_i0.50_s0_20260319_173937.mp4
+-rw-r--r-- 1 at5282 users 400K Mar 19 17:39 /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_LatencyStressor_i0.30_s0_20260319_173920.mp4
+-rw-r--r-- 1 at5282 users 400K Mar 19 17:38 /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_baseline_s0_20260319_173847.mp4
+-rw-r--r-- 1 at5282 users 424K Mar 19 17:39 /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t4_baseline_s0_20260319_173904.mp4
+-rw-r--r-- 1 at5282 users 731K Mar 19 17:42 /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_object_t0_baseline_s0_20260319_174258.mp4
+-rw-r--r-- 1 at5282 users 629K Mar 19 17:43 /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_DropoutStressor_i0.30_s0_20260319_174344.mp4
+-rw-r--r-- 1 at5282 users 425K Mar 19 17:43 /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_ImageNoiseStressor_i0.50_s0_20260319_174356.mp4
+-rw-r--r-- 1 at5282 users 450K Mar 19 17:43 /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_LatencyStressor_i0.30_s0_20260319_174310.mp4
+-rw-r--r-- 1 at5282 users 1.3M Mar 19 17:43 /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_LatencyStressor_i0.70_s0_20260319_174329.mp4
+-rw-r--r-- 1 at5282 users 407K Mar 19 17:44 /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_OcclusionStressor_i0.50_s0_20260319_174408.mp4
+-rw-r--r-- 1 at5282 users 341K Mar 19 17:42 /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_baseline_s0_20260319_174229.mp4
+-rw-r--r-- 1 at5282 users 733K Mar 19 17:42 /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t4_baseline_s0_20260319_174244.mp4
+Shutting down server (PID 3949646)...
+Done.

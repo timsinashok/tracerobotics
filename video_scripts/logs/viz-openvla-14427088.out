@@ -1,0 +1,57 @@
+============================================
+OpenVLA Episode Visualization
+Node: cn005
+Date: Thu Mar 19 17:38:31 +04 2026
+Job ID: 14427088
+============================================
+
+[GPU Info]
+NVIDIA A100-PCIE-40GB, 40960 MiB
+
+============================================
+Recording episodes...
+============================================
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[OpenVLAAdapter] Could not load model: No module named 'experiments'
+
+FAILURE — 220 steps, reward 0.000
+Video: /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_baseline_s0_20260319_173847.mp4
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[OpenVLAAdapter] Could not load model: No module named 'experiments'
+
+FAILURE — 220 steps, reward 0.000
+Video: /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t4_baseline_s0_20260319_173904.mp4
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[OpenVLAAdapter] Could not load model: No module named 'experiments'
+
+FAILURE — 220 steps, reward 0.000
+Video: /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_LatencyStressor_i0.30_s0_20260319_173920.mp4
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[OpenVLAAdapter] Could not load model: No module named 'experiments'
+
+FAILURE — 220 steps, reward 0.000
+Video: /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_ImageNoiseStressor_i0.50_s0_20260319_173937.mp4
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[OpenVLAAdapter] Could not load model: No module named 'experiments'
+
+FAILURE — 220 steps, reward 0.000
+Video: /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_DropoutStressor_i0.30_s0_20260319_173953.mp4
+
+============================================
+All videos saved to: /scratch/at5282/trace/tracerobotics/output/videos
+============================================
+-rw-r--r-- 1 at5282 users 400K Mar 19 17:39 /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_DropoutStressor_i0.30_s0_20260319_173953.mp4
+-rw-r--r-- 1 at5282 users 400K Mar 19 17:39 /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_ImageNoiseStressor_i0.50_s0_20260319_173937.mp4
+-rw-r--r-- 1 at5282 users 400K Mar 19 17:39 /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_LatencyStressor_i0.30_s0_20260319_173920.mp4
+-rw-r--r-- 1 at5282 users 400K Mar 19 17:38 /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t0_baseline_s0_20260319_173847.mp4
+-rw-r--r-- 1 at5282 users 424K Mar 19 17:39 /scratch/at5282/trace/tracerobotics/output/videos/openvla_libero_spatial_t4_baseline_s0_20260319_173904.mp4

@@ -1,0 +1,173 @@
+warning: The `tool.uv.dev-dependencies` field (used in `packages/openpi-client/pyproject.toml`) is deprecated and will be removed in a future release; use `dependency-groups.dev` instead
+INFO:root:Loading model...
+INFO:2026-03-19 17:41:18,545:jax._src.xla_bridge:925: Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+INFO:jax._src.xla_bridge:Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+INFO:2026-03-19 17:41:18,554:jax._src.xla_bridge:925: Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+INFO:jax._src.xla_bridge:Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+INFO:absl:orbax-checkpoint version: 0.11.13
+INFO:absl:Created BasePyTreeCheckpointHandler: use_ocdbt=True, use_zarr3=False, pytree_metadata_options=PyTreeMetadataOptions(support_rich_types=False), array_metadata_store=<orbax.checkpoint._src.metadata.array_metadata_store.Store object at 0x15545d1964d0>
+INFO:absl:Restoring checkpoint from /scratch/at5282/.cache/openpi/openpi-assets/checkpoints/pi05_libero/params.
+INFO:absl:[thread=MainThread] Failed to get flag value for EXPERIMENTAL_ORBAX_USE_DISTRIBUTED_PROCESS_ID.
+INFO:absl:[process=0] /jax/checkpoint/read/bytes_per_sec: 615.4 MiB/s (total bytes: 6.2 GiB) (time elapsed: 10 seconds) (per-host)
+INFO:absl:Finished restoring checkpoint in 10.40 seconds from /scratch/at5282/.cache/openpi/openpi-assets/checkpoints/pi05_libero/params.
+INFO:root:Norm stats not found in /scratch/at5282/trace/openpi/assets/pi05_libero/physical-intelligence/libero, skipping.
+INFO:root:Loaded norm stats from /scratch/at5282/.cache/openpi/openpi-assets/checkpoints/pi05_libero/assets/physical-intelligence/libero
+INFO:root:Creating server (host: cn005, ip: 10.10.1.5)
+INFO:websockets.server:server listening on 0.0.0.0:8000
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-19 17:41:36,693 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-19 17:41:36,693 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-19 17:41:36,693 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-19 17:41:39,697 __main__ INFO: Task: libero_spatial (task_id=0)
+2026-03-19 17:41:39,697 __main__ INFO: Instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+2026-03-19 17:41:39,745 root INFO: Waiting for server at ws://localhost:8000...
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 35736) opened
+2026-03-19 17:41:39,751 __main__ INFO: Policy: pi0
+2026-03-19 17:41:39,751 __main__ INFO: Recording episode at 512x512 resolution...
+2026-03-19 17:42:29,013 __main__ INFO: Episode result: success=True, steps=68, reward=1.000
+2026-03-19 17:42:29,152 __main__ INFO: Saved video (cv2): /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_baseline_s0_20260319_174229.mp4 (69 frames, 20 fps)
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 35736) closed
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-19 17:42:31,958 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-19 17:42:31,959 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-19 17:42:31,959 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-19 17:42:35,135 __main__ INFO: Task: libero_spatial (task_id=4)
+2026-03-19 17:42:35,135 __main__ INFO: Instruction: pick up the black bowl in the top drawer of the wooden cabinet and place it on the plate
+2026-03-19 17:42:35,183 root INFO: Waiting for server at ws://localhost:8000...
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 35430) opened
+2026-03-19 17:42:35,188 __main__ INFO: Policy: pi0
+2026-03-19 17:42:35,188 __main__ INFO: Recording episode at 512x512 resolution...
+2026-03-19 17:42:44,193 __main__ INFO: Episode result: success=True, steps=128, reward=1.000
+2026-03-19 17:42:44,454 __main__ INFO: Saved video (cv2): /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t4_baseline_s0_20260319_174244.mp4 (129 frames, 20 fps)
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 35430) closed
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-19 17:42:47,462 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-19 17:42:47,463 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-19 17:42:47,463 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-19 17:42:50,497 __main__ INFO: Task: libero_object (task_id=0)
+2026-03-19 17:42:50,497 __main__ INFO: Instruction: pick up the alphabet soup and place it in the basket
+2026-03-19 17:42:50,535 root INFO: Waiting for server at ws://localhost:8000...
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 35052) opened
+2026-03-19 17:42:50,541 __main__ INFO: Policy: pi0
+2026-03-19 17:42:50,541 __main__ INFO: Recording episode at 512x512 resolution...
+2026-03-19 17:42:58,219 __main__ INFO: Episode result: success=True, steps=136, reward=1.000
+2026-03-19 17:42:58,514 __main__ INFO: Saved video (cv2): /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_object_t0_baseline_s0_20260319_174258.mp4 (137 frames, 20 fps)
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 35052) closed
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-19 17:43:01,222 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-19 17:43:01,222 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-19 17:43:01,222 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-19 17:43:04,027 __main__ INFO: Task: libero_spatial (task_id=0)
+2026-03-19 17:43:04,027 __main__ INFO: Instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+2026-03-19 17:43:04,044 root INFO: Waiting for server at ws://localhost:8000...
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 51266) opened
+2026-03-19 17:43:04,048 __main__ INFO: Policy: pi0
+2026-03-19 17:43:04,048 __main__ INFO: Stressor: LatencyStressor @ intensity 0.30
+2026-03-19 17:43:04,048 __main__ INFO: Recording episode at 512x512 resolution...
+2026-03-19 17:43:10,723 __main__ INFO: Episode result: success=True, steps=87, reward=1.000
+2026-03-19 17:43:10,896 __main__ INFO: Saved video (cv2): /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_LatencyStressor_i0.30_s0_20260319_174310.mp4 (88 frames, 20 fps)
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 51266) closed
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-19 17:43:13,606 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-19 17:43:13,606 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-19 17:43:13,606 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-19 17:43:16,394 __main__ INFO: Task: libero_spatial (task_id=0)
+2026-03-19 17:43:16,394 __main__ INFO: Instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+2026-03-19 17:43:16,412 root INFO: Waiting for server at ws://localhost:8000...
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 39490) opened
+2026-03-19 17:43:16,416 __main__ INFO: Policy: pi0
+2026-03-19 17:43:16,416 __main__ INFO: Stressor: LatencyStressor @ intensity 0.70
+2026-03-19 17:43:16,416 __main__ INFO: Recording episode at 512x512 resolution...
+2026-03-19 17:43:29,830 __main__ INFO: Episode result: success=False, steps=220, reward=0.000
+2026-03-19 17:43:30,269 __main__ INFO: Saved video (cv2): /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_LatencyStressor_i0.70_s0_20260319_174329.mp4 (221 frames, 20 fps)
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 39490) closed
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-19 17:43:32,998 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-19 17:43:32,999 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-19 17:43:32,999 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-19 17:43:35,897 __main__ INFO: Task: libero_spatial (task_id=0)
+2026-03-19 17:43:35,897 __main__ INFO: Instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+2026-03-19 17:43:35,914 root INFO: Waiting for server at ws://localhost:8000...
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 54078) opened
+2026-03-19 17:43:35,917 __main__ INFO: Policy: pi0
+2026-03-19 17:43:35,917 __main__ INFO: Stressor: DropoutStressor @ intensity 0.30
+2026-03-19 17:43:35,917 __main__ INFO: Recording episode at 512x512 resolution...
+2026-03-19 17:43:44,440 __main__ INFO: Episode result: success=True, steps=128, reward=1.000
+2026-03-19 17:43:44,692 __main__ INFO: Saved video (cv2): /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_DropoutStressor_i0.30_s0_20260319_174344.mp4 (129 frames, 20 fps)
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 54078) closed
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-19 17:43:47,542 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-19 17:43:47,542 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-19 17:43:47,542 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-19 17:43:50,344 __main__ INFO: Task: libero_spatial (task_id=0)
+2026-03-19 17:43:50,344 __main__ INFO: Instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+2026-03-19 17:43:50,361 root INFO: Waiting for server at ws://localhost:8000...
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 44232) opened
+2026-03-19 17:43:50,365 __main__ INFO: Policy: pi0
+2026-03-19 17:43:50,365 __main__ INFO: Stressor: ImageNoiseStressor @ intensity 0.50
+2026-03-19 17:43:50,365 __main__ INFO: Recording episode at 512x512 resolution...
+2026-03-19 17:43:56,942 __main__ INFO: Episode result: success=True, steps=79, reward=1.000
+2026-03-19 17:43:57,100 __main__ INFO: Saved video (cv2): /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_ImageNoiseStressor_i0.50_s0_20260319_174356.mp4 (80 frames, 20 fps)
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 44232) closed
+[robosuite WARNING] No private macro file found! (macros.py:53)
+2026-03-19 17:43:59,822 robosuite_logs WARNING: No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+2026-03-19 17:43:59,822 robosuite_logs WARNING: It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+2026-03-19 17:43:59,822 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+2026-03-19 17:44:02,694 __main__ INFO: Task: libero_spatial (task_id=0)
+2026-03-19 17:44:02,695 __main__ INFO: Instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+2026-03-19 17:44:02,714 root INFO: Waiting for server at ws://localhost:8000...
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 52858) opened
+2026-03-19 17:44:02,718 __main__ INFO: Policy: pi0
+2026-03-19 17:44:02,718 __main__ INFO: Stressor: OcclusionStressor @ intensity 0.50
+2026-03-19 17:44:02,718 __main__ INFO: Recording episode at 512x512 resolution...
+2026-03-19 17:44:08,629 __main__ INFO: Episode result: success=True, steps=77, reward=1.000
+2026-03-19 17:44:08,783 __main__ INFO: Saved video (cv2): /scratch/at5282/trace/tracerobotics/output/videos/pi0_libero_spatial_t0_OcclusionStressor_i0.50_s0_20260319_174408.mp4 (78 frames, 20 fps)
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 52858) closed
