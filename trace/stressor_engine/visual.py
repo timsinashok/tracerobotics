@@ -9,7 +9,7 @@ from typing import Any
 
 import numpy as np
 
-from trace.stressor_engine.base import BaseStressor, StressorConfig
+from trace.stressor_engine.base import StressorConfig, SustainedVisualStressor
 from trace.task_spec.base import Observation
 
 # Keys that are expected to contain image data (uint8, HxWx3)
@@ -21,7 +21,7 @@ def _is_image(value: np.ndarray) -> bool:
     return value.ndim == 3 and value.dtype == np.uint8
 
 
-class ImageNoiseStressor(BaseStressor):
+class ImageNoiseStressor(SustainedVisualStressor):
     """Adds Gaussian noise to camera images.
 
     Intensity controls the noise standard deviation:
@@ -33,13 +33,7 @@ class ImageNoiseStressor(BaseStressor):
         super().__init__(config)
         self._max_noise_std: float = config.params.get("max_noise_std", 50.0)
 
-    def on_episode_start(self, task: Any) -> None:
-        pass
-
-    def perturb_observation(self, observation: Observation) -> Observation:
-        if self.intensity == 0.0:
-            return observation
-
+    def _corrupt_observation(self, observation: Observation) -> Observation:
         std = self.intensity * self._max_noise_std
         result = {}
         for key, value in observation.items():
@@ -51,11 +45,8 @@ class ImageNoiseStressor(BaseStressor):
                 result[key] = value
         return result
 
-    def perturb_action(self, action: np.ndarray) -> np.ndarray:
-        return action
 
-
-class OcclusionStressor(BaseStressor):
+class OcclusionStressor(SustainedVisualStressor):
     """Overlays random rectangles on camera images.
 
     Intensity controls the number and size of occluding patches:
@@ -69,13 +60,7 @@ class OcclusionStressor(BaseStressor):
         self._max_patch_frac: float = config.params.get("max_patch_frac", 0.3)
         self._fill_value: int = config.params.get("fill_value", 0)
 
-    def on_episode_start(self, task: Any) -> None:
-        pass
-
-    def perturb_observation(self, observation: Observation) -> Observation:
-        if self.intensity == 0.0:
-            return observation
-
+    def _corrupt_observation(self, observation: Observation) -> Observation:
         num_patches = max(1, int(self.intensity * self._max_patches))
         patch_frac = self.intensity * self._max_patch_frac
 
@@ -103,11 +88,7 @@ class OcclusionStressor(BaseStressor):
             occluded[y : y + ph, x : x + pw] = self._fill_value
         return occluded
 
-    def perturb_action(self, action: np.ndarray) -> np.ndarray:
-        return action
-
-
-class BrightnessShiftStressor(BaseStressor):
+class BrightnessShiftStressor(SustainedVisualStressor):
     """Shifts pixel brightness (simulates exposure changes).
 
     Intensity controls the maximum brightness shift:
@@ -118,17 +99,16 @@ class BrightnessShiftStressor(BaseStressor):
     def __init__(self, config: StressorConfig) -> None:
         super().__init__(config)
         self._max_shift: float = config.params.get("max_shift", 80.0)
+        self._shift: float = 0.0
 
     def on_episode_start(self, task: Any) -> None:
+        super().on_episode_start(task)
         # Pick a random shift direction that stays fixed for the episode
-        self._shift: float = float(
+        self._shift = float(
             self._rng.uniform(-1.0, 1.0) * self.intensity * self._max_shift
         )
 
-    def perturb_observation(self, observation: Observation) -> Observation:
-        if self.intensity == 0.0:
-            return observation
-
+    def _corrupt_observation(self, observation: Observation) -> Observation:
         result = {}
         for key, value in observation.items():
             if key in _IMAGE_KEYS and _is_image(value):
@@ -140,11 +120,8 @@ class BrightnessShiftStressor(BaseStressor):
                 result[key] = value
         return result
 
-    def perturb_action(self, action: np.ndarray) -> np.ndarray:
-        return action
 
-
-class ResolutionStressor(BaseStressor):
+class ResolutionStressor(SustainedVisualStressor):
     """Downscale then upscale images (pixelation / resolution loss).
 
     Intensity controls the downscale factor:
@@ -158,13 +135,7 @@ class ResolutionStressor(BaseStressor):
             "max_downscale_factor", 8
         )
 
-    def on_episode_start(self, task: Any) -> None:
-        pass
-
-    def perturb_observation(self, observation: Observation) -> Observation:
-        if self.intensity == 0.0:
-            return observation
-
+    def _corrupt_observation(self, observation: Observation) -> Observation:
         # Downscale factor: 1 (no change) to max_downscale_factor
         factor = max(
             1, int(1 + self.intensity * (self._max_downscale_factor - 1))
@@ -204,6 +175,3 @@ class ResolutionStressor(BaseStressor):
             return padded
 
         return upscaled
-
-    def perturb_action(self, action: np.ndarray) -> np.ndarray:
-        return action

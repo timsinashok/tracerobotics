@@ -46,5 +46,6 @@ class LatencyStressor(BaseStressor):
         if len(self._action_buffer) > self._delay_steps:
             return self._action_buffer.popleft()
 
-        # Not enough buffered yet — send zeros (robot holds still)
-        return np.zeros_like(action)
+        # Not enough buffered yet — repeat current action to hold position
+        # (zeros are unsafe: e.g. gripper 0 is undefined between open/close)
+        return action.copy()

@@ -24,6 +24,7 @@ class LongHorizonDriftStressor(BaseStressor):
         super().__init__(config)
         self._obs_noise_growth: float = config.params.get("obs_noise_growth", 0.01)
         self._action_noise_growth: float = config.params.get("action_noise_growth", 0.005)
+        self._gripper_dims: int = config.params.get("gripper_dims", 1)
         self._current_step: int = 0
 
     def on_episode_start(self, task: Any) -> None:
@@ -56,4 +57,7 @@ class LongHorizonDriftStressor(BaseStressor):
 
         noise_scale = self._action_noise_growth * self._drift_factor
         noise = self._rng.normal(0, max(noise_scale, 1e-8), size=action.shape)
+        # Don't perturb gripper dimensions — noise can flip open/close commands
+        if self._gripper_dims > 0:
+            noise[-self._gripper_dims:] = 0.0
         return (action + noise).astype(action.dtype)

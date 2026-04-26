@@ -10,6 +10,7 @@ Intensity controls the magnitude of the shift:
 
 from typing import Any
 
+import mujoco
 import numpy as np
 from numpy.typing import NDArray
 
@@ -33,6 +34,7 @@ class PhysicsShiftStressor(BaseStressor):
         )
         # Store originals so we can restore
         self._original_mass: NDArray[np.floating] | None = None
+        self._original_inertia: NDArray[np.floating] | None = None
         self._original_friction: NDArray[np.floating] | None = None
         self._original_damping: NDArray[np.floating] | None = None
 
@@ -42,11 +44,13 @@ class PhysicsShiftStressor(BaseStressor):
 
         try:
             model = task.get_mujoco_model()
+            data = task.get_mujoco_data()
         except NotImplementedError:
             return
 
         # Save originals
         self._original_mass = model.body_mass.copy()
+        self._original_inertia = model.body_inertia.copy()
         self._original_friction = model.geom_friction.copy()
         self._original_damping = model.dof_damping.copy()
 
@@ -55,9 +59,14 @@ class PhysicsShiftStressor(BaseStressor):
         friction_scale = self._interpolate(1.0, self._friction_range, self.intensity)
         damping_scale = self._interpolate(1.0, self._damping_range, self.intensity)
 
+        # Scale mass and inertia together for physical consistency
         model.body_mass[:] = self._original_mass * mass_scale
+        model.body_inertia[:] = self._original_inertia * mass_scale
         model.geom_friction[:] = self._original_friction * friction_scale
         model.dof_damping[:] = self._original_damping * damping_scale
+
+        # Recompute MuJoCo derived constants (subtree mass, bounding volumes, etc.)
+        mujoco.mj_setConst(model, data)
 
     def _interpolate(
         self, nominal: float, stress_range: tuple[float, float], intensity: float

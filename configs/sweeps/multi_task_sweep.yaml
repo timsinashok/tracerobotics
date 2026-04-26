@@ -15,6 +15,7 @@ sweep:
       params:
         mode: "zero"
         noise_scale: 0.1
+        persist_steps: 10
 
     - type: PhysicsShiftStressor
       intensities: [0.0, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0]
@@ -40,6 +41,7 @@ sweep:
       intensities: [0.0, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0]
       params:
         max_noise_std: 50.0
+        persist_steps: 10
 
     - type: OcclusionStressor
       intensities: [0.0, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0]
@@ -47,13 +49,16 @@ sweep:
         max_patches: 5
         max_patch_frac: 0.3
         fill_value: 0
+        persist_steps: 10
 
     - type: BrightnessShiftStressor
       intensities: [0.0, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0]
       params:
         max_shift: 80.0
+        persist_steps: 10
 
     - type: ResolutionStressor
       intensities: [0.0, 0.1, 0.2, 0.3, 0.5, 0.7, 1.0]
       params:
         max_downscale_factor: 8
+        persist_steps: 10

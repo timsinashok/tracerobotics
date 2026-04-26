@@ -10,6 +10,7 @@ Intensity controls how far the embodiment deviates from nominal:
 
 from typing import Any
 
+import mujoco
 import numpy as np
 from numpy.typing import NDArray
 
@@ -41,6 +42,7 @@ class EmbodimentStressor(BaseStressor):
 
         try:
             model = task.get_mujoco_model()
+            data = task.get_mujoco_data()
         except NotImplementedError:
             return
 
@@ -63,6 +65,9 @@ class EmbodimentStressor(BaseStressor):
         low, high = self._gain_range
         gain_scale = 1.0 + self.intensity * (self._rng.uniform(low, high) - 1.0)
         model.actuator_gainprm[:] = self._original_actuator_gain * gain_scale
+
+        # Recompute MuJoCo derived constants (bounding volumes, etc.)
+        mujoco.mj_setConst(model, data)
 
     def perturb_observation(self, observation: Observation) -> Observation:
         return observation  # Embodiment is applied at env level

@@ -11,11 +11,11 @@ from typing import Any
 
 import numpy as np
 
-from trace.stressor_engine.base import BaseStressor, StressorConfig
+from trace.stressor_engine.base import StressorConfig, SustainedVisualStressor
 from trace.task_spec.base import Observation
 
 
-class DropoutStressor(BaseStressor):
+class DropoutStressor(SustainedVisualStressor):
     """Randomly drops or corrupts observation channels."""
 
     def __init__(self, config: StressorConfig) -> None:
@@ -25,12 +25,10 @@ class DropoutStressor(BaseStressor):
         self._frozen_obs: dict[str, np.ndarray] | None = None
 
     def on_episode_start(self, task: Any) -> None:
+        super().on_episode_start(task)
         self._frozen_obs = None
 
-    def perturb_observation(self, observation: Observation) -> Observation:
-        if self.intensity == 0.0:
-            return observation
-
+    def _corrupt_observation(self, observation: Observation) -> Observation:
         result = {}
         for key, value in observation.items():
             if self._rng.random() < self.intensity:
@@ -63,5 +61,3 @@ class DropoutStressor(BaseStressor):
         else:
             return np.zeros_like(value)
 
-    def perturb_action(self, action: np.ndarray) -> np.ndarray:
-        return action  # Dropout only affects observations

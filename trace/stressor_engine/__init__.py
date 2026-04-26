@@ -1,3 +1,3 @@
-from trace.stressor_engine.base import BaseStressor, StressorConfig
+from trace.stressor_engine.base import BaseStressor, StressorConfig, SustainedVisualStressor
 
-__all__ = ["BaseStressor", "StressorConfig"]
+__all__ = ["BaseStressor", "StressorConfig", "SustainedVisualStressor"]

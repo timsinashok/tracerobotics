@@ -69,3 +69,54 @@ class BaseStressor(ABC):
             "intensity": self.config.intensity,
             "params": self.config.params,
         }
+
+
+class SustainedVisualStressor(BaseStressor):
+    """Base for visual stressors that need corruption to survive action chunking.
+
+    Policies using action chunking only query observations every N steps.
+    A single-frame corruption has a high chance of being ignored. This base
+    class caches the corrupted observation for ``persist_steps`` steps so
+    the policy is guaranteed to see it on its next query.
+
+    Subclasses implement ``_corrupt_observation`` instead of ``perturb_observation``.
+    """
+
+    def __init__(self, config: StressorConfig) -> None:
+        super().__init__(config)
+        self._persist_steps: int = config.params.get("persist_steps", 10)
+        self._cached_obs: Observation | None = None
+        self._remaining_persist: int = 0
+
+    def on_episode_start(self, task: Any) -> None:
+        self._cached_obs = None
+        self._remaining_persist = 0
+
+    def perturb_observation(self, observation: Observation) -> Observation:
+        if self.intensity == 0.0:
+            return observation
+
+        # If we still have a cached corruption, replay it
+        if self._remaining_persist > 0 and self._cached_obs is not None:
+            self._remaining_persist -= 1
+            # Merge: use cached values for corrupted keys, fresh for others
+            result = dict(observation)
+            result.update(self._cached_obs)
+            return result
+
+        # Generate fresh corruption
+        corrupted = self._corrupt_observation(observation)
+        if corrupted is not observation:
+            self._cached_obs = {
+                k: v for k, v in corrupted.items()
+                if k in observation and not np.array_equal(v, observation[k])
+            }
+            self._remaining_persist = self._persist_steps - 1
+        return corrupted
+
+    @abstractmethod
+    def _corrupt_observation(self, observation: Observation) -> Observation:
+        """Apply the visual corruption. Called once, then cached."""
+
+    def perturb_action(self, action: np.ndarray) -> np.ndarray:
+        return action
