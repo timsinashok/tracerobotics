@@ -36,6 +36,10 @@ class EpisodeRunner:
         for stressor in self.stressors:
             stressor.on_episode_start(self.task)
 
+        # Re-settle after physics stressors (prevents interpenetrating meshes)
+        if self.stressors:
+            obs = self.task.post_stressor_settle()
+
         total_reward = 0.0
         time_to_success: int | None = None
         step_rewards: list[float] = []

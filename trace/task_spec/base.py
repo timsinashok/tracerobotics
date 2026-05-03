@@ -85,3 +85,12 @@ class BaseTask(ABC):
     def get_mujoco_data(self) -> Any:
         """Return the underlying MuJoCo data (for stressors that modify state)."""
         raise NotImplementedError("Subclass must expose the MuJoCo data for state stressors.")
+
+    def post_stressor_settle(self) -> Observation:
+        """Re-settle the environment after stressors modify physics.
+
+        Called by EpisodeRunner after on_episode_start() to allow objects
+        to reach equilibrium under modified physics. Returns a fresh observation.
+        Default: no-op, returns current observation.
+        """
+        return self.get_observation()

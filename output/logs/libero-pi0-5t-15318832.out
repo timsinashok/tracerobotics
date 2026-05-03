@@ -1,0 +1,176 @@
+============================================
+LIBERO + Pi0 Test Pipeline
+Node: cn014
+Date: Sat May  2 00:13:29 +04 2026
+Job ID: 15318832
+============================================
+
+[GPU Info]
+NVIDIA A100 80GB PCIe, 81920 MiB
+
+============================================
+LEVEL 1: LIBERO unit tests
+============================================
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /home/at5282/.conda/envs/trace-pi0/bin/python
+cachedir: .pytest_cache
+rootdir: /scratch/at5282/trace/tracerobotics
+configfile: pyproject.toml
+plugins: cov-7.0.0, anyio-4.12.1, zarr-3.1.5
+collecting ... collected 12 items
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize PASSED    [  8%]
+tests/test_libero_task.py::TestLiberoTaskInit::test_language_instruction PASSED [ 16%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_reset_returns_observation PASSED [ 25%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_observation_keys PASSED [ 33%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_image_shape PASSED  [ 41%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_proprioception_shapes PASSED [ 50%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_returns_tuple PASSED [ 58%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_observation_format PASSED [ 66%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_model PASSED [ 75%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_data PASSED [ 83%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_initial_not_success PASSED [ 91%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_no_catastrophic_failure PASSED [100%]
+
+=============================== warnings summary ===============================
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:53: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("No private macro file found!")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:54: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("It is recommended to use a private macro file")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:55: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("To setup, run: python {}/scripts/setup_macros.py".format(robosuite.__path__[0]))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 12 passed, 3 warnings in 28.15s ========================
+LEVEL 1 PASSED
+
+============================================
+Starting pi0 server on port 8002...
+============================================
+Waiting for server (PID 534241) to start listening on port 8002...
+  ... waiting (5s)
+  ... waiting (10s)
+  ... waiting (15s)
+  ... waiting (20s)
+  ... waiting (25s)
+  ... waiting (30s)
+  ... waiting (35s)
+  ... waiting (40s)
+  ... waiting (45s)
+  ... waiting (50s)
+  ... waiting (55s)
+  ... waiting (60s)
+  ... waiting (65s)
+  ... waiting (70s)
+  ... waiting (75s)
+  ... waiting (80s)
+  ... waiting (85s)
+  ... waiting (90s)
+  ... waiting (95s)
+  ... waiting (100s)
+  ... waiting (105s)
+  ... waiting (110s)
+  ... waiting (115s)
+  ... waiting (120s)
+  ... waiting (125s)
+  ... waiting (130s)
+  ... waiting (135s)
+  ... waiting (140s)
+  ... waiting (145s)
+  ... waiting (150s)
+  ... waiting (155s)
+  ... waiting (160s)
+  ... waiting (165s)
+  ... waiting (170s)
+  ... waiting (175s)
+  ... waiting (180s)
+  ... waiting (185s)
+  ... waiting (190s)
+  ... waiting (195s)
+  ... waiting (200s)
+  ... waiting (205s)
+  ... waiting (210s)
+  ... waiting (215s)
+  ... waiting (220s)
+  ... waiting (225s)
+  ... waiting (230s)
+  ... waiting (235s)
+  ... waiting (240s)
+  ... waiting (245s)
+  ... waiting (250s)
+  ... waiting (255s)
+  ... waiting (260s)
+  ... waiting (265s)
+  ... waiting (270s)
+  ... waiting (275s)
+  ... waiting (280s)
+  ... waiting (285s)
+  ... waiting (290s)
+  ... waiting (295s)
+  ... waiting (300s)
+  ... waiting (305s)
+  ... waiting (310s)
+  ... waiting (315s)
+  ... waiting (320s)
+  ... waiting (325s)
+  ... waiting (330s)
+  ... waiting (335s)
+  ... waiting (340s)
+  ... waiting (345s)
+  ... waiting (350s)
+  ... waiting (355s)
+  ... waiting (360s)
+  ... waiting (365s)
+  ... waiting (370s)
+  ... waiting (375s)
+  ... waiting (380s)
+  ... waiting (385s)
+  ... waiting (390s)
+  ... waiting (395s)
+  ... waiting (400s)
+  ... waiting (405s)
+  ... waiting (410s)
+  ... waiting (415s)
+  ... waiting (420s)
+  ... waiting (425s)
+  ... waiting (430s)
+  ... waiting (435s)
+  ... waiting (440s)
+  ... waiting (445s)
+  ... waiting (450s)
+  ... waiting (455s)
+  ... waiting (460s)
+  ... waiting (465s)
+  ... waiting (470s)
+  ... waiting (475s)
+  ... waiting (480s)
+  ... waiting (485s)
+  ... waiting (490s)
+  ... waiting (495s)
+  ... waiting (500s)
+  ... waiting (505s)
+  ... waiting (510s)
+  ... waiting (515s)
+  ... waiting (520s)
+  ... waiting (525s)
+  ... waiting (530s)
+  ... waiting (535s)
+  ... waiting (540s)
+  ... waiting (545s)
+  ... waiting (550s)
+  ... waiting (555s)
+  ... waiting (560s)
+  ... waiting (565s)
+  ... waiting (570s)
+  ... waiting (575s)
+  ... waiting (580s)
+  ... waiting (585s)
+  ... waiting (590s)
+  ... waiting (595s)
+  ... waiting (600s)
+ERROR: Server did not start within 600s.

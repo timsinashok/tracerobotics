@@ -158,6 +158,21 @@ class LiberoTask(BaseTask):
         """Return the LIBERO task description as the language instruction."""
         return self._task_description
 
+    def post_stressor_settle(self) -> Observation:
+        """Re-settle objects after stressors modify physics (mass, friction, etc.).
+
+        Without this, mj_setConst on complex scenes (libero_10) can cause
+        interpenetrating collision meshes and false early termination.
+        """
+        assert self._env is not None
+        dummy_action = [0.0] * 6 + [-1.0]
+        for _ in range(self._num_steps_wait):
+            obs, _, done, _ = self._env.step(dummy_action)
+            self._last_obs = obs
+            # Reset done flag — settling steps shouldn't count as task completion
+            self._done = False
+        return self.get_observation()
+
     def get_mujoco_model(self) -> Any:
         """Return the underlying MuJoCo model from robosuite."""
         assert self._env is not None, "Call initialize() first"

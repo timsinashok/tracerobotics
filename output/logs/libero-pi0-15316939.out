@@ -1,0 +1,59 @@
+============================================
+LIBERO + Pi0 Test Pipeline
+Node: cn008
+Date: Fri May  1 23:51:44 +04 2026
+Job ID: 15316939
+============================================
+
+[GPU Info]
+NVIDIA A100-PCIE-40GB, 40960 MiB
+
+Starting GPU keepalive...
+
+============================================
+LEVEL 1: LIBERO unit tests
+============================================
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /home/at5282/.conda/envs/trace-pi0/bin/python
+cachedir: .pytest_cache
+rootdir: /scratch/at5282/trace/tracerobotics
+configfile: pyproject.toml
+plugins: cov-7.0.0, anyio-4.12.1, zarr-3.1.5
+collecting ... collected 12 items
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize PASSED    [  8%]
+tests/test_libero_task.py::TestLiberoTaskInit::test_language_instruction PASSED [ 16%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_reset_returns_observation PASSED [ 25%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_observation_keys PASSED [ 33%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_image_shape PASSED  [ 41%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_proprioception_shapes PASSED [ 50%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_returns_tuple PASSED [ 58%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_observation_format PASSED [ 66%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_model PASSED [ 75%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_data PASSED [ 83%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_initial_not_success PASSED [ 91%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_no_catastrophic_failure PASSED [100%]
+
+=============================== warnings summary ===============================
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:53: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("No private macro file found!")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:54: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("It is recommended to use a private macro file")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:55: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("To setup, run: python {}/scripts/setup_macros.py".format(robosuite.__path__[0]))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 12 passed, 3 warnings in 27.37s ========================
+LEVEL 1 PASSED
+
+============================================
+Starting pi0 server on port 8000...
+============================================
+Checking for stale processes on port 8000...
+ERROR: Port 8000 still in use after cleanup. Aborting.
+LISTEN 0      2048         0.0.0.0:8000       0.0.0.0:*          

@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --job-name=libero-pi0
+#SBATCH --job-name=libero-pi0-5t
 #SBATCH --partition=nvidia
 #SBATCH --gres=gpu:a100:1
 #SBATCH --mem=64G
 #SBATCH --cpus-per-task=8
 #SBATCH --time=48:00:00
-#SBATCH --output=/scratch/at5282/trace/tracerobotics/output/logs/libero-pi0-%j.out
-#SBATCH --error=/scratch/at5282/trace/tracerobotics/output/logs/libero-pi0-%j.err
+#SBATCH --output=/scratch/at5282/trace/tracerobotics/output/logs/libero-pi0-5t-%j.out
+#SBATCH --error=/scratch/at5282/trace/tracerobotics/output/logs/libero-pi0-5t-%j.err
 
 # =============================================================================
 # LIBERO + Pi0 Testing Pipeline
@@ -163,14 +163,14 @@ fi
 
 # =============================================================================
 # Level 3: Multi-task LIBERO robustness sweep
-# 4 suites × 3 task IDs × 3 seeds × 5 episodes × 7 intensities × 9 stressors
-# = 11,340 episodes (~23 hours at ~7s/ep for pi0.5)
+# 4 suites × 5 task IDs × 3 seeds × 5 episodes × 7 intensities × 9 stressors
+# = 18,900 episodes (~38 hours at ~7s/ep for pi0.5)
 # =============================================================================
 echo ""
 echo "============================================"
-echo "LEVEL 3: Multi-task LIBERO sweep"
+echo "LEVEL 3: Multi-task LIBERO sweep (5 tasks)"
 echo "  Suites: spatial, object, goal, 10"
-echo "  Task IDs: 0, 4, 9"
+echo "  Task IDs: 0, 2, 4, 7, 9"
 echo "  Sweep: multi_task_sweep.yaml (3 seeds, 5 eps)"
 echo "============================================"
 
@@ -179,7 +179,7 @@ python -m scripts.run_evaluation \
        configs/tasks/libero_object.yaml \
        configs/tasks/libero_goal.yaml \
        configs/tasks/libero_10.yaml \
-  --task-ids 0 4 9 \
+  --task-ids 0 2 4 7 9 \
   --sweep configs/sweeps/multi_task_sweep.yaml \
   --policy pi0 \
   --action-mode passthrough \

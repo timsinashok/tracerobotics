@@ -1,0 +1,98 @@
+============================================
+LIBERO + Pi0 Test Pipeline
+Node: cn008
+Date: Fri May  1 23:42:18 +04 2026
+Job ID: 15316012
+============================================
+
+[GPU Info]
+NVIDIA A100-PCIE-40GB, 40960 MiB
+
+Starting GPU keepalive...
+
+============================================
+LEVEL 1: LIBERO unit tests
+============================================
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /home/at5282/.conda/envs/trace-pi0/bin/python
+cachedir: .pytest_cache
+rootdir: /scratch/at5282/trace/tracerobotics
+configfile: pyproject.toml
+plugins: cov-7.0.0, anyio-4.12.1, zarr-3.1.5
+collecting ... collected 12 items
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize PASSED    [  8%]
+tests/test_libero_task.py::TestLiberoTaskInit::test_language_instruction PASSED [ 16%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_reset_returns_observation PASSED [ 25%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_observation_keys PASSED [ 33%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_image_shape PASSED  [ 41%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_proprioception_shapes PASSED [ 50%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_returns_tuple PASSED [ 58%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_observation_format PASSED [ 66%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_model PASSED [ 75%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_data PASSED [ 83%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_initial_not_success PASSED [ 91%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_no_catastrophic_failure PASSED [100%]
+
+=============================== warnings summary ===============================
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:53: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("No private macro file found!")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:54: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("It is recommended to use a private macro file")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:55: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("To setup, run: python {}/scripts/setup_macros.py".format(robosuite.__path__[0]))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================= 12 passed, 3 warnings in 28.17s ========================
+LEVEL 1 PASSED
+
+============================================
+Starting pi0 server on port 8000...
+============================================
+Waiting for server (PID 1006198) to start listening on port 8000...
+Server is ready (took 0s).
+
+
+============================================
+LEVEL 2: LIBERO single-episode evaluation
+============================================
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Traceback (most recent call last):
+  File "<string>", line 19, in <module>
+  File "/scratch/at5282/trace/tracerobotics/trace/policy_adapter/pi0_adapter.py", line 83, in load
+    self._client = websocket_client_policy.WebsocketClientPolicy(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/at5282/trace/openpi/packages/openpi-client/src/openpi_client/websocket_client_policy.py", line 27, in __init__
+    self._ws, self._server_metadata = self._wait_for_server()
+                                      ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/at5282/trace/openpi/packages/openpi-client/src/openpi_client/websocket_client_policy.py", line 37, in _wait_for_server
+    conn = websockets.sync.client.connect(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/websockets/sync/client.py", line 381, in connect
+    connection.handshake(
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/websockets/sync/client.py", line 102, in handshake
+    raise self.protocol.handshake_exc
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/websockets/client.py", line 327, in parse
+    self.process_response(response)
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/websockets/client.py", line 144, in process_response
+    raise InvalidStatus(response)
+websockets.exceptions.InvalidStatus: server rejected WebSocket connection: HTTP 403
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+Task: libero
+Suite: libero_spatial
+Language instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+
+Shutting down server (PID 1006198) and keepalive (PID 1004726)...
+Done.
