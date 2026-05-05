@@ -1,0 +1,31 @@
+warning: The `tool.uv.dev-dependencies` field (used in `packages/openpi-client/pyproject.toml`) is deprecated and will be removed in a future release; use `dependency-groups.dev` instead
+INFO:root:Loading model...
+INFO:2026-05-04 01:22:40,476:jax._src.xla_bridge:925: Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+INFO:jax._src.xla_bridge:Unable to initialize backend 'rocm': module 'jaxlib.xla_extension' has no attribute 'GpuAllocatorConfig'
+INFO:2026-05-04 01:22:40,486:jax._src.xla_bridge:925: Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+INFO:jax._src.xla_bridge:Unable to initialize backend 'tpu': INTERNAL: Failed to open libtpu.so: libtpu.so: cannot open shared object file: No such file or directory
+INFO:absl:orbax-checkpoint version: 0.11.13
+INFO:absl:Created BasePyTreeCheckpointHandler: use_ocdbt=True, use_zarr3=False, pytree_metadata_options=PyTreeMetadataOptions(support_rich_types=False), array_metadata_store=<orbax.checkpoint._src.metadata.array_metadata_store.Store object at 0x15545fd76990>
+INFO:absl:Restoring checkpoint from /scratch/at5282/.cache/openpi/openpi-assets/checkpoints/pi05_libero/params.
+INFO:absl:[thread=MainThread] Failed to get flag value for EXPERIMENTAL_ORBAX_USE_DISTRIBUTED_PROCESS_ID.
+INFO:absl:[process=0] /jax/checkpoint/read/bytes_per_sec: 370.3 MiB/s (total bytes: 6.2 GiB) (time elapsed: 17 seconds) (per-host)
+INFO:absl:Finished restoring checkpoint in 17.28 seconds from /scratch/at5282/.cache/openpi/openpi-assets/checkpoints/pi05_libero/params.
+INFO:root:Norm stats not found in /scratch/at5282/trace/openpi/assets/pi05_libero/physical-intelligence/libero, skipping.
+INFO:root:Loaded norm stats from /scratch/at5282/.cache/openpi/openpi-assets/checkpoints/pi05_libero/assets/physical-intelligence/libero
+INFO:root:Creating server (host: cn005, ip: 10.10.1.5)
+INFO:websockets.server:server listening on 0.0.0.0:8000
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 52482) opened
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 52482) closed
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 54046) opened
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 48602) opened
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 48604) opened
+INFO:websockets.server:connection open
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 48610) opened
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 54046) closed
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 48604) closed
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 48602) closed
+INFO:openpi.serving.websocket_policy_server:Connection from ('127.0.0.1', 48610) closed

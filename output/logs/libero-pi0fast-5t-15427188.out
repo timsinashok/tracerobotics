@@ -1,0 +1,910 @@
+============================================
+LIBERO + Pi0-FAST Test Pipeline (5 tasks, parallel)
+Node: cn257
+Date: Mon May  4 15:52:12 +04 2026
+Job ID: 15427188
+============================================
+Requirement already satisfied: rich>=12.3.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from typer->transformers>=5.3.0) (14.3.3)
+Requirement already satisfied: annotated-doc>=0.0.2 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from typer->transformers>=5.3.0) (0.0.4)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from rich>=12.3.0->typer->transformers>=5.3.0) (4.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from rich>=12.3.0->typer->transformers>=5.3.0) (2.19.2)
+Requirement already satisfied: mdurl~=0.1 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->transformers>=5.3.0) (0.1.2)
+
+[GPU Info]
+NVIDIA A100 80GB PCIe, 81920 MiB
+
+============================================
+LEVEL 1: LIBERO unit tests
+============================================
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /home/at5282/.conda/envs/trace-pi0/bin/python
+cachedir: .pytest_cache
+rootdir: /scratch/at5282/trace/tracerobotics
+configfile: pyproject.toml
+plugins: cov-7.0.0, anyio-4.12.1, zarr-3.1.5
+collecting ... collected 12 items
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize PASSED    [  8%]
+tests/test_libero_task.py::TestLiberoTaskInit::test_language_instruction PASSED [ 16%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_reset_returns_observation PASSED [ 25%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_observation_keys PASSED [ 33%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_image_shape PASSED  [ 41%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_proprioception_shapes PASSED [ 50%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_returns_tuple PASSED [ 58%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_observation_format PASSED [ 66%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_model PASSED [ 75%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_data PASSED [ 83%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_initial_not_success PASSED [ 91%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_no_catastrophic_failure PASSED [100%]
+
+=============================== warnings summary ===============================
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:53: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("No private macro file found!")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:54: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("It is recommended to use a private macro file")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:55: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("To setup, run: python {}/scripts/setup_macros.py".format(robosuite.__path__[0]))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================== 12 passed, 3 warnings in 69.78s (0:01:09) ===================
+LEVEL 1 PASSED
+
+============================================
+LEVEL 2: LIBERO single-episode evaluation (pi0fast)
+============================================
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/torch/jit/_script.py:362: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+WARNING:root:Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.bias
+WARNING:root:Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.weight
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+Task: libero
+Suite: libero_spatial
+Language instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+The PI0Fast model is a direct port of the OpenPI implementation. 
+This implementation follows the original OpenPI structure for compatibility. 
+Original implementation: https://github.com/Physical-Intelligence/openpi
+Loading model from: lerobot/pi0fast-libero
+✓ Loaded state dict from model.safetensors
+All keys loaded successfully!
+Success:              True
+Steps:                76
+Reward:               1.000
+Catastrophic failure: False
+LEVEL 2 PASSED
+
+============================================
+LEVEL 3: Multi-task LIBERO sweep (4 suites in parallel)
+  Suites: spatial, object, goal, 10
+  Task IDs: 0, 2, 4, 7, 9
+  Sweep: multi_task_sweep.yaml (3 seeds, 5 eps)
+============================================
+Launched 4 parallel evaluation workers:
+  spatial: PID 3767622
+  object:  PID 3767624
+  goal:    PID 3767626
+  long:    PID 3767628
+
+[long] 2026-05-04 16:04:14,785 __main__ INFO: Trace Robotics Evaluation
+[long] 2026-05-04 16:04:14,785 __main__ INFO: Tasks: 5 entries
+[long] 2026-05-04 16:04:14,785 __main__ INFO: Sweep config: configs/sweeps/multi_task_sweep.yaml
+[long] 2026-05-04 16:04:14,785 __main__ INFO: Output: output/reports/pi0fast_long
+[long] 2026-05-04 16:04:14,795 __main__ INFO: Loaded 9 stressor sweeps
+[long] [robosuite WARNING] No private macro file found! (macros.py:53)
+[long] 2026-05-04 16:04:15,945 robosuite_logs WARNING: No private macro file found!
+[long] [robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[long] 2026-05-04 16:04:15,945 robosuite_logs WARNING: It is recommended to use a private macro file
+[long] [robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[long] 2026-05-04 16:04:15,945 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+[long] Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+[long] Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+[long] See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[long] 2026-05-04 16:06:49,068 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[long] 2026-05-04 16:06:49,417 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/lerobot/pi0fast-libero/840f4b503f4c09110421c33c810a85b6684fd658/config.json "HTTP/1.1 200 OK"
+[long] 2026-05-04 16:06:49,996 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[long] 2026-05-04 16:06:50,007 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[long] 2026-05-04 16:06:50,233 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[long] 2026-05-04 16:06:50,476 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[long] 2026-05-04 16:06:50,488 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[long] 2026-05-04 16:06:50,751 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+[long] 2026-05-04 16:06:50,984 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+[long] 2026-05-04 16:06:51,235 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+[long] 2026-05-04 16:06:51,465 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processing_action_tokenizer.py "HTTP/1.1 307 Temporary Redirect"
+[long] 2026-05-04 16:06:51,476 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processing_action_tokenizer.py "HTTP/1.1 200 OK"
+[long] 2026-05-04 16:06:51,711 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[long] 2026-05-04 16:06:51,933 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[long] 2026-05-04 16:06:52,170 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[long] 2026-05-04 16:06:52,403 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+[long] 2026-05-04 16:06:52,682 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+[long] 2026-05-04 16:06:52,904 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+[long] 2026-05-04 16:06:53,128 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+[long] 2026-05-04 16:06:53,369 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+[long] 2026-05-04 16:06:53,599 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[long] 2026-05-04 16:06:53,611 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/bpe_tokenizer%2Ftokenizer_config.json "HTTP/1.1 200 OK"
+[long] 2026-05-04 16:06:53,838 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[long] 2026-05-04 16:06:54,064 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[long] 2026-05-04 16:06:54,300 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 403 Forbidden"
+[long] 2026-05-04 16:06:54,544 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 403 Forbidden"
+[long] 2026-05-04 16:06:54,779 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[long] 2026-05-04 16:06:55,016 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[long] 2026-05-04 16:06:57,599 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+[long] 2026-05-04 16:06:57,601 root INFO: Loaded FAST tokenizer for action detokenization
+[object] 2026-05-04 16:04:14,803 __main__ INFO: Trace Robotics Evaluation
+[object] 2026-05-04 16:04:14,803 __main__ INFO: Tasks: 5 entries
+[object] 2026-05-04 16:04:14,803 __main__ INFO: Sweep config: configs/sweeps/multi_task_sweep.yaml
+[object] 2026-05-04 16:04:14,803 __main__ INFO: Output: output/reports/pi0fast_object
+[object] 2026-05-04 16:04:14,812 __main__ INFO: Loaded 9 stressor sweeps
+[object] [robosuite WARNING] No private macro file found! (macros.py:53)
+[object] 2026-05-04 16:04:16,016 robosuite_logs WARNING: No private macro file found!
+[object] [robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[object] 2026-05-04 16:04:16,016 robosuite_logs WARNING: It is recommended to use a private macro file
+[object] [robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[object] 2026-05-04 16:04:16,016 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+[object] Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+[object] Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+[object] See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[object] 2026-05-04 16:06:49,060 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[object] 2026-05-04 16:06:49,408 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/lerobot/pi0fast-libero/840f4b503f4c09110421c33c810a85b6684fd658/config.json "HTTP/1.1 200 OK"
+[object] 2026-05-04 16:06:49,940 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[object] 2026-05-04 16:06:49,951 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[object] 2026-05-04 16:06:50,179 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[object] 2026-05-04 16:06:50,461 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[object] 2026-05-04 16:06:50,474 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[object] 2026-05-04 16:06:50,735 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+[object] 2026-05-04 16:06:51,019 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+[object] 2026-05-04 16:06:51,271 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+[object] 2026-05-04 16:06:51,527 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processing_action_tokenizer.py "HTTP/1.1 307 Temporary Redirect"
+[object] 2026-05-04 16:06:51,537 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processing_action_tokenizer.py "HTTP/1.1 200 OK"
+[object] 2026-05-04 16:06:51,769 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[object] 2026-05-04 16:06:51,997 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[object] 2026-05-04 16:06:52,007 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[object] 2026-05-04 16:06:52,233 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+[object] 2026-05-04 16:06:52,458 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+[object] 2026-05-04 16:06:52,687 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+[object] 2026-05-04 16:06:52,914 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+[object] 2026-05-04 16:06:53,139 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+[object] 2026-05-04 16:06:53,582 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[object] 2026-05-04 16:06:53,592 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/bpe_tokenizer%2Ftokenizer_config.json "HTTP/1.1 200 OK"
+[object] 2026-05-04 16:06:53,821 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[object] 2026-05-04 16:06:54,046 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[object] 2026-05-04 16:06:54,283 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 403 Forbidden"
+[object] 2026-05-04 16:06:54,515 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 403 Forbidden"
+[object] 2026-05-04 16:06:54,752 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[object] 2026-05-04 16:06:55,035 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[object] 2026-05-04 16:06:57,626 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+[object] 2026-05-04 16:06:57,627 root INFO: Loaded FAST tokenizer for action detokenization
+[spatial] 2026-05-04 16:04:14,789 __main__ INFO: Trace Robotics Evaluation
+[spatial] 2026-05-04 16:04:14,789 __main__ INFO: Tasks: 5 entries
+[spatial] 2026-05-04 16:04:14,789 __main__ INFO: Sweep config: configs/sweeps/multi_task_sweep.yaml
+[spatial] 2026-05-04 16:04:14,789 __main__ INFO: Output: output/reports/pi0fast_spatial
+[spatial] 2026-05-04 16:04:14,798 __main__ INFO: Loaded 9 stressor sweeps
+[spatial] [robosuite WARNING] No private macro file found! (macros.py:53)
+[spatial] 2026-05-04 16:04:15,947 robosuite_logs WARNING: No private macro file found!
+[spatial] [robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[spatial] 2026-05-04 16:04:15,947 robosuite_logs WARNING: It is recommended to use a private macro file
+[spatial] [robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[spatial] 2026-05-04 16:04:15,947 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+[spatial] Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+[spatial] Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+[spatial] See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[spatial] 2026-05-04 16:06:49,004 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[spatial] 2026-05-04 16:06:49,134 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/lerobot/pi0fast-libero/840f4b503f4c09110421c33c810a85b6684fd658/config.json "HTTP/1.1 200 OK"
+[spatial] 2026-05-04 16:06:49,710 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[spatial] 2026-05-04 16:06:49,722 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[spatial] 2026-05-04 16:06:49,950 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[spatial] 2026-05-04 16:06:50,170 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[spatial] 2026-05-04 16:06:50,183 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[spatial] 2026-05-04 16:06:50,411 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+[spatial] 2026-05-04 16:06:50,740 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+[spatial] 2026-05-04 16:06:51,004 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+[spatial] 2026-05-04 16:06:51,258 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processing_action_tokenizer.py "HTTP/1.1 307 Temporary Redirect"
+[spatial] 2026-05-04 16:06:51,273 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processing_action_tokenizer.py "HTTP/1.1 200 OK"
+[spatial] 2026-05-04 16:06:51,547 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[spatial] 2026-05-04 16:06:51,775 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[spatial] 2026-05-04 16:06:51,787 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[spatial] 2026-05-04 16:06:52,029 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+[spatial] 2026-05-04 16:06:52,256 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+[spatial] 2026-05-04 16:06:52,529 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+[spatial] 2026-05-04 16:06:52,758 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+[spatial] 2026-05-04 16:06:53,002 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+[spatial] 2026-05-04 16:06:53,235 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[spatial] 2026-05-04 16:06:53,245 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/bpe_tokenizer%2Ftokenizer_config.json "HTTP/1.1 200 OK"
+[spatial] 2026-05-04 16:06:53,475 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[spatial] 2026-05-04 16:06:53,705 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[spatial] 2026-05-04 16:06:54,210 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 403 Forbidden"
+[spatial] 2026-05-04 16:06:54,478 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 403 Forbidden"
+[spatial] 2026-05-04 16:06:54,732 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[spatial] 2026-05-04 16:06:54,996 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[spatial] 2026-05-04 16:06:57,605 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+[spatial] 2026-05-04 16:06:57,606 root INFO: Loaded FAST tokenizer for action detokenization
+[goal] 2026-05-04 16:04:14,787 __main__ INFO: Trace Robotics Evaluation
+[goal] 2026-05-04 16:04:14,787 __main__ INFO: Tasks: 5 entries
+[goal] 2026-05-04 16:04:14,787 __main__ INFO: Sweep config: configs/sweeps/multi_task_sweep.yaml
+[goal] 2026-05-04 16:04:14,787 __main__ INFO: Output: output/reports/pi0fast_goal
+[goal] 2026-05-04 16:04:14,796 __main__ INFO: Loaded 9 stressor sweeps
+[goal] [robosuite WARNING] No private macro file found! (macros.py:53)
+[goal] 2026-05-04 16:04:15,981 robosuite_logs WARNING: No private macro file found!
+[goal] [robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[goal] 2026-05-04 16:04:15,981 robosuite_logs WARNING: It is recommended to use a private macro file
+[goal] [robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+[goal] 2026-05-04 16:04:15,981 robosuite_logs WARNING: To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+[goal] Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+[goal] Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+[goal] See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[goal] 2026-05-04 16:06:49,049 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+[goal] 2026-05-04 16:06:49,405 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/lerobot/pi0fast-libero/840f4b503f4c09110421c33c810a85b6684fd658/config.json "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:06:49,942 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[goal] 2026-05-04 16:06:49,955 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:06:50,185 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:06:50,410 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[goal] 2026-05-04 16:06:50,422 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:06:50,670 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:06:51,067 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:06:51,665 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:06:51,895 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processing_action_tokenizer.py "HTTP/1.1 307 Temporary Redirect"
+[goal] 2026-05-04 16:06:51,905 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processing_action_tokenizer.py "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:06:52,135 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:06:52,593 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[goal] 2026-05-04 16:06:52,604 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:06:53,055 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:06:53,282 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:06:53,520 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:06:53,748 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:06:53,971 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:06:54,198 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[goal] 2026-05-04 16:06:54,209 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/bpe_tokenizer%2Ftokenizer_config.json "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:06:54,439 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:06:54,664 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:06:54,901 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 403 Forbidden"
+[goal] 2026-05-04 16:06:55,144 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 403 Forbidden"
+[goal] 2026-05-04 16:06:55,380 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:06:55,623 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:06:58,161 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:06:58,163 root INFO: Loaded FAST tokenizer for action detokenization
+[goal] /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/torch/jit/_script.py:362: DeprecationWarning: `torch.jit.script_method` is deprecated. Please switch to `torch.compile` or `torch.export`.
+[goal]   warnings.warn(
+[goal] 2026-05-04 16:10:32,841 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/model.safetensors "HTTP/1.1 302 Found"
+[goal] 2026-05-04 16:10:33,357 root WARNING: Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.bias
+[goal] 2026-05-04 16:10:33,358 root WARNING: Vision embedding key might need handling: model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.embeddings.patch_embedding.weight
+[goal] 2026-05-04 16:10:48,666 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/policy_preprocessor.json "HTTP/1.1 307 Temporary Redirect"
+[goal] 2026-05-04 16:10:49,011 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/lerobot/pi0fast-libero/840f4b503f4c09110421c33c810a85b6684fd658/policy_preprocessor.json "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:10:49,258 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 403 Forbidden"
+[goal] 2026-05-04 16:10:49,493 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 403 Forbidden"
+[goal] 2026-05-04 16:10:49,728 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:10:49,962 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:10:52,368 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:10:52,603 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[goal] 2026-05-04 16:10:52,614 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:10:52,851 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:10:53,080 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[goal] 2026-05-04 16:10:53,093 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:10:53,332 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:10:53,563 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:10:53,800 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:10:54,031 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processing_action_tokenizer.py "HTTP/1.1 307 Temporary Redirect"
+[goal] 2026-05-04 16:10:54,044 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processing_action_tokenizer.py "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:10:54,323 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:10:54,546 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/processor_config.json "HTTP/1.1 307 Temporary Redirect"
+[goal] 2026-05-04 16:10:54,557 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/processor_config.json "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:10:54,780 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.json "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:10:55,008 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/chat_template.jinja "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:10:55,236 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/audio_tokenizer_config.json "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:10:55,472 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:10:55,703 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/config.json "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:10:55,928 httpx INFO: HTTP Request: HEAD https://huggingface.co/jadechoghari/tokenizer-lib-mean/resolve/main/bpe_tokenizer/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+[goal] 2026-05-04 16:10:55,939 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/jadechoghari/tokenizer-lib-mean/79ae83e3cbd8786dcb84b628569f8d076ca8151e/bpe_tokenizer%2Ftokenizer_config.json "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:10:56,171 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:10:56,402 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:10:56,640 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/config.json "HTTP/1.1 403 Forbidden"
+[goal] 2026-05-04 16:10:56,873 httpx INFO: HTTP Request: HEAD https://huggingface.co/google/paligemma-3b-pt-224/resolve/main/tokenizer_config.json "HTTP/1.1 403 Forbidden"
+[goal] 2026-05-04 16:10:57,112 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+[goal] 2026-05-04 16:10:57,345 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:10:59,660 httpx INFO: HTTP Request: GET https://huggingface.co/api/models/google/paligemma-3b-pt-224 "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:10:59,907 httpx INFO: HTTP Request: HEAD https://huggingface.co/lerobot/pi0fast-libero/resolve/main/policy_postprocessor.json "HTTP/1.1 307 Temporary Redirect"
+[goal] 2026-05-04 16:11:00,032 httpx INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/lerobot/pi0fast-libero/840f4b503f4c09110421c33c810a85b6684fd658/policy_postprocessor.json "HTTP/1.1 200 OK"
+[goal] 2026-05-04 16:11:00,038 __main__ INFO: Using named policy: pi0fast
+[goal] 2026-05-04 16:11:00,039 __main__ INFO: === Task 1/5: libero_goal_task0 (instruction: open the middle drawer of the cabinet) ===
+[goal] 2026-05-04 16:11:00,039 __main__ INFO:   Sweep 1/9: LatencyStressor
+[goal] 2026-05-04 16:14:04,207 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-04 16:15:40,400 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=1 success=True steps=153
+[goal] 2026-05-04 16:16:59,081 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=2 success=True steps=126
+[goal] 2026-05-04 16:18:23,814 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=3 success=True steps=138
+[goal] 2026-05-04 16:19:36,766 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=4 success=True steps=117
+[goal] 2026-05-04 16:20:56,085 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=0 success=True steps=130
+[goal] 2026-05-04 16:22:09,298 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=1 success=True steps=117
+[goal] 2026-05-04 16:23:27,773 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=2 success=True steps=121
+[goal] 2026-05-04 16:24:46,772 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=3 success=True steps=128
+[goal] 2026-05-04 16:26:05,453 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=4 success=True steps=125
+[goal] 2026-05-04 16:27:30,729 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=0 success=True steps=136
+[goal] 2026-05-04 16:28:37,932 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=1 success=True steps=110
+[goal] 2026-05-04 16:29:56,323 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=2 success=True steps=121
+[goal] 2026-05-04 16:31:15,600 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=3 success=True steps=124
+[goal] 2026-05-04 16:34:15,418 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-04 16:35:39,927 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=0 success=True steps=139
+[goal] 2026-05-04 16:36:58,576 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=1 success=True steps=125
+[goal] 2026-05-04 16:38:17,096 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=2 success=True steps=128
+[goal] 2026-05-04 16:39:41,756 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=3 success=True steps=131
+[goal] 2026-05-04 16:41:11,746 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=4 success=True steps=141
+[goal] 2026-05-04 16:43:29,660 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=0 success=True steps=230
+[goal] 2026-05-04 16:46:28,967 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-04 16:49:29,240 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-04 16:50:54,092 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=3 success=True steps=140
+[goal] 2026-05-04 16:52:13,317 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=4 success=True steps=129
+[goal] 2026-05-04 16:53:38,231 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=0 success=True steps=136
+[goal] 2026-05-04 16:56:37,129 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-04 16:57:55,478 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=2 success=True steps=130
+[goal] 2026-05-04 16:59:13,687 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=3 success=True steps=127
+[goal] 2026-05-04 17:02:13,025 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-04 17:03:43,296 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=0 success=True steps=145
+[goal] 2026-05-04 17:05:19,220 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=1 success=True steps=159
+[goal] 2026-05-04 17:06:49,507 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=2 success=True steps=142
+[goal] 2026-05-04 17:08:19,629 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=3 success=True steps=148
+[goal] 2026-05-04 17:09:38,232 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=4 success=True steps=129
+[goal] 2026-05-04 17:11:19,989 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=0 success=True steps=161
+[goal] 2026-05-04 17:12:38,928 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=1 success=True steps=129
+[goal] 2026-05-04 17:15:39,457 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-04 17:16:57,596 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=3 success=True steps=128
+[goal] 2026-05-04 17:18:21,719 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=4 success=True steps=140
+[goal] 2026-05-04 17:21:22,038 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-04 17:24:20,502 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-04 17:26:03,369 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=2 success=True steps=169
+[goal] 2026-05-04 17:27:33,657 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=3 success=True steps=141
+[goal] 2026-05-04 17:30:34,131 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-04 17:31:58,047 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=0 success=True steps=140
+[goal] 2026-05-04 17:34:57,277 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-04 17:36:22,027 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=2 success=True steps=133
+[goal] 2026-05-04 17:38:40,128 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=3 success=True steps=228
+[goal] 2026-05-04 17:40:04,037 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=4 success=True steps=133
+[goal] 2026-05-04 17:41:45,893 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=0 success=True steps=169
+[goal] 2026-05-04 17:44:46,566 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-04 17:47:47,403 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-04 17:49:23,991 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=3 success=True steps=152
+[goal] 2026-05-04 17:50:53,770 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=4 success=True steps=143
+[goal] 2026-05-04 17:52:30,622 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=0 success=True steps=151
+[goal] 2026-05-04 17:53:43,200 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=1 success=True steps=117
+[goal] 2026-05-04 17:55:19,077 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=2 success=True steps=159
+[goal] 2026-05-04 17:58:17,695 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-04 18:01:16,307 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-04 18:02:51,927 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=0 success=True steps=159
+[goal] 2026-05-04 18:05:50,572 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-04 18:08:49,002 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-04 18:10:18,683 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=3 success=True steps=143
+[goal] 2026-05-04 18:11:48,468 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=4 success=True steps=150
+[goal] 2026-05-04 18:14:47,251 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-04 18:16:21,274 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=1 success=True steps=146
+[goal] 2026-05-04 18:19:20,421 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-04 18:20:50,189 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=3 success=True steps=150
+[goal] 2026-05-04 18:22:20,026 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=4 success=True steps=149
+[goal] 2026-05-04 18:23:49,794 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=0 success=True steps=147
+[goal] 2026-05-04 18:25:26,298 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=1 success=True steps=151
+[goal] 2026-05-04 18:28:24,764 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-04 18:30:47,727 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=3 success=True steps=234
+[goal] 2026-05-04 18:33:46,396 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-04 18:36:45,411 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-04 18:39:45,235 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-04 18:41:26,648 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=2 success=True steps=162
+[goal] 2026-05-04 18:43:03,097 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=3 success=True steps=159
+[goal] 2026-05-04 18:44:45,343 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=4 success=True steps=169
+[goal] 2026-05-04 18:46:50,688 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=0 success=True steps=210
+[goal] 2026-05-04 18:49:51,304 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-04 18:52:50,331 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-04 18:54:26,241 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=3 success=True steps=156
+[goal] 2026-05-04 18:56:01,904 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=4 success=True steps=156
+[goal] 2026-05-04 18:59:00,410 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-04 19:01:58,963 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-04 19:05:00,036 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-04 19:06:30,488 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=3 success=True steps=148
+[goal] 2026-05-04 19:09:29,697 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-04 19:12:27,842 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-04 19:15:27,632 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-04 19:17:14,958 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=2 success=True steps=173
+[goal] 2026-05-04 19:19:08,630 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=3 success=True steps=188
+[goal] 2026-05-04 19:20:32,656 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=4 success=True steps=140
+[goal] 2026-05-04 19:23:01,358 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=0 success=True steps=243
+[goal] 2026-05-04 19:26:01,714 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-04 19:29:02,100 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-04 19:30:50,552 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=3 success=True steps=173
+[goal] 2026-05-04 19:32:20,594 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=4 success=True steps=149
+[goal] 2026-05-04 19:35:18,971 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-04 19:38:17,861 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-04 19:41:16,705 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-04 19:43:04,961 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=3 success=True steps=171
+[goal] 2026-05-04 19:46:03,944 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-04 19:46:03,946 __main__ INFO:     baseline=87%, max_degradation=40%
+[goal] 2026-05-04 19:46:03,946 __main__ INFO:   Sweep 2/9: DropoutStressor
+[goal] 2026-05-04 19:47:27,513 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=0 success=True steps=132
+[goal] 2026-05-04 19:49:08,859 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=1 success=True steps=163
+[goal] 2026-05-04 19:52:07,593 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-04 19:53:25,473 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=3 success=True steps=127
+[goal] 2026-05-04 19:54:38,148 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=4 success=True steps=117
+[goal] 2026-05-04 19:56:07,680 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=0 success=True steps=143
+[goal] 2026-05-04 19:57:31,342 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=1 success=True steps=133
+[goal] 2026-05-04 20:00:31,450 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-04 20:01:49,999 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=3 success=True steps=128
+[goal] 2026-05-04 20:03:07,708 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=4 success=True steps=126
+[goal] 2026-05-04 20:06:06,436 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-04 20:08:42,674 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=1 success=True steps=257
+[goal] 2026-05-04 20:09:55,514 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=2 success=True steps=116
+[goal] 2026-05-04 20:11:43,853 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=3 success=True steps=173
+[goal] 2026-05-04 20:14:43,993 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-04 20:17:43,423 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-04 20:20:20,270 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=1 success=True steps=258
+[goal] 2026-05-04 20:23:20,278 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-04 20:24:49,966 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=3 success=True steps=145
+[goal] 2026-05-04 20:26:08,565 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=4 success=True steps=123
+[goal] 2026-05-04 20:28:32,389 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=0 success=True steps=232
+[goal] 2026-05-04 20:31:32,389 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-04 20:34:31,308 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-04 20:35:50,009 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=3 success=True steps=125
+[goal] 2026-05-04 20:38:49,525 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-04 20:40:14,094 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=0 success=True steps=134
+[goal] 2026-05-04 20:42:37,570 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=1 success=True steps=231
+[goal] 2026-05-04 20:44:07,083 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=2 success=True steps=141
+[goal] 2026-05-04 20:47:05,560 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-04 20:50:05,314 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-04 20:53:04,818 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-04 20:56:03,307 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-04 20:59:01,753 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-04 21:00:19,600 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=3 success=True steps=129
+[goal] 2026-05-04 21:03:18,760 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-04 21:06:17,319 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-04 21:09:16,490 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-04 21:12:15,311 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-04 21:15:14,075 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-04 21:17:13,850 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=4 success=True steps=193
+[goal] 2026-05-04 21:19:02,378 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=0 success=True steps=171
+[goal] 2026-05-04 21:22:00,643 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-04 21:25:00,783 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-04 21:27:58,755 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-04 21:30:57,145 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-04 21:33:55,618 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-04 21:36:54,193 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-04 21:39:52,317 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-04 21:41:16,214 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=3 success=True steps=132
+[goal] 2026-05-04 21:44:14,789 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-04 21:47:14,308 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-04 21:50:12,663 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-04 21:53:11,141 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-04 21:56:09,892 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-04 21:59:08,303 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-04 22:02:06,777 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-04 22:05:05,223 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-04 22:08:03,361 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-04 22:11:01,462 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-04 22:13:59,746 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-04 22:16:58,084 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-04 22:19:56,220 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-04 22:22:54,186 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-04 22:25:52,189 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-04 22:28:51,475 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-04 22:31:49,624 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-04 22:34:48,899 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-04 22:37:48,701 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-04 22:40:48,691 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-04 22:43:46,762 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-04 22:46:44,818 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-04 22:49:42,862 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-04 22:52:41,152 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-04 22:55:39,652 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-04 22:58:40,857 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-04 23:01:40,168 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-04 23:04:38,569 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-04 23:07:36,639 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-04 23:10:36,979 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-04 23:13:35,275 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-04 23:16:33,463 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-04 23:19:32,850 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-04 23:22:31,379 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-04 23:25:29,486 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-04 23:28:27,519 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-04 23:31:26,339 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-04 23:34:24,591 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-04 23:37:22,463 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-04 23:40:20,918 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-04 23:43:20,044 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-04 23:46:19,796 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-04 23:49:18,975 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-04 23:52:19,039 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-04 23:55:17,694 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-04 23:58:17,116 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 00:01:16,720 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 00:04:17,153 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 00:07:15,751 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 00:10:14,434 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 00:13:14,505 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 00:16:13,987 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 00:19:14,781 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 00:22:13,539 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 00:25:13,091 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 00:28:11,659 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 00:28:11,661 __main__ INFO:     baseline=73%, max_degradation=73%
+[goal] 2026-05-05 00:28:11,661 __main__ INFO:   Sweep 3/9: PhysicsShiftStressor
+[goal] 2026-05-05 00:29:35,334 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=0 success=True steps=133
+[goal] 2026-05-05 00:31:12,174 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=1 success=True steps=155
+[goal] 2026-05-05 00:32:36,756 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=2 success=True steps=134
+[goal] 2026-05-05 00:34:01,118 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=3 success=True steps=135
+[goal] 2026-05-05 00:35:19,003 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=4 success=True steps=128
+[goal] 2026-05-05 00:36:48,713 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=0 success=True steps=145
+[goal] 2026-05-05 00:38:00,833 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=1 success=True steps=117
+[goal] 2026-05-05 00:40:59,920 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 00:42:17,679 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=3 success=True steps=124
+[goal] 2026-05-05 00:43:36,163 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=4 success=True steps=125
+[goal] 2026-05-05 00:45:00,252 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=0 success=True steps=137
+[goal] 2026-05-05 00:46:13,247 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=1 success=True steps=120
+[goal] 2026-05-05 00:47:31,061 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=2 success=True steps=121
+[goal] 2026-05-05 00:48:54,826 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=3 success=True steps=134
+[goal] 2026-05-05 00:51:54,024 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 00:54:52,110 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 00:57:51,055 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 01:00:48,852 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 01:03:46,590 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 01:06:45,771 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 01:09:45,347 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 01:12:44,223 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 01:15:43,909 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 01:18:43,609 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 01:21:42,284 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 01:24:40,430 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 01:27:40,303 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 01:30:38,686 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 01:33:38,584 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 01:36:36,538 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 01:39:34,819 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 01:42:34,347 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 01:45:32,162 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 01:48:30,659 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 01:51:30,418 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 01:54:29,912 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 01:57:28,019 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 02:00:27,853 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 02:03:26,419 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 02:06:24,507 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 02:09:22,641 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 02:12:20,730 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 02:15:18,496 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 02:18:16,850 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 02:21:14,850 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 02:24:14,446 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 02:27:12,482 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 02:30:10,440 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 02:33:08,306 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 02:36:07,039 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 02:39:05,366 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 02:42:03,397 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 02:45:01,272 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 02:48:01,011 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 02:51:00,127 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 02:53:58,925 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 02:56:56,823 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 02:59:54,746 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 03:02:52,975 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 03:05:50,848 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 03:08:50,581 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 03:11:49,179 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 03:14:47,660 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 03:17:47,617 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 03:20:45,598 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 03:23:44,124 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 03:26:44,057 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 03:29:43,814 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 03:32:42,934 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 03:35:41,200 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 03:38:39,266 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 03:41:37,265 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 03:44:35,347 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 03:47:33,213 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 03:50:32,254 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 03:53:32,033 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 03:56:29,634 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 03:59:28,789 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 04:02:27,054 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 04:05:24,729 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 04:08:23,997 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 04:11:23,783 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 04:14:21,580 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 04:17:19,671 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 04:20:17,318 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 04:23:15,216 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 04:26:12,910 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 04:29:12,741 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 04:32:10,899 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 04:35:08,585 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 04:38:06,427 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 04:41:04,055 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 04:44:01,862 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 04:46:59,540 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 04:49:58,054 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 04:52:55,454 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 04:55:53,004 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 04:58:50,671 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 05:01:48,221 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 05:04:47,367 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 05:07:46,452 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 05:10:44,457 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 05:13:42,977 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 05:16:40,926 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 05:19:39,335 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 05:19:39,337 __main__ INFO:     baseline=87%, max_degradation=87%
+[goal] 2026-05-05 05:19:39,337 __main__ INFO:   Sweep 4/9: EmbodimentStressor
+[goal] 2026-05-05 05:21:10,015 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=0 success=True steps=144
+[goal] 2026-05-05 05:24:09,500 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 05:27:08,516 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 05:28:26,489 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=3 success=True steps=128
+[goal] 2026-05-05 05:29:45,418 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=4 success=True steps=126
+[goal] 2026-05-05 05:31:15,994 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=0 success=True steps=143
+[goal] 2026-05-05 05:32:51,939 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=1 success=True steps=156
+[goal] 2026-05-05 05:35:51,111 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 05:37:09,354 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=3 success=True steps=127
+[goal] 2026-05-05 05:38:27,388 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=4 success=True steps=123
+[goal] 2026-05-05 05:40:26,579 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=0 success=True steps=191
+[goal] 2026-05-05 05:43:25,184 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 05:46:18,188 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=2 success=True steps=283
+[goal] 2026-05-05 05:47:42,259 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=3 success=True steps=134
+[goal] 2026-05-05 05:50:41,315 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 05:53:40,536 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 05:56:38,819 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 05:59:37,617 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 06:02:39,474 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 06:05:41,084 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 06:08:41,345 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 06:11:41,605 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 06:14:41,389 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 06:17:39,238 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 06:20:38,441 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 06:23:37,124 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 06:26:35,431 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 06:29:33,327 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 06:32:32,312 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 06:35:30,188 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 06:38:29,378 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 06:41:28,844 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 06:44:27,947 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 06:47:27,013 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 06:50:25,951 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 06:53:24,192 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 06:56:23,174 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 06:59:23,645 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 07:02:22,525 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 07:05:20,509 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 07:08:18,411 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 07:11:16,689 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 07:14:14,617 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 07:17:13,012 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 07:20:12,705 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 07:23:12,304 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 07:26:11,421 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 07:29:11,475 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 07:32:11,987 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 07:35:11,242 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 07:38:09,945 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 07:41:09,605 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 07:44:08,682 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 07:47:07,223 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 07:50:06,949 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 07:53:05,293 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 07:56:05,460 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 07:59:04,909 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 08:02:04,359 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 08:05:03,775 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 08:08:03,973 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 08:11:02,419 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 08:14:03,280 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 08:17:02,243 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 08:20:01,049 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 08:22:59,700 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 08:25:59,197 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 08:28:59,280 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 08:31:58,365 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 08:34:56,302 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 08:37:54,696 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 08:40:54,275 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 08:43:52,657 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 08:46:53,125 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 08:49:51,160 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 08:52:50,528 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 08:55:48,591 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 08:58:49,043 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 09:01:49,614 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 09:04:50,243 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 09:07:49,421 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 09:10:47,860 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 09:13:46,684 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 09:16:45,026 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 09:19:43,345 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 09:22:41,335 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 09:25:39,357 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 09:28:38,135 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 09:31:37,736 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 09:34:36,519 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 09:37:34,900 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 09:40:33,410 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 09:43:32,835 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 09:46:31,838 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 09:49:30,607 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 09:52:29,571 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 09:55:28,048 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 09:58:26,370 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 10:01:24,197 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 10:04:22,222 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 10:07:20,006 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 10:10:19,596 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 10:13:19,369 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 10:16:19,031 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 10:19:18,737 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 10:19:18,739 __main__ INFO:     baseline=67%, max_degradation=67%
+[goal] 2026-05-05 10:19:18,739 __main__ INFO:   Sweep 5/9: LongHorizonDriftStressor
+[goal] 2026-05-05 10:20:37,289 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=0 success=True steps=128
+[goal] 2026-05-05 10:23:35,868 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 10:26:36,598 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 10:27:55,297 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=3 success=True steps=126
+[goal] 2026-05-05 10:29:07,679 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=4 success=True steps=119
+[goal] 2026-05-05 10:30:31,910 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=0 success=True steps=137
+[goal] 2026-05-05 10:32:13,183 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=1 success=True steps=161
+[goal] 2026-05-05 10:35:12,053 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 10:36:30,636 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=3 success=True steps=122
+[goal] 2026-05-05 10:37:43,368 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=4 success=True steps=117
+[goal] 2026-05-05 10:39:19,472 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=0 success=True steps=153
+[goal] 2026-05-05 10:42:17,812 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 10:43:41,610 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=2 success=True steps=137
+[goal] 2026-05-05 10:45:00,321 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=3 success=True steps=125
+[goal] 2026-05-05 10:48:00,092 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 10:49:42,727 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=0 success=True steps=168
+[goal] 2026-05-05 10:51:00,718 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=1 success=True steps=130
+[goal] 2026-05-05 10:54:01,299 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 10:55:13,342 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=3 success=True steps=120
+[goal] 2026-05-05 10:56:31,346 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=4 success=True steps=130
+[goal] 2026-05-05 10:58:13,992 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=0 success=True steps=164
+[goal] 2026-05-05 10:59:38,564 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=1 success=True steps=132
+[goal] 2026-05-05 11:02:38,890 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 11:03:57,816 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=3 success=True steps=127
+[goal] 2026-05-05 11:05:16,053 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=4 success=True steps=127
+[goal] 2026-05-05 11:06:34,058 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=0 success=True steps=127
+[goal] 2026-05-05 11:07:46,268 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=1 success=True steps=120
+[goal] 2026-05-05 11:09:10,400 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=2 success=True steps=131
+[goal] 2026-05-05 11:10:34,957 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=3 success=True steps=133
+[goal] 2026-05-05 11:13:34,080 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 11:15:04,002 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=0 success=True steps=149
+[goal] 2026-05-05 11:16:16,574 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=1 success=True steps=120
+[goal] 2026-05-05 11:19:16,155 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 11:22:15,406 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 11:25:14,859 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 11:26:38,944 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=0 success=True steps=138
+[goal] 2026-05-05 11:27:51,149 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=1 success=True steps=117
+[goal] 2026-05-05 11:30:52,091 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 11:32:10,087 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=3 success=True steps=126
+[goal] 2026-05-05 11:33:22,115 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=4 success=True steps=115
+[goal] 2026-05-05 11:35:16,052 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=0 success=True steps=183
+[goal] 2026-05-05 11:37:51,781 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=1 success=True steps=260
+[goal] 2026-05-05 11:40:52,923 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 11:42:58,564 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=3 success=True steps=209
+[goal] 2026-05-05 11:44:10,696 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=4 success=True steps=117
+[goal] 2026-05-05 11:45:47,186 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=0 success=True steps=156
+[goal] 2026-05-05 11:48:47,010 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 11:51:45,798 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 11:54:47,696 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 11:57:48,880 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 12:00:48,500 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 12:02:00,564 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=1 success=True steps=111
+[goal] 2026-05-05 12:05:00,531 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 12:07:59,673 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 12:10:58,486 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 12:13:58,124 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 12:15:05,133 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=1 success=True steps=109
+[goal] 2026-05-05 12:18:05,195 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 12:21:05,266 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 12:24:03,935 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 12:25:33,826 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=0 success=True steps=145
+[goal] 2026-05-05 12:28:34,428 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 12:31:33,673 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 12:34:34,122 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 12:37:35,063 trace.runner.sweep_runner INFO: intensity=0.50 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 12:40:34,162 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 12:42:22,369 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=1 success=True steps=179
+[goal] 2026-05-05 12:45:23,686 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 12:48:22,366 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 12:51:20,996 trace.runner.sweep_runner INFO: intensity=0.50 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 12:54:21,649 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 12:57:21,455 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 13:00:22,173 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 13:03:22,928 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 13:06:21,684 trace.runner.sweep_runner INFO: intensity=0.50 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 13:09:22,711 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 13:12:22,563 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 13:15:23,455 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 13:18:24,154 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 13:21:25,240 trace.runner.sweep_runner INFO: intensity=0.70 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 13:24:26,097 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 13:27:25,151 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 13:30:24,815 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 13:33:23,667 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 13:36:22,889 trace.runner.sweep_runner INFO: intensity=0.70 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 13:39:22,276 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 13:42:23,457 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 13:45:24,025 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 13:48:25,406 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 13:51:25,969 trace.runner.sweep_runner INFO: intensity=0.70 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 13:54:26,678 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 13:57:25,800 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 14:00:24,504 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 14:03:23,425 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 14:06:23,379 trace.runner.sweep_runner INFO: intensity=1.00 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 14:09:23,004 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 14:12:21,560 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 14:15:20,894 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 14:18:20,173 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 14:21:20,309 trace.runner.sweep_runner INFO: intensity=1.00 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 14:24:19,714 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 14:27:18,737 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 14:30:18,678 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 14:33:18,012 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 14:36:17,417 trace.runner.sweep_runner INFO: intensity=1.00 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 14:36:17,418 __main__ INFO:     baseline=67%, max_degradation=67%
+[goal] 2026-05-05 14:36:17,418 __main__ INFO:   Sweep 6/9: ImageNoiseStressor
+[goal] 2026-05-05 14:37:42,282 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=0 success=True steps=136
+[goal] 2026-05-05 14:39:12,425 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=1 success=True steps=142
+[goal] 2026-05-05 14:42:11,927 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 14:43:29,941 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=3 success=True steps=128
+[goal] 2026-05-05 14:44:53,693 trace.runner.sweep_runner INFO: intensity=0.00 seed=0 ep=4 success=True steps=132
+[goal] 2026-05-05 14:46:11,716 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=0 success=True steps=125
+[goal] 2026-05-05 14:47:18,131 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=1 success=True steps=110
+[goal] 2026-05-05 14:50:17,107 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 14:51:35,389 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=3 success=True steps=124
+[goal] 2026-05-05 14:52:53,333 trace.runner.sweep_runner INFO: intensity=0.00 seed=1 ep=4 success=True steps=125
+[goal] 2026-05-05 14:55:16,654 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=0 success=True steps=232
+[goal] 2026-05-05 14:58:15,293 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 15:00:44,131 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=2 success=True steps=241
+[goal] 2026-05-05 15:02:02,055 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=3 success=True steps=125
+[goal] 2026-05-05 15:05:01,490 trace.runner.sweep_runner INFO: intensity=0.00 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 15:08:01,588 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 15:11:02,753 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 15:14:02,472 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 15:17:02,877 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 15:20:02,752 trace.runner.sweep_runner INFO: intensity=0.10 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 15:22:14,799 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=0 success=True steps=216
+[goal] 2026-05-05 15:25:02,836 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=1 success=True steps=277
+[goal] 2026-05-05 15:28:04,126 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 15:31:04,280 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 15:34:04,079 trace.runner.sweep_runner INFO: intensity=0.10 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 15:37:03,503 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 15:40:03,259 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 15:43:03,314 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 15:44:33,446 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=3 success=True steps=142
+[goal] 2026-05-05 15:47:32,857 trace.runner.sweep_runner INFO: intensity=0.10 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 15:50:33,133 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 15:53:32,438 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 15:56:31,755 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 15:59:33,352 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 16:02:35,113 trace.runner.sweep_runner INFO: intensity=0.20 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 16:05:36,939 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 16:08:36,280 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 16:11:35,965 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 16:14:35,223 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 16:17:36,787 trace.runner.sweep_runner INFO: intensity=0.20 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 16:20:37,495 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=0 success=False steps=300
+[goal] 2026-05-05 16:23:36,949 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=1 success=False steps=300
+[goal] 2026-05-05 16:26:35,898 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=2 success=False steps=300
+[goal] 2026-05-05 16:29:35,360 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=3 success=False steps=300
+[goal] 2026-05-05 16:32:35,444 trace.runner.sweep_runner INFO: intensity=0.20 seed=2 ep=4 success=False steps=300
+[goal] 2026-05-05 16:35:34,776 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=0 success=False steps=300
+[goal] 2026-05-05 16:38:34,933 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=1 success=False steps=300
+[goal] 2026-05-05 16:41:34,679 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=2 success=False steps=300
+[goal] 2026-05-05 16:44:33,713 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=3 success=False steps=300
+[goal] 2026-05-05 16:47:33,118 trace.runner.sweep_runner INFO: intensity=0.30 seed=0 ep=4 success=False steps=300
+[goal] 2026-05-05 16:50:32,255 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=0 success=False steps=300
+[goal] 2026-05-05 16:53:32,291 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=1 success=False steps=300
+[goal] 2026-05-05 16:56:32,340 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=2 success=False steps=300
+[goal] 2026-05-05 16:59:31,881 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=3 success=False steps=300
+[goal] 2026-05-05 17:02:31,894 trace.runner.sweep_runner INFO: intensity=0.30 seed=1 ep=4 success=False steps=300
+[goal] 2026-05-05 17:05:31,383 trace.runner.sweep_runner INFO: intensity=0.30 seed=2 ep

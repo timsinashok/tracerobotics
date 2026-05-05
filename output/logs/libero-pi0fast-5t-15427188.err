@@ -1,0 +1,6 @@
+/var/spool/slurmd/job15427188/slurm_script: line 197: 3767621 Killed                  python -m scripts.run_evaluation --task configs/tasks/libero_spatial.yaml --task-ids 0 2 4 7 9 $COMMON_ARGS --output output/reports/pi0fast_spatial 2>&1
+     3767622 Done                    | sed 's/^/[spatial] /'
+/var/spool/slurmd/job15427188/slurm_script: line 197: 3767623 Killed                  python -m scripts.run_evaluation --task configs/tasks/libero_object.yaml --task-ids 0 2 4 7 9 $COMMON_ARGS --output output/reports/pi0fast_object 2>&1
+     3767624 Done                    | sed 's/^/[object] /'
+/var/spool/slurmd/job15427188/slurm_script: line 197: 3767627 Killed                  python -m scripts.run_evaluation --task configs/tasks/libero_10.yaml --task-ids 0 2 4 7 9 $COMMON_ARGS --output output/reports/pi0fast_long 2>&1
+     3767628 Done                    | sed 's/^/[long] /'

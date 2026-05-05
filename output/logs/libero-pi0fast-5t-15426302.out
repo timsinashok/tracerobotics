@@ -1,0 +1,135 @@
+============================================
+LIBERO + Pi0-FAST Test Pipeline (5 tasks, parallel)
+Node: cn009
+Date: Mon May  4 15:27:58 +04 2026
+Job ID: 15426302
+============================================
+Requirement already satisfied: rich>=12.3.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from typer->transformers>=5.3.0) (14.3.3)
+Requirement already satisfied: annotated-doc>=0.0.2 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from typer->transformers>=5.3.0) (0.0.4)
+Requirement already satisfied: markdown-it-py>=2.2.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from rich>=12.3.0->typer->transformers>=5.3.0) (4.0.0)
+Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from rich>=12.3.0->typer->transformers>=5.3.0) (2.19.2)
+Requirement already satisfied: mdurl~=0.1 in /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages (from markdown-it-py>=2.2.0->rich>=12.3.0->typer->transformers>=5.3.0) (0.1.2)
+
+[GPU Info]
+NVIDIA A100-PCIE-40GB, 40960 MiB
+
+============================================
+LEVEL 1: LIBERO unit tests
+============================================
+============================= test session starts ==============================
+platform linux -- Python 3.11.14, pytest-9.0.2, pluggy-1.6.0 -- /home/at5282/.conda/envs/trace-pi0/bin/python
+cachedir: .pytest_cache
+rootdir: /scratch/at5282/trace/tracerobotics
+configfile: pyproject.toml
+plugins: cov-7.0.0, anyio-4.12.1, zarr-3.1.5
+collecting ... collected 12 items
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize PASSED    [  8%]
+tests/test_libero_task.py::TestLiberoTaskInit::test_language_instruction PASSED [ 16%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_reset_returns_observation PASSED [ 25%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_observation_keys PASSED [ 33%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_image_shape PASSED  [ 41%]
+tests/test_libero_task.py::TestLiberoTaskReset::test_proprioception_shapes PASSED [ 50%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_returns_tuple PASSED [ 58%]
+tests/test_libero_task.py::TestLiberoTaskStep::test_step_observation_format PASSED [ 66%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_model PASSED [ 75%]
+tests/test_libero_task.py::TestLiberoTaskMujoco::test_get_mujoco_data PASSED [ 83%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_initial_not_success PASSED [ 91%]
+tests/test_libero_task.py::TestLiberoTaskSuccess::test_no_catastrophic_failure PASSED [100%]
+
+=============================== warnings summary ===============================
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:53: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("No private macro file found!")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:54: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("It is recommended to use a private macro file")
+
+tests/test_libero_task.py::TestLiberoTaskInit::test_initialize
+  /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/macros.py:55: DeprecationWarning: The 'warn' method is deprecated, use 'warning' instead
+    ROBOSUITE_DEFAULT_LOGGER.warn("To setup, run: python {}/scripts/setup_macros.py".format(robosuite.__path__[0]))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================== 12 passed, 3 warnings in 90.50s (0:01:30) ===================
+LEVEL 1 PASSED
+
+============================================
+LEVEL 2: LIBERO single-episode evaluation (pi0fast)
+============================================
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+ERROR:root:Failed to load FAST tokenizer for action detokenization: 401 Client Error. (Request ID: Root=1-69f88551-596f249a7920d92a1c9e6036;618c0ee6-bfba-4d9a-91c0-f8d7dafc5643)
+
+Repository Not Found for url: https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If you are trying to access a private or gated repo, make sure you are authenticated. For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+User Access Token "everything" is expired
+ERROR:root:Tokenizer loading is required for proper policy initialization; aborting.
+Traceback (most recent call last):
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 761, in hf_raise_for_status
+    response.raise_for_status()
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/httpx/_models.py", line 829, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Client error '401 Unauthorized' for url 'https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/scratch/at5282/trace/lerobot_src/src/lerobot/policies/pi0_fast/modeling_pi0_fast.py", line 838, in __init__
+    self.action_tokenizer = AutoProcessor.from_pretrained(
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/transformers/models/auto/processing_auto.py", line 313, in from_pretrained
+    config_dict, _ = ProcessorMixin.get_processor_dict(pretrained_model_name_or_path, **kwargs)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/transformers/processing_utils.py", line 950, in get_processor_dict
+    for template in list_repo_templates(
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/transformers/utils/hub.py", line 131, in list_repo_templates
+    return [
+           ^
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/transformers/utils/hub.py", line 131, in <listcomp>
+    return [
+           ^
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/huggingface_hub/hf_api.py", line 3470, in list_repo_tree
+    for path_info in paginate(path=tree_url, headers=headers, params={"recursive": recursive, "expand": expand}):
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/huggingface_hub/utils/_pagination.py", line 37, in paginate
+    hf_raise_for_status(r)
+  File "/home/at5282/.conda/envs/trace-pi0/lib/python3.11/site-packages/huggingface_hub/utils/_http.py", line 847, in hf_raise_for_status
+    raise repo_err from e
+huggingface_hub.errors.RepositoryNotFoundError: 401 Client Error. (Request ID: Root=1-69f88551-596f249a7920d92a1c9e6036;618c0ee6-bfba-4d9a-91c0-f8d7dafc5643)
+
+Repository Not Found for url: https://huggingface.co/api/models/jadechoghari/tokenizer-lib-mean/tree/main/additional_chat_templates?recursive=false&expand=false.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If you are trying to access a private or gated repo, make sure you are authenticated. For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+User Access Token "everything" is expired
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 18, in <module>
+  File "/scratch/at5282/trace/tracerobotics/trace/policy_adapter/pi0fast_adapter.py", line 62, in load
+    self._policy = PI0FastPolicy.from_pretrained(self._model_id, config=config)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/at5282/trace/lerobot_src/src/lerobot/policies/pi0_fast/modeling_pi0_fast.py", line 908, in from_pretrained
+    model = cls(config, **kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^
+  File "/scratch/at5282/trace/lerobot_src/src/lerobot/policies/pi0_fast/modeling_pi0_fast.py", line 851, in __init__
+    raise RuntimeError("Failed to load required tokenizers for PI0FastPolicy initialization") from e
+RuntimeError: Failed to load required tokenizers for PI0FastPolicy initialization
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+[Warning]: datasets path /scratch/at5282/trace/openpi/third_party/libero/libero/datasets does not exist!
+Task: libero
+Suite: libero_spatial
+Language instruction: pick up the black bowl between the plate and the ramekin and place it on the plate
+The PI0Fast model is a direct port of the OpenPI implementation. 
+This implementation follows the original OpenPI structure for compatibility. 
+Original implementation: https://github.com/Physical-Intelligence/openpi
+
+Shutting down workers...

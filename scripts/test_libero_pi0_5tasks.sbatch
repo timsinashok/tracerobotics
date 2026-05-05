@@ -9,18 +9,13 @@
 #SBATCH --error=/scratch/at5282/trace/tracerobotics/output/logs/libero-pi0-5t-%j.err
 
 # =============================================================================
-# LIBERO + Pi0 Testing Pipeline
+# LIBERO + Pi0 Testing Pipeline (5 tasks, 4 suites in parallel)
 #
-# Tests pi0.5-LIBERO on actual LIBERO manipulation tasks it was trained on.
-# Starts openpi server, runs LIBERO-specific tests incrementally.
+# Runs all 4 LIBERO suites simultaneously against the same pi0 server.
+# Each suite runs as a separate process, all sharing one GPU server.
 #
-# Usage:
-#   cd /scratch/at5282/trace/tracerobotics
-#   mkdir -p output/logs
-#   sbatch scripts/test_libero_pi0.sbatch
-#
-# Monitor:
-#   tail -f output/logs/libero-pi0-<jobid>.out
+# 4 suites × 5 task IDs × 3 seeds × 5 episodes × 7 intensities × 9 stressors
+# = 18,900 episodes (~10 hours with 4-way parallelism at ~7s/ep)
 # =============================================================================
 
 set -euo pipefail
@@ -30,7 +25,7 @@ TRACE_DIR="/scratch/at5282/trace/tracerobotics"
 PI0_PORT=8000
 
 echo "============================================"
-echo "LIBERO + Pi0 Test Pipeline"
+echo "LIBERO + Pi0 Test Pipeline (5 tasks, parallel)"
 echo "Node: $(hostname)"
 echo "Date: $(date)"
 echo "Job ID: $SLURM_JOB_ID"
@@ -46,7 +41,7 @@ echo ""
 echo "[GPU Info]"
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader
 
-# --- GPU keepalive (lightweight nvidia-smi loop, no CUDA context) ---
+# --- GPU keepalive ---
 (while true; do nvidia-smi > /dev/null 2>&1; sleep 30; done) &
 KEEPALIVE_PID=$!
 
@@ -69,7 +64,7 @@ fi
 echo "LEVEL 1 PASSED"
 
 # =============================================================================
-# Start the pi0 server (needed for levels 2+)
+# Start the pi0 server
 # =============================================================================
 echo ""
 echo "============================================"
@@ -82,7 +77,6 @@ uv run scripts/serve_policy.py policy:checkpoint \
   --policy.dir=gs://openpi-assets/checkpoints/pi05_libero &
 SERVER_PID=$!
 
-# Wait for the server to be ready (check port every 5s, timeout after 10min)
 echo "Waiting for server (PID $SERVER_PID) to start listening on port $PI0_PORT..."
 TIMEOUT=600
 ELAPSED=0
@@ -104,12 +98,12 @@ done
 echo "Server is ready (took ${ELAPSED}s)."
 echo ""
 
-# Cleanup: kill the server and keepalive when the script exits
 cleanup() {
     echo ""
-    echo "Shutting down server (PID $SERVER_PID)..."
+    echo "Shutting down server and workers..."
     kill $SERVER_PID 2>/dev/null || true
     kill $KEEPALIVE_PID 2>/dev/null || true
+    kill $PID_SPATIAL $PID_OBJECT $PID_GOAL $PID_LONG 2>/dev/null || true
     wait $SERVER_PID 2>/dev/null || true
     wait $KEEPALIVE_PID 2>/dev/null || true
     echo "Done."
@@ -119,7 +113,7 @@ trap cleanup EXIT
 cd "$TRACE_DIR"
 
 # =============================================================================
-# Level 2: Single LIBERO episode — verify pi0 can solve the task
+# Level 2: Quick sanity check
 # =============================================================================
 echo ""
 echo "============================================"
@@ -162,40 +156,68 @@ if [ $LEVEL2_EXIT -ne 0 ]; then
 fi
 
 # =============================================================================
-# Level 3: Multi-task LIBERO robustness sweep
-# 4 suites × 5 task IDs × 3 seeds × 5 episodes × 7 intensities × 9 stressors
-# = 18,900 episodes (~38 hours at ~7s/ep for pi0.5)
+# Level 3: 4 suites in PARALLEL, each with 5 task IDs
 # =============================================================================
 echo ""
 echo "============================================"
-echo "LEVEL 3: Multi-task LIBERO sweep (5 tasks)"
+echo "LEVEL 3: Multi-task LIBERO sweep (4 suites in parallel)"
 echo "  Suites: spatial, object, goal, 10"
 echo "  Task IDs: 0, 2, 4, 7, 9"
 echo "  Sweep: multi_task_sweep.yaml (3 seeds, 5 eps)"
 echo "============================================"
 
+COMMON_ARGS="--sweep configs/sweeps/multi_task_sweep.yaml \
+  --policy pi0 --action-mode passthrough \
+  --pi0-host localhost --pi0-port $PI0_PORT \
+  --chunk-size 5 --seed 0"
+
 python -m scripts.run_evaluation \
   --task configs/tasks/libero_spatial.yaml \
-       configs/tasks/libero_object.yaml \
-       configs/tasks/libero_goal.yaml \
-       configs/tasks/libero_10.yaml \
   --task-ids 0 2 4 7 9 \
-  --sweep configs/sweeps/multi_task_sweep.yaml \
-  --policy pi0 \
-  --action-mode passthrough \
-  --pi0-host localhost --pi0-port $PI0_PORT \
-  --chunk-size 5 \
-  --seed 0 \
-  --output output/reports 2>&1
-LEVEL3_EXIT=$?
+  $COMMON_ARGS \
+  --output output/reports/spatial 2>&1 | sed 's/^/[spatial] /' &
+PID_SPATIAL=$!
 
-if [ $LEVEL3_EXIT -ne 0 ]; then
-    echo "LEVEL 3 FAILED (exit $LEVEL3_EXIT) — aborting."
-    exit 1
+python -m scripts.run_evaluation \
+  --task configs/tasks/libero_object.yaml \
+  --task-ids 0 2 4 7 9 \
+  $COMMON_ARGS \
+  --output output/reports/object 2>&1 | sed 's/^/[object] /' &
+PID_OBJECT=$!
+
+python -m scripts.run_evaluation \
+  --task configs/tasks/libero_goal.yaml \
+  --task-ids 0 2 4 7 9 \
+  $COMMON_ARGS \
+  --output output/reports/goal 2>&1 | sed 's/^/[goal] /' &
+PID_GOAL=$!
+
+python -m scripts.run_evaluation \
+  --task configs/tasks/libero_10.yaml \
+  --task-ids 0 2 4 7 9 \
+  $COMMON_ARGS \
+  --output output/reports/long 2>&1 | sed 's/^/[long] /' &
+PID_LONG=$!
+
+echo "Launched 4 parallel evaluation workers:"
+echo "  spatial: PID $PID_SPATIAL"
+echo "  object:  PID $PID_OBJECT"
+echo "  goal:    PID $PID_GOAL"
+echo "  long:    PID $PID_LONG"
+echo ""
+
+# Wait for all to finish
+FAILED=0
+for SUITE_PID in $PID_SPATIAL $PID_OBJECT $PID_GOAL $PID_LONG; do
+    wait $SUITE_PID || FAILED=$((FAILED + 1))
+done
+
+if [ $FAILED -gt 0 ]; then
+    echo "WARNING: $FAILED suite(s) failed."
 fi
-echo "LEVEL 3 PASSED"
 
 echo ""
 echo "============================================"
-echo "ALL LIBERO TESTS PASSED"
+echo "ALL SUITES COMPLETE ($FAILED failures)"
+echo "Reports in: output/reports/{spatial,object,goal,long}/"
 echo "============================================"
